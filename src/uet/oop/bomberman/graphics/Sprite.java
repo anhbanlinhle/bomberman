@@ -288,6 +288,3 @@ public class Sprite {
 		return output;
 	}
 }
-
-
-// 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
