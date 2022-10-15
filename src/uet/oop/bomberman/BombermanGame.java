@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
+import uet.oop.bomberman.controller.Timer;
+import uet.oop.bomberman.controller.KeyListener;
 import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.Grass;
@@ -18,6 +20,7 @@ import java.util.List;
 
 public class BombermanGame extends Application {
     
+    private Timer timer;
     public static final int WIDTH = 20;
     public static final int HEIGHT = 15;
     
@@ -25,14 +28,14 @@ public class BombermanGame extends Application {
     private Canvas canvas;
     private List<Entity> entities = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
-
-
+    private KeyListener keyH;
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
     }
 
     @Override
     public void start(Stage stage) {
+        
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
@@ -47,20 +50,19 @@ public class BombermanGame extends Application {
         // Them scene vao stage
         stage.setScene(scene);
         stage.show();
-
-        AnimationTimer timer = new AnimationTimer() {
-            @Override
-            public void handle(long l) {
-                render();
-                update();
-            }
-        };
-        timer.start();
+        timer = new Timer(this);
 
         createMap();
-
-        Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
+        keyH = new KeyListener(scene);
+        Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage(), keyH);
         entities.add(bomberman);
+        bomberman.update();
+    }
+
+    public void loop() {
+        render();
+        update();
+        
     }
 
     public void createMap() {
