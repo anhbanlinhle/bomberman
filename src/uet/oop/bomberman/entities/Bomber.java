@@ -23,17 +23,16 @@ public class Bomber extends Entity {
     public void update() {
         updateMove();
     }
-
     private void updateMove() {
         if(keyListener.isPressed(KeyCode.W)) {
             this.y -= speed;
-        }
+        } else
         if(keyListener.isPressed(KeyCode.D)) {
             this.x += speed;  
-        }
+        } else
         if(keyListener.isPressed(KeyCode.A)) {
             this.x -= speed;
-        }
+        } else
         if(keyListener.isPressed(KeyCode.S)) {
             this.y += speed;
         }
