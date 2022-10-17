@@ -26,6 +26,7 @@ public class Bomber extends Entity {
         updateMove();
         updateBombs();
     }
+    
     private void updateMove() {
         if(keyListener.isPressed(KeyCode.W)) {
             this.y -= speed;
