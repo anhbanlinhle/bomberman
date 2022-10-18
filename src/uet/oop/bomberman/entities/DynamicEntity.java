@@ -75,26 +75,23 @@ public abstract class DynamicEntity extends Entity {
       xCheck = xMap;
       yCheck = yMap - 1;
 
-      // just up  
-      if (map.entityTypeAtCordinate(xCheck, yCheck) == 1
-          || map.entityTypeAtCordinate(xCheck, yCheck) == 2) {
+      // just up
+      if (map.entityTypeAtCordinate(xCheck, yCheck) != 0){
         if (b + 4 < (yCheck + 1) * 32) {
           return false;
         }
       }
 
       // up left
-      if (map.entityTypeAtCordinate(xCheck-1, yCheck) == 1
-          || map.entityTypeAtCordinate(xCheck-1, yCheck) == 2) {
-        if (b + 4 < (yCheck + 1) * 32 && a < (xCheck -1) * 32 + 28 ) {
+      if (map.entityTypeAtCordinate(xCheck - 1, yCheck) != 0){
+        if (b + 4 < (yCheck + 1) * 32 && a < (xCheck - 1) * 32 + 28 ) {
           return false;
         }
       }
 
       // up right
-      if (map.entityTypeAtCordinate(xCheck+1, yCheck) == 1
-          || map.entityTypeAtCordinate(xCheck+1, yCheck) == 2) {
-        if (b + 4 < (yCheck + 1) * 32 && a > (xCheck +1) * 32 - 28) {
+      if (map.entityTypeAtCordinate(xCheck + 1, yCheck) != 0){
+        if (b + 4 < (yCheck + 1) * 32 && a > (xCheck + 1) * 32 - 28) {
           return false;
         }
       }
@@ -108,25 +105,22 @@ public abstract class DynamicEntity extends Entity {
       yCheck = yMap + 1;
 
       // just down
-      if (map.entityTypeAtCordinate(xCheck, yCheck) == 1
-          || map.entityTypeAtCordinate(xCheck, yCheck) == 2) {
-        if (b - 4> (yCheck - 1) * 32) {
+      if (map.entityTypeAtCordinate(xCheck, yCheck) != 0){
+        if (b - 4 > (yCheck - 1) * 32) {
           return false;
         }
       }
 
       // down left
-      if (map.entityTypeAtCordinate(xCheck-1, yCheck) == 1
-          || map.entityTypeAtCordinate(xCheck-1, yCheck) == 2) {
-        if (b - 4> (yCheck - 1) * 32 && a < (xCheck -1) * 32 + 28 ) {
+      if (map.entityTypeAtCordinate(xCheck - 1, yCheck) != 0){
+        if (b - 4 > (yCheck - 1) * 32 && a < (xCheck - 1) * 32 + 28 ) {
           return false;
         }
       } 
 
       // down right
-      if (map.entityTypeAtCordinate(xCheck+1, yCheck) == 1
-          || map.entityTypeAtCordinate(xCheck+1, yCheck) == 2) {
-        if (b - 4> (yCheck - 1) * 32 && a > (xCheck +1) * 32 - 28) {
+      if (map.entityTypeAtCordinate(xCheck + 1, yCheck) != 0){
+        if (b - 4 > (yCheck - 1) * 32 && a > (xCheck +1) * 32 - 28) {
           return false;
         }
       }
@@ -138,24 +132,21 @@ public abstract class DynamicEntity extends Entity {
       yCheck = yMap;
 
       // just left
-      if (map.entityTypeAtCordinate(xCheck, yCheck) == 1
-          || map.entityTypeAtCordinate(xCheck, yCheck) == 2) {
+      if (map.entityTypeAtCordinate(xCheck, yCheck) != 0){
         if (a + 4 < (xCheck + 1) * 32) {
           return false;
         }
       }
 
       // left up
-      if (map.entityTypeAtCordinate(xCheck, yCheck - 1) == 1
-          || map.entityTypeAtCordinate(xCheck, yCheck - 1) == 2) {
+      if (map.entityTypeAtCordinate(xCheck, yCheck - 1) != 0){
         if (a + 4 < (xCheck + 1) * 32 && b < (yCheck - 1) * 32 + 28) {
           return false;
         }
       }
 
       // left down
-      if (map.entityTypeAtCordinate(xCheck, yCheck + 1) == 1
-          || map.entityTypeAtCordinate(xCheck, yCheck + 1) == 2) {
+      if (map.entityTypeAtCordinate(xCheck, yCheck + 1) != 0){
         if (a + 4< (xCheck + 1) * 32 && b > (yCheck + 1) * 32 - 28) {
           return false;
         }
@@ -167,24 +158,21 @@ public abstract class DynamicEntity extends Entity {
       yCheck = yMap;
 
       // just right
-      if (map.entityTypeAtCordinate(xCheck, yCheck) == 1
-          || map.entityTypeAtCordinate(xCheck, yCheck) == 2) {
+      if (map.entityTypeAtCordinate(xCheck, yCheck) != 0){
         if (a -4 > (xCheck - 1) * 32) {
           return false;
         }
       }
 
       // right up
-      if (map.entityTypeAtCordinate(xCheck, yCheck - 1) == 1
-          || map.entityTypeAtCordinate(xCheck, yCheck - 1) == 2) {
+      if (map.entityTypeAtCordinate(xCheck, yCheck - 1) != 0){
         if (a - 4 > (xCheck - 1) * 32 && b < (yCheck - 1) * 32 + 28) {
           return false;
         }
       }
 
       // right down
-      if (map.entityTypeAtCordinate(xCheck, yCheck + 1) == 1
-          || map.entityTypeAtCordinate(xCheck, yCheck + 1) == 2) {
+      if (map.entityTypeAtCordinate(xCheck, yCheck + 1) != 0){
         if (a - 4 > (xCheck - 1) * 32 && b > (yCheck + 1) * 32 - 28) {
           return false;
         }

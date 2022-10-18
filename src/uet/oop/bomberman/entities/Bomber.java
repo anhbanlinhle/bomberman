@@ -63,12 +63,8 @@ public class Bomber extends DynamicEntity {
 
         // Handle Key Press SPACE
         if (keyHandle.isPressed(KeyCode.SPACE)) {
-            int xBomb = x + Sprite.DEFAULT_SIZE;
-            xBomb = xBomb - xBomb % Sprite.SCALED_SIZE;
-            int yBomb = y + Sprite.DEFAULT_SIZE;
-            yBomb = yBomb - yBomb % Sprite.SCALED_SIZE;
-            xBomb /= Sprite.SCALED_SIZE;
-            yBomb /= Sprite.SCALED_SIZE;
+            int xBomb = convertToMapCordinate(x);
+            int yBomb = convertToMapCordinate(y);
             // tao bom -> dat bom (xBomb, yBomb);
         }
     }
