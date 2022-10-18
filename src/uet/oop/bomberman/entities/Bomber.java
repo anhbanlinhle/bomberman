@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.graphics.SpriteSheet;
 import uet.oop.bomberman.controller.KeyListener;
+import uet.oop.bomberman.controller.KeyListener.DIRECTION;
 import uet.oop.bomberman.Map;
 
 public class Bomber extends DynamicEntity {
@@ -19,7 +20,7 @@ public class Bomber extends DynamicEntity {
     public Bomber(int x, int y, Image img, KeyListener keyHandle) {
         super(x, y, img);
         this.keyHandle = keyHandle;
-        speed = 2;
+        speed = 1;
     }
 
     @Override
@@ -29,38 +30,43 @@ public class Bomber extends DynamicEntity {
     }
 
     private void updateMove(Map map) {
-        int temp = 0;
         if (keyHandle.isPressed(KeyCode.W)) {
-            this.y -= speed;
-            if(checkCollision(map)) {
-                y += speed;
+            // direction = 0;
+            if (checkCollisionMap(map, x, y - speed, 0)) {
+                y -= speed;
             }
         }
         if (keyHandle.isPressed(KeyCode.D)) {
-            this.x += speed;
-            if(checkCollision(map)) {
-                x -= speed;
-            }
-        }
-        if (keyHandle.isPressed(KeyCode.A)) {
-            this.x -= speed;
-            if(checkCollision(map)) {
+
+            if (checkCollisionMap(map, x + speed, y, 3)) {
                 x += speed;
             }
         }
+        if (keyHandle.isPressed(KeyCode.A)) {
+
+            if (checkCollisionMap(map, x - speed, y, 2)) {
+                x -= speed;
+            }
+        }
         if (keyHandle.isPressed(KeyCode.S)) {
-            this.y += speed;
-            if(checkCollision(map)) {
-                y -= speed;
+
+            if (checkCollisionMap(map, x, y + speed, 1)) {
+                y += speed;
             }
         }
         System.out.print("X map: " + convertToMapCordinate(x));
 
         System.out.print("\tY map: " + convertToMapCordinate(y) + "\t\n");
 
+        System.out.print("X: " + x);
+
+        System.out.print("\tY: " + y + "\t\n");
+
         // System.out.println(map.entityTypeAtCordinate(convertToMapCordinate(x),
-        //                                             convertToMapCordinate(y)));
-        System.out.println(checkCollision(map) ? "YES" : "NO");
+        // convertToMapCordinate(y)));
+
+        // System.out.println(checkCollision(map) ? "YES" : "NO");
+
         // System.out.println(retMapH(map));
     }
 

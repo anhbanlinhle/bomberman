@@ -60,16 +60,135 @@ public abstract class DynamicEntity extends Entity {
     return newCor;
   }
 
+  public boolean checkCollisionMap(Map map, int a, int b, int direction) {
 
-  public int retMapH(Map map) {
-    return map.getHeight();
-  }
-  public boolean checkCollision(Map map) {
+    // player's map cordinate
     int xMap = convertToMapCordinate(this.x);
     int yMap = convertToMapCordinate(this.y);
 
-    if(map.entityTypeAtCordinate(xMap, yMap) == 0) {
-      return false;
+    // cor for check
+    int xCheck;
+    int yCheck;
+
+    // check up
+    if (direction == 0) {
+      xCheck = xMap;
+      yCheck = yMap - 1;
+
+      // just up  
+      if (map.entityTypeAtCordinate(xCheck, yCheck) == 1
+          || map.entityTypeAtCordinate(xCheck, yCheck) == 2) {
+        if (b + 4 < (yCheck + 1) * 32) {
+          return false;
+        }
+      }
+
+      // up left
+      if (map.entityTypeAtCordinate(xCheck-1, yCheck) == 1
+          || map.entityTypeAtCordinate(xCheck-1, yCheck) == 2) {
+        if (b + 4 < (yCheck + 1) * 32 && a < (xCheck -1) * 32 + 28 ) {
+          return false;
+        }
+      }
+
+      // up right
+      if (map.entityTypeAtCordinate(xCheck+1, yCheck) == 1
+          || map.entityTypeAtCordinate(xCheck+1, yCheck) == 2) {
+        if (b + 4 < (yCheck + 1) * 32 && a > (xCheck +1) * 32 - 28) {
+          return false;
+        }
+      }
+
+      
+    }
+
+    // check down
+    if (direction == 1) {
+      xCheck = xMap;
+      yCheck = yMap + 1;
+
+      // just down
+      if (map.entityTypeAtCordinate(xCheck, yCheck) == 1
+          || map.entityTypeAtCordinate(xCheck, yCheck) == 2) {
+        if (b - 4> (yCheck - 1) * 32) {
+          return false;
+        }
+      }
+
+      // down left
+      if (map.entityTypeAtCordinate(xCheck-1, yCheck) == 1
+          || map.entityTypeAtCordinate(xCheck-1, yCheck) == 2) {
+        if (b - 4> (yCheck - 1) * 32 && a < (xCheck -1) * 32 + 28 ) {
+          return false;
+        }
+      } 
+
+      // down right
+      if (map.entityTypeAtCordinate(xCheck+1, yCheck) == 1
+          || map.entityTypeAtCordinate(xCheck+1, yCheck) == 2) {
+        if (b - 4> (yCheck - 1) * 32 && a > (xCheck +1) * 32 - 28) {
+          return false;
+        }
+      }
+    }
+
+    // check left
+    if (direction == 2) {
+      xCheck = xMap - 1;
+      yCheck = yMap;
+
+      // just left
+      if (map.entityTypeAtCordinate(xCheck, yCheck) == 1
+          || map.entityTypeAtCordinate(xCheck, yCheck) == 2) {
+        if (a + 4 < (xCheck + 1) * 32) {
+          return false;
+        }
+      }
+
+      // left up
+      if (map.entityTypeAtCordinate(xCheck, yCheck - 1) == 1
+          || map.entityTypeAtCordinate(xCheck, yCheck - 1) == 2) {
+        if (a + 4 < (xCheck + 1) * 32 && b < (yCheck - 1) * 32 + 28) {
+          return false;
+        }
+      }
+
+      // left down
+      if (map.entityTypeAtCordinate(xCheck, yCheck + 1) == 1
+          || map.entityTypeAtCordinate(xCheck, yCheck + 1) == 2) {
+        if (a + 4< (xCheck + 1) * 32 && b > (yCheck + 1) * 32 - 28) {
+          return false;
+        }
+      } 
+    }
+    // check right
+    if (direction == 3) {
+      xCheck = xMap + 1;
+      yCheck = yMap;
+
+      // just right
+      if (map.entityTypeAtCordinate(xCheck, yCheck) == 1
+          || map.entityTypeAtCordinate(xCheck, yCheck) == 2) {
+        if (a -4 > (xCheck - 1) * 32) {
+          return false;
+        }
+      }
+
+      // right up
+      if (map.entityTypeAtCordinate(xCheck, yCheck - 1) == 1
+          || map.entityTypeAtCordinate(xCheck, yCheck - 1) == 2) {
+        if (a -4 > (xCheck - 1) * 32 && b < (yCheck - 1) * 32 + 28) {
+          return false;
+        }
+      }
+
+      // right down
+      if (map.entityTypeAtCordinate(xCheck, yCheck + 1) == 1
+          || map.entityTypeAtCordinate(xCheck, yCheck + 1) == 2) {
+        if (a -4 > (xCheck - 1) * 32 && b > (yCheck + 1) * 32 - 28) {
+          return false;
+        }
+      } 
     }
     return true;
   }
