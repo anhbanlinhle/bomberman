@@ -8,6 +8,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.graphics.SpriteSheet;
 import uet.oop.bomberman.controller.KeyListener;
 
 public class Bomber extends DynamicEntity {
@@ -22,6 +24,7 @@ public class Bomber extends DynamicEntity {
     @Override
     public void update() {
         updateMove();
+        updateBombs();
     }
 
     private void updateMove() {
@@ -36,6 +39,20 @@ public class Bomber extends DynamicEntity {
         }
         if (keyHandle.isPressed(KeyCode.S)) {
             this.y += speed;
+        }
+    }
+
+    private void updateBombs() {
+
+        // Handle Key Press SPACE
+        if (keyHandle.isPressed(KeyCode.SPACE)) {
+            int xBomb = x + Sprite.DEFAULT_SIZE;
+            xBomb = xBomb - xBomb % Sprite.SCALED_SIZE;
+            int yBomb = y + Sprite.DEFAULT_SIZE;
+            yBomb = yBomb - yBomb % Sprite.SCALED_SIZE;
+            xBomb /= Sprite.SCALED_SIZE;
+            yBomb /= Sprite.SCALED_SIZE;
+            // tao bom -> dat bom (xBomb, yBomb);
         }
     }
 }

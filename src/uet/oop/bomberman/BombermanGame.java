@@ -9,7 +9,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import uet.oop.bomberman.controller.Timer;
 import uet.oop.bomberman.controller.KeyListener;
+import uet.oop.bomberman.controller.Menu;
 import uet.oop.bomberman.entities.Bomber;
+import uet.oop.bomberman.entities.Enemy;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.Grass;
 import uet.oop.bomberman.entities.Wall;
@@ -46,7 +48,7 @@ public class BombermanGame extends Application {
 
         // Tao scene
         Scene scene = new Scene(root);
-
+        Menu menu = new Menu();
         // Them scene vao stage
         stage.setScene(scene);
         stage.show();
@@ -55,8 +57,11 @@ public class BombermanGame extends Application {
         createMap();
         keyH = new KeyListener(scene);
         Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage(), keyH);
+        Entity enemy1 = new Enemy(10, 10, Sprite.player_right.getFxImage());
         entities.add(bomberman);
+        entities.add(enemy1);
         bomberman.update();
+        enemy1.update();
     }
 
     public void loop() {
@@ -81,6 +86,7 @@ public class BombermanGame extends Application {
     }
 
     public void update() {
+        //switch (menu.)
         entities.forEach(Entity::update);
     }
 
