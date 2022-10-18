@@ -177,7 +177,7 @@ public abstract class DynamicEntity extends Entity {
       // right up
       if (map.entityTypeAtCordinate(xCheck, yCheck - 1) == 1
           || map.entityTypeAtCordinate(xCheck, yCheck - 1) == 2) {
-        if (a -4 > (xCheck - 1) * 32 && b < (yCheck - 1) * 32 + 28) {
+        if (a - 4 > (xCheck - 1) * 32 && b < (yCheck - 1) * 32 + 28) {
           return false;
         }
       }
@@ -185,7 +185,7 @@ public abstract class DynamicEntity extends Entity {
       // right down
       if (map.entityTypeAtCordinate(xCheck, yCheck + 1) == 1
           || map.entityTypeAtCordinate(xCheck, yCheck + 1) == 2) {
-        if (a -4 > (xCheck - 1) * 32 && b > (yCheck + 1) * 32 - 28) {
+        if (a - 4 > (xCheck - 1) * 32 && b > (yCheck + 1) * 32 - 28) {
           return false;
         }
       } 

@@ -31,25 +31,21 @@ public class Bomber extends DynamicEntity {
 
     private void updateMove(Map map) {
         if (keyHandle.isPressed(KeyCode.W)) {
-            // direction = 0;
             if (checkCollisionMap(map, x, y - speed, 0)) {
                 y -= speed;
             }
         }
         if (keyHandle.isPressed(KeyCode.D)) {
-
             if (checkCollisionMap(map, x + speed, y, 3)) {
                 x += speed;
             }
         }
         if (keyHandle.isPressed(KeyCode.A)) {
-
             if (checkCollisionMap(map, x - speed, y, 2)) {
                 x -= speed;
             }
         }
         if (keyHandle.isPressed(KeyCode.S)) {
-
             if (checkCollisionMap(map, x, y + speed, 1)) {
                 y += speed;
             }
@@ -61,13 +57,6 @@ public class Bomber extends DynamicEntity {
         System.out.print("X: " + x);
 
         System.out.print("\tY: " + y + "\t\n");
-
-        // System.out.println(map.entityTypeAtCordinate(convertToMapCordinate(x),
-        // convertToMapCordinate(y)));
-
-        // System.out.println(checkCollision(map) ? "YES" : "NO");
-
-        // System.out.println(retMapH(map));
     }
 
     private void updateBombs() {
