@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.Map;
 
 public abstract class Entity {
     // Tọa độ X tính từ góc trái trên trong Canvas
@@ -15,6 +16,8 @@ public abstract class Entity {
     protected int y;
 
     protected Image img;
+
+    protected int type;
 
     public Entity() {
     }
@@ -30,5 +33,14 @@ public abstract class Entity {
         gc.drawImage(img, x, y);
     }
 
-    public abstract void update();
+    public abstract void update(Map map);
+
+    public int getType() {
+        return this.type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
 }

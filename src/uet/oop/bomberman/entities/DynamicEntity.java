@@ -1,6 +1,8 @@
 package uet.oop.bomberman.entities;
 
+import uet.oop.bomberman.graphics.Sprite;
 import javafx.scene.image.Image;
+import uet.oop.bomberman.Map;
 
 public abstract class DynamicEntity extends Entity {
 
@@ -49,6 +51,27 @@ public abstract class DynamicEntity extends Entity {
 
   public void setStatus(int status) {
     this.status = status;
+  }
+
+  public int convertToMapCordinate(int n) {
+    int newCor = n + Sprite.DEFAULT_SIZE;
+    newCor = newCor - newCor % Sprite.SCALED_SIZE;
+    newCor /= Sprite.SCALED_SIZE;
+    return newCor;
+  }
+
+
+  public int retMapH(Map map) {
+    return map.getHeight();
+  }
+  public boolean checkCollision(Map map) {
+    int xMap = convertToMapCordinate(this.x);
+    int yMap = convertToMapCordinate(this.y);
+
+    if(map.entityTypeAtCordinate(xMap, yMap) == 0) {
+      return false;
+    }
+    return true;
   }
 
   public enum Direction {
