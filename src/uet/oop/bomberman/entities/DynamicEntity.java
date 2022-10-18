@@ -1,13 +1,19 @@
 package uet.oop.bomberman.entities;
 
-public abstract class MovableEntity extends Entity {
+import javafx.scene.image.Image;
 
-  private final int maxHP = 100;
+public abstract class DynamicEntity extends Entity {
 
-  private int speed;
-  private int direction;
-  private int status;
-  private int healthPoint;
+  private int maxHP;
+
+  protected int speed;
+  protected int direction;
+  protected int status;
+  protected int healthPoint;
+
+  public DynamicEntity(int x, int y, Image img) {
+    super(x, y, img);
+  }
 
   public int getMaxHP() {
     return this.maxHP;
