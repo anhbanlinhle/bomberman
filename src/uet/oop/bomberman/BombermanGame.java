@@ -69,13 +69,13 @@ public class BombermanGame extends Application {
 
         
 
-        for (int i = 0; i < map.getHeight(); i++) {
-            for (int j = 0; j < map.getWidth(); j++) {
-                System.out.print(
-                        map.entityTypeAtCordinate(i, j) + " ");
-            }
-            System.out.println();
-        }
+        // for (int i = 0; i < map.getHeight(); i++) {
+        //     for (int j = 0; j < map.getWidth(); j++) {
+        //         System.out.print(
+        //                 map.entityTypeAtCordinate(i, j) + " ");
+        //     }
+        //     System.out.println();
+        // }
     }
 
     public void loop() {

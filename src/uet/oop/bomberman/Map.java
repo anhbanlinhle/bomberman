@@ -70,7 +70,7 @@ public class Map {
     }
 
     public int entityTypeAtCordinate(int x, int y) {
-        return mapEntity.get(x).get(y).getType();
+        return mapEntity.get(y).get(x).getType();
     }
 
     public int getHeight() {
