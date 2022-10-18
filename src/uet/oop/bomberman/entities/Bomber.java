@@ -10,13 +10,12 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import uet.oop.bomberman.controller.KeyListener;
 
-public class Bomber extends Entity {
-    private KeyListener keyListener;
-    int speed;
+public class Bomber extends DynamicEntity {
+    private KeyListener keyHandle;
 
-    public Bomber(int x, int y, Image img, KeyListener keyListener) {
+    public Bomber(int x, int y, Image img, KeyListener keyHandle) {
         super(x, y, img);
-        this.keyListener = keyListener;
+        this.keyHandle = keyHandle;
         speed = 2;
     }
 
@@ -26,16 +25,16 @@ public class Bomber extends Entity {
     }
 
     private void updateMove() {
-        if (keyListener.isPressed(KeyCode.W)) {
+        if (keyHandle.isPressed(KeyCode.W)) {
             this.y -= speed;
         }
-        if (keyListener.isPressed(KeyCode.D)) {
+        if (keyHandle.isPressed(KeyCode.D)) {
             this.x += speed;
         }
-        if (keyListener.isPressed(KeyCode.A)) {
+        if (keyHandle.isPressed(KeyCode.A)) {
             this.x -= speed;
         }
-        if (keyListener.isPressed(KeyCode.S)) {
+        if (keyHandle.isPressed(KeyCode.S)) {
             this.y += speed;
         }
     }
