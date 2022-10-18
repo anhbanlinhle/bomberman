@@ -23,7 +23,7 @@ import java.util.List;
 public class BombermanGame extends Application {
     
     private Timer timer;
-    public static final int WIDTH = 20;
+    public static final int WIDTH = 31;
     public static final int HEIGHT = 15;
     
     private GraphicsContext gc;
@@ -35,9 +35,12 @@ public class BombermanGame extends Application {
         Application.launch(BombermanGame.class);
     }
 
+    Map map = new Map();
+
+
     @Override
     public void start(Stage stage) {
-        
+
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
@@ -62,6 +65,8 @@ public class BombermanGame extends Application {
         entities.add(enemy1);
         bomberman.update();
         enemy1.update();
+
+        map.loadMap(keyH);
     }
 
     public void loop() {
@@ -71,18 +76,18 @@ public class BombermanGame extends Application {
     }
 
     public void createMap() {
-        for (int i = 0; i < WIDTH; i++) {
-            for (int j = 0; j < HEIGHT; j++) {
-                Entity object;
-                if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1) {
-                    object = new Wall(i, j, Sprite.wall.getFxImage());
-                }
-                else {
-                    object = new Grass(i, j, Sprite.grass.getFxImage());
-                }
-                stillObjects.add(object);
-            }
-        }
+//        for (int i = 0; i < WIDTH; i++) {
+//            for (int j = 0; j < HEIGHT; j++) {
+//                Entity object;
+//                if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1) {
+//                    object = new Wall(i, j, Sprite.wall.getFxImage());
+//                }
+//                else {
+//                    object = new Grass(i, j, Sprite.grass.getFxImage());
+//                }
+//                stillObjects.add(object);
+//            }
+//        }
     }
 
     public void update() {
@@ -92,6 +97,7 @@ public class BombermanGame extends Application {
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        map.renderMap(gc);
         stillObjects.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
     }
