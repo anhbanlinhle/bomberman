@@ -46,6 +46,7 @@ public abstract class MovableEntity extends Entity {
   }
 
   public enum Direction {
+    NOT_MOVE,
     UP,
     RIGHT,
     LEFT,
