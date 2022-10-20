@@ -7,19 +7,15 @@ import uet.oop.bomberman.BombermanGame;
 
 public class Timer {
 
-    
-    private static final int FPS = 30;
+    private static final int FPS = 15;
     private static final long TIME_PER_FRAME = 1000000000 / FPS;
     private static final long NEXT_TIME = TIME_PER_FRAME + System.nanoTime();
-    
 
-
-    
     private AnimationTimer timer;
     private BombermanGame game;
-    
+
     public Timer(BombermanGame game) {
-        
+
         this.game = game;
         timer = new AnimationTimer() {
             @Override
@@ -30,7 +26,7 @@ public class Timer {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                
+
             }
         };
         timer.start();

@@ -36,12 +36,12 @@ public class Map {
             width = scanner.nextInt();
             scanner.nextLine();
             for (int i = 0; i < height; i++) {
-                //Read map as individual line
+                // Read map as individual line
                 String fileLine = scanner.nextLine();
                 List<Entity> tempList = new ArrayList<>();
                 for (int j = 0; j < width; j++) {
-                    //Read text form line
-                    switch (fileLine.charAt(j)){
+                    // Read text form line
+                    switch (fileLine.charAt(j)) {
                         case '#':
                             Entity wall = new Wall(j, i, Sprite.wall.getFxImage());
                             tempList.add(wall);
@@ -58,17 +58,30 @@ public class Map {
                 mapEntity.add(tempList);
             }
 
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }
-    
-    public void renderMap(GraphicsContext gc){
+
+    public void renderMap(GraphicsContext gc) {
         for (int i = 0; i < height; i++) {
             mapEntity.get(i).forEach(g -> g.render(gc));
         }
     }
 
+    public int entityTypeAtCordinate(int x, int y) {
+        return mapEntity.get(y).get(x).getType();
+    }
 
+    public int getHeight() {
+        return this.height;
+    }
+
+    public int getWidth() {
+        return this.width;
+    }
+
+    public static int getCurrentMapNo() {
+        return currentMapNo;
+    }
 }
