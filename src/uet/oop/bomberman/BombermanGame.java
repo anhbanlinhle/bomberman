@@ -10,11 +10,7 @@ import javafx.stage.Stage;
 import uet.oop.bomberman.controller.Timer;
 import uet.oop.bomberman.controller.KeyListener;
 import uet.oop.bomberman.controller.Menu;
-import uet.oop.bomberman.entities.Bomber;
-import uet.oop.bomberman.entities.Enemy;
-import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.Grass;
-import uet.oop.bomberman.entities.Wall;
+import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
@@ -37,6 +33,7 @@ public class BombermanGame extends Application {
     }
 
     Map map = new Map();
+    Bomber bomberman;
 
     @Override
     public void start(Stage stage) {
@@ -57,25 +54,15 @@ public class BombermanGame extends Application {
         stage.show();
         timer = new Timer(this);
 
-        createMap();
         keyH = new KeyListener(scene);
         map.loadMap(keyH);
-        Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage(), keyH);
+        bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage(), keyH);
         Entity enemy1 = new Enemy(10, 5, Sprite.player_right.getFxImage());
         entities.add(bomberman);
         entities.add(enemy1);
         bomberman.update(map);
         enemy1.update(map);
 
-        
-
-        // for (int i = 0; i < map.getHeight(); i++) {
-        //     for (int j = 0; j < map.getWidth(); j++) {
-        //         System.out.print(
-        //                 map.entityTypeAtCordinate(i, j) + " ");
-        //     }
-        //     System.out.println();
-        // }
     }
 
     public void loop() {
@@ -84,20 +71,6 @@ public class BombermanGame extends Application {
 
     }
 
-    public void createMap() {
-        // for (int i = 0; i < WIDTH; i++) {
-        // for (int j = 0; j < HEIGHT; j++) {
-        // Entity object;
-        // if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1) {
-        // object = new Wall(i, j, Sprite.wall.getFxImage());
-        // }
-        // else {
-        // object = new Grass(i, j, Sprite.grass.getFxImage());
-        // }
-        // stillObjects.add(object);
-        // }
-        // }
-    }
 
     public void update(Map map) {
         // switch (menu.)
@@ -110,7 +83,6 @@ public class BombermanGame extends Application {
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         map.renderMap(gc);
-        stillObjects.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
     }
 }

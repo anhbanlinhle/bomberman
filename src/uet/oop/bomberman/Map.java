@@ -81,4 +81,7 @@ public class Map {
         return this.width;
     }
 
+    public static int getCurrentMapNo() {
+        return currentMapNo;
+    }
 }
