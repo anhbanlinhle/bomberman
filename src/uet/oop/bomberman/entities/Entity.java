@@ -33,7 +33,13 @@ public abstract class Entity {
         gc.drawImage(img, x, y);
     }
 
-    public abstract void update(Map map);
+    public void update(Map map) {
+
+    }
+
+    public void update() {
+
+    }
 
     public int getType() {
         return this.type;
@@ -43,4 +49,11 @@ public abstract class Entity {
         this.type = type;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 }

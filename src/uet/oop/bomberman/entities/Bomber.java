@@ -1,6 +1,8 @@
 package uet.oop.bomberman.entities;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
@@ -8,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.graphics.SpriteSheet;
 import uet.oop.bomberman.controller.KeyListener;
@@ -16,17 +19,24 @@ import uet.oop.bomberman.Map;
 
 public class Bomber extends DynamicEntity {
     private KeyListener keyHandle;
+    BombManager bombManager = new BombManager();
 
     public Bomber(int x, int y, Image img, KeyListener keyHandle) {
         super(x, y, img);
         this.keyHandle = keyHandle;
-        speed = 1;
+        speed = 3;
     }
 
     @Override
     public void update(Map map) {
         updateMove(map);
         updateBombs();
+        bombManager.update();
+    }
+
+    @Override
+    public void update() {
+
     }
 
     private void updateMove(Map map) {
@@ -50,13 +60,7 @@ public class Bomber extends DynamicEntity {
                 y += speed;
             }
         }
-        System.out.print("X map: " + convertToMapCordinate(x));
 
-        System.out.print("\tY map: " + convertToMapCordinate(y) + "\t\n");
-
-        System.out.print("X: " + x);
-
-        System.out.print("\tY: " + y + "\t\n");
     }
 
     private void updateBombs() {
@@ -65,7 +69,15 @@ public class Bomber extends DynamicEntity {
         if (keyHandle.isPressed(KeyCode.SPACE)) {
             int xBomb = convertToMapCordinate(x);
             int yBomb = convertToMapCordinate(y);
+            System.out.println("Insert Bomb" + xBomb + " " + yBomb);
+            bombManager.addBomb(new Bomb(xBomb, yBomb, Sprite.bomb.getFxImage()));
             // tao bom -> dat bom (xBomb, yBomb);
         }
+    }
+
+    @Override
+    public void render(GraphicsContext gc) {
+        bombManager.render(gc);
+        super.render(gc);
     }
 }

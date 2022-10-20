@@ -1,5 +1,6 @@
 package uet.oop.bomberman.entities;
 
+import javafx.scene.canvas.GraphicsContext;
 import uet.oop.bomberman.graphics.Sprite;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.Map;
@@ -191,5 +192,10 @@ public abstract class DynamicEntity extends Entity {
   public enum Status {
     WALK,
     IDLE
+  }
+
+  @Override
+  public void render(GraphicsContext gc) {
+    super.render(gc);
   }
 }
