@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bomb extends DynamicEntity {
-    static boolean bombisPlaced;
+  static boolean bombisPlaced;
   private boolean explode;
   private int count;
   private int frameNum;
@@ -26,31 +26,13 @@ public class Bomb extends DynamicEntity {
 
   @Override
   public void update() {
-    count ++;
-    if(count >= 120){
+    count++;
+    if (count >= 60) {
       explode = true;
     }
-//    count = count % 99;
-    img = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, count, 120).getFxImage();
+    // count = count % 99;
+    img = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, count, 60).getFxImage();
   }
-
-//  public Image setFrame() {
-//    frameNum = count / 33;
-//    Image frame = null;
-//    switch (frameNum) {
-//      case 0:
-//          frame = Sprite.bomb.getFxImage();
-//          break;
-//      case 1:
-//          frame = Sprite.bomb_1.getFxImage();
-//          break;
-//      case 2:
-//          frame = Sprite.bomb_2.getFxImage();
-//          break;
-//    }
-//    return frame;
-//  }
-
 
   public boolean isExplode() {
     return explode;
