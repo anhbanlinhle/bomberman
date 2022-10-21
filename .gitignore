@@ -7,3 +7,5 @@
 /.settings
 /.vscode
 .DS_Store
+target/
+.vscode/
