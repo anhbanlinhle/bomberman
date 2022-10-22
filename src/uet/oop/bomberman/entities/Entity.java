@@ -17,7 +17,7 @@ public abstract class Entity {
 
     protected Image img;
 
-    protected int type;
+    protected ENTITY_TYPE type;
 
     public Entity() {
     }
@@ -41,11 +41,11 @@ public abstract class Entity {
 
     }
 
-    public int getType() {
+    public ENTITY_TYPE getType() {
         return this.type;
     }
 
-    public void setType(int type) {
+    public void setType(ENTITY_TYPE type) {
         this.type = type;
     }
 
@@ -55,5 +55,13 @@ public abstract class Entity {
 
     public int getY() {
         return y;
+    }
+
+    public enum ENTITY_TYPE {
+        BRICK,
+        BOMB,
+        WALL,
+        FLAME,
+        GRASS
     }
 }
