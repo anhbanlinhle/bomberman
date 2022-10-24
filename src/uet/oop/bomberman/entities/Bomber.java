@@ -19,7 +19,9 @@ import uet.oop.bomberman.Map;
 
 public class Bomber extends DynamicEntity {
     private KeyListener keyHandle;
-    BombManager bombManager = new BombManager();
+
+    Map map;
+    BombManager bombManager;
 
     public Bomber(int x, int y, Image img, KeyListener keyHandle, Map map) {
         super(x, y, img);
@@ -27,6 +29,8 @@ public class Bomber extends DynamicEntity {
         speed = 1;
         status = STATUS.IDLE;
         direction = DIRECTION.RIGHT;
+        this.map = map;
+        bombManager = new BombManager(map);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package uet.oop.bomberman.entities;
 
 import javafx.scene.canvas.GraphicsContext;
+import uet.oop.bomberman.Map;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
@@ -12,16 +13,21 @@ public class BombManager {
     private int bombRemain;
     private int flameLength;
     int flamePosX, flamePosY;
+    Map map;
+    boolean[] bombPath;
     List<Bomb> bombList;
     List<Flame> flameList;
 
-    public BombManager() {
+
+
+    public BombManager(Map map) {
         bombList = new ArrayList<>();
         flameList = new ArrayList<>();
         bombRemain = 1;
-        flameLength = 1;
+        flameLength = 3;
         flamePosX = 0;
         flamePosY = 0;
+        this.map = map;
     }
 
     public void addBomb(Bomb bomb) {
@@ -39,6 +45,7 @@ public class BombManager {
     }
 
     public void bombExploded(int index) {
+        bombPath = new boolean[]{true, true, true, true};
         for (int i = 1; i <= flameLength; i++) {
             int bomX = bombList.get(index).getX() / Sprite.SCALED_SIZE;
             int bomY = bombList.get(index).getY() / Sprite.SCALED_SIZE;
@@ -51,9 +58,11 @@ public class BombManager {
                 //Update flame position
                 switch (flameDirection[j]) {
                     case UP:
+                        flamePosX = bomX;
                         flamePosY = bomY - i;
                         break;
                     case DOWN:
+                        flamePosX = bomX;
                         flamePosY = bomY + i;
                         break;
                     case LEFT:
@@ -65,8 +74,14 @@ public class BombManager {
                         flamePosY = bomY;
                         break;
                 }
-                flameList.add(new Flame(flamePosX, flamePosY, type, flameDirection[j]));
-                System.out.println(flamePosX +  " " + flamePosY);
+                if(bombPath[j]){
+                    if(!(map.entityTypeAtCordinate(flamePosX, flamePosY) == Entity.ENTITY_TYPE.WALL)
+                            && !(map.entityTypeAtCordinate(flamePosX, flamePosY) == Entity.ENTITY_TYPE.BRICK))
+                        flameList.add(new Flame(flamePosX, flamePosY, type, flameDirection[j]));
+                    else {
+                        bombPath[j] = false;
+                    }
+                }
             }
 
             System.out.println("Next");

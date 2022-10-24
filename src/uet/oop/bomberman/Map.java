@@ -11,7 +11,6 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.SerializablePermission;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -78,7 +77,8 @@ public class Map {
         return this.height;
     }
 
-    public Entity getEnity(int x, int y){
+    //Get Entity as block coordinate not real coordinate
+    public Entity getEntity(int x, int y){
         return mapEntity.get(y).get(x);
     }
 
