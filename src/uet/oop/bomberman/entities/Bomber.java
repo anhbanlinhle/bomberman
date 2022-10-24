@@ -21,12 +21,12 @@ public class Bomber extends DynamicEntity {
     private KeyListener keyHandle;
     BombManager bombManager = new BombManager();
 
-    public Bomber(int x, int y, Image img, KeyListener keyHandle) {
+    public Bomber(int x, int y, Image img, KeyListener keyHandle, Map map) {
         super(x, y, img);
         this.keyHandle = keyHandle;
-        speed = 3;
-        moving = false;
-        direction = 3;
+        speed = 1;
+        status = STATUS.IDLE;
+        direction = DIRECTION.RIGHT;
     }
 
     @Override
@@ -42,9 +42,9 @@ public class Bomber extends DynamicEntity {
     public Image setFrame() {
         int frameNum = countFrame / 3;
         Image frame = null;
-        if (moving) {
+        if (status == STATUS.WALK) {
             switch (direction) {
-                case 0:
+                case UP:
                     switch (frameNum) {
                         case 0:
                             frame = Sprite.player_up.getFxImage();
@@ -57,7 +57,7 @@ public class Bomber extends DynamicEntity {
                             break;
                     }
                     break;
-                case 1:
+                case DOWN:
                     switch (frameNum) {
                         case 0:
                             frame = Sprite.player_down.getFxImage();
@@ -70,7 +70,7 @@ public class Bomber extends DynamicEntity {
                             break;
                     }
                     break;
-                case 2:
+                case LEFT:
                     switch (frameNum) {
                         case 0:
                             frame = Sprite.player_left.getFxImage();
@@ -83,7 +83,7 @@ public class Bomber extends DynamicEntity {
                             break;
                     }
                     break;
-                case 3:
+                case RIGHT:
                     switch (frameNum) {
                         case 0:
                             frame = Sprite.player_right.getFxImage();
@@ -99,16 +99,16 @@ public class Bomber extends DynamicEntity {
             }
         } else {
             switch (direction) {
-                case 0:
+                case UP:
                     frame = Sprite.player_up.getFxImage();
                     break;
-                case 1:
+                case DOWN:
                     frame = Sprite.player_down.getFxImage();
                     break;
-                case 2:
+                case LEFT:
                     frame = Sprite.player_left.getFxImage();
                     break;
-                case 3:
+                case RIGHT:
                     frame = Sprite.player_right.getFxImage();
                     break;
             }
@@ -123,31 +123,31 @@ public class Bomber extends DynamicEntity {
 
     private void updateMove(Map map) {
         if (keyHandle.isPressed(KeyCode.W)) {
-            moving = true;
-            direction = 0;
+            status = STATUS.WALK;
+            direction = DIRECTION.UP;
             if (checkCollisionMap(map, x, y - speed, direction)) {
                 y -= speed;
             }
         } else if (keyHandle.isPressed(KeyCode.D)) {
-            moving = true;
-            direction = 3;
+            status = STATUS.WALK;
+            direction = DIRECTION.RIGHT;
             if (checkCollisionMap(map, x + speed, y, direction)) {
                 x += speed;
             }
         } else if (keyHandle.isPressed(KeyCode.A)) {
-            moving = true;
-            direction = 2;
+            status = STATUS.WALK;
+            direction = DIRECTION.LEFT;
             if (checkCollisionMap(map, x - speed, y, direction)) {
                 x -= speed;
             }
         } else if (keyHandle.isPressed(KeyCode.S)) {
-            moving = true;
-            direction = 1;
+            status = STATUS.WALK;
+            direction = DIRECTION.DOWN;
             if (checkCollisionMap(map, x, y + speed, direction)) {
                 y += speed;
             }
         } else {
-            moving = false;
+            status = STATUS.IDLE;
         }
     }
 
@@ -157,7 +157,6 @@ public class Bomber extends DynamicEntity {
         if (keyHandle.isPressed(KeyCode.SPACE)) {
             int xBomb = convertToMapCordinate(x);
             int yBomb = convertToMapCordinate(y);
-            System.out.println("Insert Bomb" + xBomb + " " + yBomb);
             bombManager.addBomb(new Bomb(xBomb, yBomb, Sprite.bomb.getFxImage()));
             // tao bom -> dat bom (xBomb, yBomb);
         }

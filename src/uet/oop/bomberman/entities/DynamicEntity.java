@@ -10,11 +10,10 @@ public abstract class DynamicEntity extends Entity {
   private int maxHP;
 
   protected int speed;
-  protected int direction;
-  protected int status;
+  protected DIRECTION direction;
+  protected STATUS status;
   protected int healthPoint;
   protected int countFrame;
-  protected boolean moving;
 
   public DynamicEntity(int x, int y, Image img) {
     super(x, y, img);
@@ -40,19 +39,19 @@ public abstract class DynamicEntity extends Entity {
     this.speed = speed;
   }
 
-  public int getDirection() {
+  public DIRECTION getDirection() {
     return this.direction;
   }
 
-  public void setDirection(int direction) {
+  public void setDirection(DIRECTION direction) {
     this.direction = direction;
   }
 
-  public int getStatus() {
+  public STATUS getStatus() {
     return this.status;
   }
 
-  public void setStatus(int status) {
+  public void setStatus(STATUS status) {
     this.status = status;
   }
 
@@ -63,7 +62,7 @@ public abstract class DynamicEntity extends Entity {
     return newCor;
   }
 
-  public boolean checkCollisionMap(Map map, int a, int b, int direction) {
+  public boolean checkCollisionMap(Map map, int a, int b, DIRECTION direction) {
 
     // player's map cordinate
     int xMap = convertToMapCordinate(this.x);
@@ -72,29 +71,39 @@ public abstract class DynamicEntity extends Entity {
     // cor for check
     int xCheck;
     int yCheck;
+    ENTITY_TYPE type_check;
 
     // check up
-    if (direction == 0) {
+    if (direction == DIRECTION.UP) {
       xCheck = xMap;
       yCheck = yMap - 1;
 
       // just up
-      if (map.entityTypeAtCordinate(xCheck, yCheck) != 0) {
-        if (b + 4 < (yCheck + 1) * 32) {
+      type_check = map.entityTypeAtCordinate(xCheck, yCheck);
+      if (type_check == ENTITY_TYPE.BRICK
+              || type_check == ENTITY_TYPE.WALL
+              || type_check == ENTITY_TYPE.BOMB) {
+        if (b < (yCheck + 1) * 32) {
           return false;
         }
       }
 
       // up left
-      if (map.entityTypeAtCordinate(xCheck - 1, yCheck) != 0) {
-        if (b + 4 < (yCheck + 1) * 32 && a < (xCheck - 1) * 32 + 28) {
+      type_check = map.entityTypeAtCordinate(xCheck - 1, yCheck);
+      if (type_check == ENTITY_TYPE.BRICK
+              || type_check == ENTITY_TYPE.WALL
+              || type_check == ENTITY_TYPE.BOMB) {
+        if (b < (yCheck + 1) * 32 && a < (xCheck - 1) * 32 + 30) {
           return false;
         }
       }
 
       // up right
-      if (map.entityTypeAtCordinate(xCheck + 1, yCheck) != 0) {
-        if (b + 4 < (yCheck + 1) * 32 && a > (xCheck + 1) * 32 - 28) {
+      type_check = map.entityTypeAtCordinate(xCheck + 1, yCheck);
+      if (type_check == ENTITY_TYPE.BRICK
+              || type_check == ENTITY_TYPE.WALL
+              || type_check == ENTITY_TYPE.BOMB) {
+        if (b < (yCheck + 1) * 32 && a > (xCheck + 1) * 32 - 30) {
           return false;
         }
       }
@@ -102,80 +111,107 @@ public abstract class DynamicEntity extends Entity {
     }
 
     // check down
-    if (direction == 1) {
+    if (direction == DIRECTION.DOWN) {
       xCheck = xMap;
       yCheck = yMap + 1;
 
       // just down
-      if (map.entityTypeAtCordinate(xCheck, yCheck) != 0) {
-        if (b - 4 > (yCheck - 1) * 32) {
+      type_check = map.entityTypeAtCordinate(xCheck, yCheck);
+      if (type_check == ENTITY_TYPE.BRICK
+              || type_check == ENTITY_TYPE.WALL
+              || type_check == ENTITY_TYPE.BOMB) {
+        if (b > (yCheck - 1) * 32) {
           return false;
         }
       }
 
       // down left
-      if (map.entityTypeAtCordinate(xCheck - 1, yCheck) != 0) {
-        if (b - 4 > (yCheck - 1) * 32 && a < (xCheck - 1) * 32 + 28) {
+      type_check = map.entityTypeAtCordinate(xCheck - 1, yCheck);
+      if (type_check == ENTITY_TYPE.BRICK
+              || type_check == ENTITY_TYPE.WALL
+              || type_check == ENTITY_TYPE.BOMB) {
+        if (b > (yCheck - 1) * 32 && a < (xCheck - 1) * 32 + 30) {
           return false;
         }
       }
 
       // down right
-      if (map.entityTypeAtCordinate(xCheck + 1, yCheck) != 0) {
-        if (b - 4 > (yCheck - 1) * 32 && a > (xCheck + 1) * 32 - 28) {
+      type_check = map.entityTypeAtCordinate(xCheck + 1, yCheck);
+      if (type_check == ENTITY_TYPE.BRICK
+              || type_check == ENTITY_TYPE.WALL
+              || type_check == ENTITY_TYPE.BOMB) {
+        if (b > (yCheck - 1) * 32 && a > (xCheck + 1) * 32 - 30) {
           return false;
         }
       }
     }
 
     // check left
-    if (direction == 2) {
+    if (direction == DIRECTION.LEFT) {
       xCheck = xMap - 1;
       yCheck = yMap;
 
       // just left
-      if (map.entityTypeAtCordinate(xCheck, yCheck) != 0) {
-        if (a + 4 < (xCheck + 1) * 32) {
+      type_check = map.entityTypeAtCordinate(xCheck, yCheck);
+      if (type_check == ENTITY_TYPE.BRICK
+              || type_check == ENTITY_TYPE.WALL
+              || type_check == ENTITY_TYPE.BOMB) {
+        if (a < (xCheck + 1) * 32) {
           return false;
         }
       }
 
       // left up
-      if (map.entityTypeAtCordinate(xCheck, yCheck - 1) != 0) {
-        if (a + 4 < (xCheck + 1) * 32 && b < (yCheck - 1) * 32 + 28) {
+      type_check = map.entityTypeAtCordinate(xCheck, yCheck - 1);
+      if (type_check == ENTITY_TYPE.BRICK
+              || type_check == ENTITY_TYPE.WALL
+              || type_check == ENTITY_TYPE.BOMB) {
+        if (a < (xCheck + 1) * 32 && b < (yCheck - 1) * 32 + 30) {
           return false;
         }
       }
 
       // left down
-      if (map.entityTypeAtCordinate(xCheck, yCheck + 1) != 0) {
-        if (a + 4 < (xCheck + 1) * 32 && b > (yCheck + 1) * 32 - 28) {
+      type_check = map.entityTypeAtCordinate(xCheck, yCheck + 1);
+      if (type_check == ENTITY_TYPE.BRICK
+              || type_check == ENTITY_TYPE.WALL
+              || type_check == ENTITY_TYPE.BOMB) {
+        if (a < (xCheck + 1) * 32 && b > (yCheck + 1) * 32 - 30) {
           return false;
         }
       }
     }
     // check right
-    if (direction == 3) {
+    if (direction == DIRECTION.RIGHT) {
       xCheck = xMap + 1;
       yCheck = yMap;
 
       // just right
-      if (map.entityTypeAtCordinate(xCheck, yCheck) != 0) {
+      type_check = map.entityTypeAtCordinate(xCheck, yCheck);
+      if (type_check == ENTITY_TYPE.BRICK
+              || type_check == ENTITY_TYPE.WALL
+              || type_check == ENTITY_TYPE.BOMB) {
         if (a - 4 > (xCheck - 1) * 32) {
           return false;
         }
       }
 
       // right up
-      if (map.entityTypeAtCordinate(xCheck, yCheck - 1) != 0) {
-        if (a - 4 > (xCheck - 1) * 32 && b < (yCheck - 1) * 32 + 28) {
+      type_check = map.entityTypeAtCordinate(xCheck, yCheck - 1);
+      if (type_check == ENTITY_TYPE.BRICK
+              || type_check == ENTITY_TYPE.WALL
+              || type_check == ENTITY_TYPE.BOMB) {
+        if (a - 4 > (xCheck - 1) * 32 && b < (yCheck - 1) * 32 + 30) {
           return false;
         }
       }
 
       // right down
-      if (map.entityTypeAtCordinate(xCheck, yCheck + 1) != 0) {
-        if (a - 4 > (xCheck - 1) * 32 && b > (yCheck + 1) * 32 - 28) {
+      type_check = map.entityTypeAtCordinate(xCheck, yCheck + 1);
+      if (type_check == ENTITY_TYPE.BRICK
+              || type_check == ENTITY_TYPE.WALL
+              || type_check == ENTITY_TYPE.BOMB) {
+        if (a - 4 > (xCheck - 1) * 32 && b > (yCheck + 1) * 32 - 30) {
           return false;
         }
       }
@@ -183,14 +219,14 @@ public abstract class DynamicEntity extends Entity {
     return true;
   }
 
-  public enum Direction {
+  public enum DIRECTION {
     UP,
     RIGHT,
     LEFT,
     DOWN
   }
 
-  public enum Status {
+  public enum STATUS {
     WALK,
     IDLE
   }

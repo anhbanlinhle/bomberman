@@ -6,6 +6,7 @@ import uet.oop.bomberman.entities.Brick;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.Grass;
 import uet.oop.bomberman.entities.Wall;
+import uet.oop.bomberman.entities.Entity.ENTITY_TYPE;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.io.File;
@@ -69,12 +70,16 @@ public class Map {
         }
     }
 
-    public int entityTypeAtCordinate(int x, int y) {
+    public ENTITY_TYPE entityTypeAtCordinate(int x, int y) {
         return mapEntity.get(y).get(x).getType();
     }
 
     public int getHeight() {
         return this.height;
+    }
+
+    public Entity getEnity(int x, int y){
+        return mapEntity.get(y).get(x);
     }
 
     public int getWidth() {

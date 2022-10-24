@@ -31,22 +31,22 @@ public class Enemy extends DynamicEntity {
         int ran = (int) Math.floor(Math.random() * (max - min + 1) + min);
 
         if (ran == 1) {
-            if (checkCollisionMap(map, x, y - speed, 0)) {
+            if (checkCollisionMap(map, x, y - speed, DIRECTION.UP)) {
                 y -= speed;
             }
         }
         if (ran == 2) {
-            if (checkCollisionMap(map, x + speed, y, 3)) {
+            if (checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT)) {
                 x += speed;
             }
         }
         if (ran == 3) {
-            if (checkCollisionMap(map, x - speed, y, 2)) {
+            if (checkCollisionMap(map, x - speed, y, DIRECTION.LEFT)) {
                 x -= speed;
             }
         }
         if (ran == 4) {
-            if (checkCollisionMap(map, x, y + speed, 1)) {
+            if (checkCollisionMap(map, x, y + speed, DIRECTION.DOWN)) {
                 y += speed;
             }
         }
