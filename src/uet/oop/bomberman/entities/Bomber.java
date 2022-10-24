@@ -24,7 +24,7 @@ public class Bomber extends DynamicEntity {
     public Bomber(int x, int y, Image img, KeyListener keyHandle) {
         super(x, y, img);
         this.keyHandle = keyHandle;
-        speed = 3;
+        speed = 1;
         moving = false;
         direction = 3;
     }

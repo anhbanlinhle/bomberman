@@ -12,7 +12,7 @@ public class Brick extends Entity {
 
     @Override
     public void update(Map map) {
-        // TODO Auto-generated method stub
+       
 
     }
 
