@@ -56,7 +56,7 @@ public class BombermanGame extends Application {
 
         keyH = new KeyListener(scene);
         map.loadMap(keyH);
-        bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage(), keyH);
+        bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage(), keyH, map);
         Entity enemy1 = new Enemy(10, 5, Sprite.player_right.getFxImage());
         entities.add(bomberman);
         entities.add(enemy1);
