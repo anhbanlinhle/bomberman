@@ -24,7 +24,7 @@ public class Bomber extends DynamicEntity {
     public Bomber(int x, int y, Image img, KeyListener keyHandle) {
         super(x, y, img);
         this.keyHandle = keyHandle;
-        speed = 3;
+        speed = 1;
         status = STATUS.IDLE;
         direction = DIRECTION.RIGHT;
     }
@@ -35,12 +35,12 @@ public class Bomber extends DynamicEntity {
         updateBombs();
         bombManager.update();
         countFrame++;
-        countFrame = countFrame % 9;
+        countFrame = countFrame % 24;
         img = setFrame();
     }
 
     public Image setFrame() {
-        int frameNum = countFrame / 3;
+        int frameNum = countFrame / 8;
         Image frame = null;
         if (status == STATUS.WALK) {
             switch (direction) {
