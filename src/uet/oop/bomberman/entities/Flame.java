@@ -11,6 +11,8 @@ public class Flame extends Entity {
         MIDDLE,
         END,
         BOMB,
+
+        BRICK
     };
 
     enum DIRECTION {
@@ -26,6 +28,7 @@ public class Flame extends Entity {
 
     public Flame(int x, int y, FLAME_TYPE flameType, DIRECTION direction ) {
         super(x, y, Sprite.bomb_exploded1.getFxImage());
+        setType(ENTITY_TYPE.FLAME);
         flameEnd = false;
         this.flameType = flameType;
         this.direction = direction;
@@ -77,7 +80,9 @@ public class Flame extends Entity {
 
                 }
                 break;
-            default:
+            case BRICK:
+                return movingSprite(brick_exploded,brick_exploded1,brick_exploded2, count, flameTime).getFxImage();
+            case BOMB:
                 return movingSprite(bomb_exploded2, bomb_exploded1,
                         bomb_exploded, count, flameTime).getFxImage();
         }

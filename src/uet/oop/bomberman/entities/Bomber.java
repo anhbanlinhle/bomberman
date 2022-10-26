@@ -17,30 +17,29 @@ import uet.oop.bomberman.controller.KeyListener;
 import uet.oop.bomberman.controller.KeyListener.DIRECTION;
 import uet.oop.bomberman.Map;
 
+import static uet.oop.bomberman.BombermanGame.bombManager;
+import static uet.oop.bomberman.BombermanGame.map;
+
 public class Bomber extends DynamicEntity {
     private KeyListener keyHandle;
-
-    Map map;
-    BombManager bombManager;
-
-    public Bomber(int x, int y, Image img, KeyListener keyHandle, Map map) {
+    public Bomber(int x, int y, Image img, KeyListener keyHandle) {
         super(x, y, img);
         this.keyHandle = keyHandle;
         speed = 3;
         status = STATUS.IDLE;
         direction = DIRECTION.RIGHT;
-        this.map = map;
-        bombManager = new BombManager(map);
+
     }
 
     @Override
-    public void update(Map map) {
+    public void update() {
         updateMove(map);
         updateBombs();
         bombManager.update();
         countFrame++;
         countFrame = countFrame % 24;
         img = setFrame();
+        checkColisionFlame(bombManager);
     }
 
     public Image setFrame() {
@@ -120,11 +119,6 @@ public class Bomber extends DynamicEntity {
         return frame;
     }
 
-    @Override
-    public void update() {
-
-    }
-
     private void updateMove(Map map) {
         if (keyHandle.isPressed(KeyCode.W)
         || keyHandle.isPressed(KeyCode.A)
@@ -169,6 +163,7 @@ public class Bomber extends DynamicEntity {
             bombManager.addBomb(new Bomb(xBomb, yBomb, Sprite.bomb.getFxImage()));
             // tao bom -> dat bom (xBomb, yBomb);
         }
+
     }
 
     @Override
