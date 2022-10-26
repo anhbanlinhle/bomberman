@@ -1,6 +1,5 @@
-/target
-target/
 /bin
+/target
 /.idea
 *.iml
 .classpath
@@ -8,3 +7,4 @@ target/
 /.settings
 /.vscode
 .DS_Store
+target/
