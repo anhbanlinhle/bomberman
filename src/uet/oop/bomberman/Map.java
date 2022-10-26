@@ -2,10 +2,7 @@ package uet.oop.bomberman;
 
 import javafx.scene.canvas.GraphicsContext;
 import uet.oop.bomberman.controller.KeyListener;
-import uet.oop.bomberman.entities.Brick;
-import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.Grass;
-import uet.oop.bomberman.entities.Wall;
+import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.entities.Entity.ENTITY_TYPE;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -15,8 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class Map {
     private List<List<Entity>> mapEntity;
+    private List<Enemy> enemyList;
     private int height, width;
     static char[][] levelSymbol;
     private static int currentMapNo;
@@ -24,7 +23,7 @@ public class Map {
     public Map() {
         currentMapNo = 1;
         mapEntity = new ArrayList<>();
-
+        enemyList = new ArrayList<>();
     }
 
     public void loadMap(KeyListener keyListener) {
@@ -38,24 +37,33 @@ public class Map {
             for (int i = 0; i < height; i++) {
                 // Read map as individual line
                 String fileLine = scanner.nextLine();
-                List<Entity> tempList = new ArrayList<>();
+                List<Entity> entityList = new ArrayList<>();
                 for (int j = 0; j < width; j++) {
                     // Read text form line
+                    Entity entity;
+                    Enemy tempEnemy;
                     switch (fileLine.charAt(j)) {
                         case '#':
-                            Entity wall = new Wall(j, i, Sprite.wall.getFxImage());
-                            tempList.add(wall);
+                            entity = new Wall(j, i, Sprite.wall.getFxImage());
                             break;
                         case '*':
-                            Entity brick = new Brick(j, i, Sprite.brick.getFxImage());
-                            tempList.add(brick);
+                            entity = new Brick(j, i, Sprite.brick.getFxImage());
                             break;
+                        case '1':
+                            tempEnemy = new Ballom(j, i, Sprite.balloom_right1.getFxImage());
+                            enemyList.add(tempEnemy);
+                            entity = new Grass(j, i, Sprite.grass.getFxImage());
+                            break;
+                        case '2':
+                            tempEnemy = new Ballom(j, i, Sprite.balloom_right1.getFxImage());
+                            enemyList.add(tempEnemy);
+                            entity = new Grass(j, i, Sprite.grass.getFxImage());
                         default:
-                            Entity grass = new Grass(j, i, Sprite.grass.getFxImage());
-                            tempList.add(grass);
+                            entity = new Grass(j, i, Sprite.grass.getFxImage());
                     }
+                    entityList.add(entity);
                 }
-                mapEntity.add(tempList);
+                mapEntity.add(entityList);
             }
 
         } catch (FileNotFoundException e) {
@@ -92,5 +100,9 @@ public class Map {
 
     public static int getCurrentMapNo() {
         return currentMapNo;
+    }
+
+    public List<Enemy> getEnemyList() {
+        return enemyList;
     }
 }

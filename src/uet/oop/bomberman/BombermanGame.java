@@ -33,9 +33,9 @@ public class BombermanGame extends Application {
     }
 
     public static Map map;
-    Bomber bomberman;
-
     public static BombManager bombManager;
+    public static EnemyManager enemyManager;
+    Bomber bomberman;
 
     @Override
     public void start(Stage stage) {
@@ -51,44 +51,46 @@ public class BombermanGame extends Application {
         // Tao scene
         Scene scene = new Scene(root);
         Menu menu = new Menu();
+
         // Them scene vao stage
         stage.setScene(scene);
         stage.show();
         timer = new Timer(this);
-        // Key
+
+        // Control system
         keyH = new KeyListener(scene);
         map = new Map();
-        map.loadMap(keyH);
         bombManager = new BombManager();
+        enemyManager = new EnemyManager();
+        map.loadMap(keyH);
+        enemyManager.setEnemyList(map.getEnemyList());
 
-
+        // Entity
         bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage(), keyH);
-        Entity enemy1 = new Enemy(10, 5, Sprite.player_right.getFxImage());
         entities.add(bomberman);
-        entities.add(enemy1);
-        bomberman.update(map);
-        enemy1.update(map);
-
+        bomberman.update();
     }
 
     public void loop() {
         render();
-        update(map);
-
+        update();
     }
 
 
-    public void update(Map map) {
+    public void update() {
         // switch (menu.)
         // entities.forEach(Entity::update);
-        for (int i = 0; i < entities.size(); i++) {
-            entities.get(i).update(map);
+        for (Entity entity : entities) {
+//            entities.get(i).update(map);
+            entity.update();
         }
+        enemyManager.update();
     }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         map.renderMap(gc);
         entities.forEach(g -> g.render(gc));
+        enemyManager.getEnemyList().forEach(g -> g.render(gc));
     }
 }

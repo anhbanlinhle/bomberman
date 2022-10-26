@@ -23,12 +23,12 @@ public abstract class DynamicEntity extends Entity {
 
     public DynamicEntity(int x, int y, Image img) {
         super(x, y, img);
+        isAlive = true;
     }
-
-    public DynamicEntity(int x, int y, Image img, List<Entity> map) {
-        super(x, y, img);
-        this.mapEntity = map;
-    }
+//
+//    public DynamicEntity(int x, int y, Image img, List<Entity> map) {
+//        super(x, y, img);
+//    }
 
     public int getMaxHP() {
         return this.maxHP;
@@ -237,6 +237,38 @@ public abstract class DynamicEntity extends Entity {
             }
         }
         return true;
+    }
+
+    public boolean checkColisionFlame(BombManager bombManager) {
+        int flameLeftPos = 0,
+                flameRightPos = 0,
+                flameUpPos = 0,
+                flameDownPos = 0;
+        for (int i = 0; i < bombManager.getFlameList().size(); i++) {
+            if (bombManager.getFlameList().get(i) != null) {
+                flameLeftPos = bombManager.getFlameList().get(i).getX();
+                flameRightPos = bombManager.getFlameList().get(i).getX() + Sprite.SCALED_SIZE;
+                flameUpPos = bombManager.getFlameList().get(i).getY();
+                flameDownPos = bombManager.getFlameList().get(i).getY() + Sprite.SCALED_SIZE;
+
+                if (this.x + Sprite.SCALED_SIZE  - 12 > flameLeftPos
+                        && this.x + 12 < flameRightPos
+                        && this.y < flameDownPos
+                        && this.y + Sprite.SCALED_SIZE > flameUpPos) {
+                    System.out.println(flameLeftPos + " " + flameRightPos + " " + flameUpPos + " " + flameDownPos + "||" + this.x + " " + this.y);
+                    System.out.println("DIE");
+                    isAlive = false;
+                }
+            }
+        }
+        flameLeftPos = 0;
+        flameRightPos = 0;
+        flameUpPos = 0;
+        flameDownPos = 0;
+        return false;
+    }
+
+    public void die(){
     }
 
     public enum DIRECTION {
