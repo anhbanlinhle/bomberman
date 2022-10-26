@@ -25,7 +25,7 @@ public class Bomber extends DynamicEntity {
     public Bomber(int x, int y, Image img, KeyListener keyHandle) {
         super(x, y, img);
         this.keyHandle = keyHandle;
-        speed = 2;
+        speed = 3;
         status = STATUS.IDLE;
         direction = DIRECTION.RIGHT;
 
@@ -37,13 +37,13 @@ public class Bomber extends DynamicEntity {
         updateBombs();
         bombManager.update();
         countFrame++;
-        countFrame = countFrame % 9;
+        countFrame = countFrame % 24;
         img = setFrame();
         checkColisionFlame(bombManager);
     }
 
     public Image setFrame() {
-        int frameNum = countFrame / 3;
+        int frameNum = countFrame / 8;
         Image frame = null;
         if (status == STATUS.WALK) {
             switch (direction) {
@@ -120,30 +120,34 @@ public class Bomber extends DynamicEntity {
     }
 
     private void updateMove(Map map) {
-        if (keyHandle.isPressed(KeyCode.W)) {
-            status = STATUS.WALK;
-            direction = DIRECTION.UP;
-            if (checkCollisionMap(map, x, y - speed, direction)) {
-                y -= speed;
-            }
-
-        } else if (keyHandle.isPressed(KeyCode.D)) {
-            status = STATUS.WALK;
-            direction = DIRECTION.RIGHT;
-            if (checkCollisionMap(map, x + speed, y, direction)) {
-                x += speed;
-            }
-        } else if (keyHandle.isPressed(KeyCode.A)) {
-            status = STATUS.WALK;
-            direction = DIRECTION.LEFT;
-            if (checkCollisionMap(map, x - speed, y, direction)) {
-                x -= speed;
-            }
-        } else if (keyHandle.isPressed(KeyCode.S)) {
-            status = STATUS.WALK;
-            direction = DIRECTION.DOWN;
-            if (checkCollisionMap(map, x, y + speed, direction)) {
-                y += speed;
+        if (keyHandle.isPressed(KeyCode.W)
+        || keyHandle.isPressed(KeyCode.A)
+        || keyHandle.isPressed(KeyCode.S)
+        || keyHandle.isPressed(KeyCode.D)) {
+            if (keyHandle.isPressed(KeyCode.W)) {
+                status = STATUS.WALK;
+                direction = DIRECTION.UP;
+                if (checkCollisionMap(map, x, y - speed, direction)) {
+                    y -= speed;
+                }
+            } if (keyHandle.isPressed(KeyCode.D)) {
+                status = STATUS.WALK;
+                direction = DIRECTION.RIGHT;
+                if (checkCollisionMap(map, x + speed, y, direction)) {
+                    x += speed;
+                }
+            } if (keyHandle.isPressed(KeyCode.A)) {
+                status = STATUS.WALK;
+                direction = DIRECTION.LEFT;
+                if (checkCollisionMap(map, x - speed, y, direction)) {
+                    x -= speed;
+                }
+            } if (keyHandle.isPressed(KeyCode.S)) {
+                status = STATUS.WALK;
+                direction = DIRECTION.DOWN;
+                if (checkCollisionMap(map, x, y + speed, direction)) {
+                    y += speed;
+                }
             }
         } else {
             status = STATUS.IDLE;

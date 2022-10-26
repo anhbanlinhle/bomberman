@@ -102,7 +102,7 @@ public abstract class DynamicEntity extends Entity {
             if (type_check == ENTITY_TYPE.BRICK
                     || type_check == ENTITY_TYPE.WALL
                     || type_check == ENTITY_TYPE.BOMB) {
-                if (b < (yCheck + 1) * 32) {
+                if (b < (yCheck + 1) * Sprite.SCALED_SIZE) {
                     return false;
                 }
             }
@@ -113,7 +113,7 @@ public abstract class DynamicEntity extends Entity {
             if (type_check == ENTITY_TYPE.BRICK
                     || type_check == ENTITY_TYPE.WALL
                     || type_check == ENTITY_TYPE.BOMB) {
-                if (b < (yCheck + 1) * 32 && a < (xCheck - 1) * 32 + 30) {
+                if (b < (yCheck + 1) * Sprite.SCALED_SIZE && a < xCheck * Sprite.SCALED_SIZE - 6) {
                     return false;
                 }
             }
@@ -123,7 +123,7 @@ public abstract class DynamicEntity extends Entity {
             if (type_check == ENTITY_TYPE.BRICK
                     || type_check == ENTITY_TYPE.WALL
                     || type_check == ENTITY_TYPE.BOMB) {
-                if (b < (yCheck + 1) * 32 && a > (xCheck + 1) * 32 - 30) {
+                if (b < (yCheck + 1) * Sprite.SCALED_SIZE && a > xCheck * Sprite.SCALED_SIZE + 6) {
                     return false;
                 }
             }
@@ -140,7 +140,7 @@ public abstract class DynamicEntity extends Entity {
             if (type_check == ENTITY_TYPE.BRICK
                     || type_check == ENTITY_TYPE.WALL
                     || type_check == ENTITY_TYPE.BOMB) {
-                if (b > (yCheck - 1) * 32) {
+                if (b > (yCheck - 1) * Sprite.SCALED_SIZE) {
                     return false;
                 }
             }
@@ -150,7 +150,7 @@ public abstract class DynamicEntity extends Entity {
             if (type_check == ENTITY_TYPE.BRICK
                     || type_check == ENTITY_TYPE.WALL
                     || type_check == ENTITY_TYPE.BOMB) {
-                if (b > (yCheck - 1) * 32 && a < (xCheck - 1) * 32 + 30) {
+                if (b > (yCheck - 1) * Sprite.SCALED_SIZE && a < xCheck * Sprite.SCALED_SIZE - 6) {
                     return false;
                 }
             }
@@ -160,7 +160,7 @@ public abstract class DynamicEntity extends Entity {
             if (type_check == ENTITY_TYPE.BRICK
                     || type_check == ENTITY_TYPE.WALL
                     || type_check == ENTITY_TYPE.BOMB) {
-                if (b > (yCheck - 1) * 32 && a > (xCheck + 1) * 32 - 30) {
+                if (b > (yCheck - 1) * Sprite.SCALED_SIZE && a > xCheck * Sprite.SCALED_SIZE + 6) {
                     return false;
                 }
             }
@@ -176,7 +176,7 @@ public abstract class DynamicEntity extends Entity {
             if (type_check == ENTITY_TYPE.BRICK
                     || type_check == ENTITY_TYPE.WALL
                     || type_check == ENTITY_TYPE.BOMB) {
-                if (a < (xCheck + 1) * 32) {
+                if (a < (xCheck + 1) * Sprite.SCALED_SIZE) {
                     return false;
                 }
             }
@@ -186,7 +186,7 @@ public abstract class DynamicEntity extends Entity {
             if (type_check == ENTITY_TYPE.BRICK
                     || type_check == ENTITY_TYPE.WALL
                     || type_check == ENTITY_TYPE.BOMB) {
-                if (a < (xCheck + 1) * 32 && b < (yCheck - 1) * 32 + 30) {
+                if (a < (xCheck + 1) * Sprite.SCALED_SIZE && b < yCheck * Sprite.SCALED_SIZE - 3) {
                     return false;
                 }
             }
@@ -196,7 +196,7 @@ public abstract class DynamicEntity extends Entity {
             if (type_check == ENTITY_TYPE.BRICK
                     || type_check == ENTITY_TYPE.WALL
                     || type_check == ENTITY_TYPE.BOMB) {
-                if (a < (xCheck + 1) * 32 && b > (yCheck + 1) * 32 - 30) {
+                if (a < (xCheck + 1) * Sprite.SCALED_SIZE && b > yCheck * Sprite.SCALED_SIZE + 3) {
                     return false;
                 }
             }
@@ -211,7 +211,7 @@ public abstract class DynamicEntity extends Entity {
             if (type_check == ENTITY_TYPE.BRICK
                     || type_check == ENTITY_TYPE.WALL
                     || type_check == ENTITY_TYPE.BOMB) {
-                if (a - 4 > (xCheck - 1) * 32) {
+                if (a - 4 > (xCheck - 1) * Sprite.SCALED_SIZE) {
                     return false;
                 }
             }
@@ -221,7 +221,7 @@ public abstract class DynamicEntity extends Entity {
             if (type_check == ENTITY_TYPE.BRICK
                     || type_check == ENTITY_TYPE.WALL
                     || type_check == ENTITY_TYPE.BOMB) {
-                if (a - 4 > (xCheck - 1) * 32 && b < (yCheck - 1) * 32 + 30) {
+                if (a - 4 > (xCheck - 1) * 32 && b < yCheck * Sprite.SCALED_SIZE - 3) {
                     return false;
                 }
             }
@@ -231,7 +231,7 @@ public abstract class DynamicEntity extends Entity {
             if (type_check == ENTITY_TYPE.BRICK
                     || type_check == ENTITY_TYPE.WALL
                     || type_check == ENTITY_TYPE.BOMB) {
-                if (a - 4 > (xCheck - 1) * 32 && b > (yCheck + 1) * 32 - 30) {
+                if (a - 4 > (xCheck - 1) * 32 && b > yCheck * Sprite.SCALED_SIZE + 3) {
                     return false;
                 }
             }

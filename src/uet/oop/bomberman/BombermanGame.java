@@ -20,7 +20,7 @@ public class BombermanGame extends Application {
 
     private Timer timer;
     public static final int WIDTH = 31;
-    public static final int HEIGHT = 15;
+    public static final int HEIGHT = 13;
 
     private GraphicsContext gc;
     private Canvas canvas;
