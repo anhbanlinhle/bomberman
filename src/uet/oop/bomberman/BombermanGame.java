@@ -32,8 +32,10 @@ public class BombermanGame extends Application {
         Application.launch(BombermanGame.class);
     }
 
-    Map map = new Map();
+    public static Map map;
     Bomber bomberman;
+
+    public static BombManager bombManager;
 
     @Override
     public void start(Stage stage) {
@@ -53,10 +55,14 @@ public class BombermanGame extends Application {
         stage.setScene(scene);
         stage.show();
         timer = new Timer(this);
-
+        // Key
         keyH = new KeyListener(scene);
+        map = new Map();
         map.loadMap(keyH);
-        bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage(), keyH, map);
+        bombManager = new BombManager();
+
+
+        bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage(), keyH);
         Entity enemy1 = new Enemy(10, 5, Sprite.player_right.getFxImage());
         entities.add(bomberman);
         entities.add(enemy1);

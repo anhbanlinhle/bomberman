@@ -82,6 +82,10 @@ public class Map {
         return mapEntity.get(y).get(x);
     }
 
+    public void replace(int x, int y, Entity entity) {
+        mapEntity.get(y).set(x, entity);
+    }
+
     public int getWidth() {
         return this.width;
     }

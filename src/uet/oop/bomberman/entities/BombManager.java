@@ -3,9 +3,10 @@ package uet.oop.bomberman.entities;
 import javafx.scene.canvas.GraphicsContext;
 import uet.oop.bomberman.Map;
 import uet.oop.bomberman.graphics.Sprite;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import static uet.oop.bomberman.BombermanGame.map;
 
 public class BombManager {
 
@@ -13,21 +14,19 @@ public class BombManager {
     private int bombRemain;
     private int flameLength;
     int flamePosX, flamePosY;
-    Map map;
     boolean[] bombPath;
-    List<Bomb> bombList;
-    List<Flame> flameList;
+    private List<Bomb> bombList;
+    private List<Flame> flameList;
 
 
 
-    public BombManager(Map map) {
+    public BombManager() {
         bombList = new ArrayList<>();
         flameList = new ArrayList<>();
         bombRemain = 1;
-        flameLength = 3;
+        flameLength = 1;
         flamePosX = 0;
         flamePosY = 0;
-        this.map = map;
     }
 
     public void addBomb(Bomb bomb) {
@@ -75,10 +74,17 @@ public class BombManager {
                         break;
                 }
                 if(bombPath[j]){
-                    if(!(map.entityTypeAtCordinate(flamePosX, flamePosY) == Entity.ENTITY_TYPE.WALL)
-                            && !(map.entityTypeAtCordinate(flamePosX, flamePosY) == Entity.ENTITY_TYPE.BRICK))
+                    if(!(map.getEntity(flamePosX, flamePosY) instanceof Wall)
+                            && !(map.entityTypeAtCordinate(flamePosX, flamePosY) == Entity.ENTITY_TYPE.BRICK)) {
+
                         flameList.add(new Flame(flamePosX, flamePosY, type, flameDirection[j]));
-                    else {
+                    }
+                    else if(map.getEntity(flamePosX, flamePosY) instanceof Brick) {
+                        bombPath[j] = false;
+                        Grass grass =  new Grass(flamePosX, flamePosY, Sprite.grass.getFxImage());
+                        map.replace(flamePosX, flamePosY,grass);
+                        flameList.add(new Flame(flamePosX, flamePosY, Flame.FLAME_TYPE.BRICK, flameDirection[j]));
+                    } else {
                         bombPath[j] = false;
                     }
                 }
@@ -120,4 +126,7 @@ public class BombManager {
         }
     }
 
+    public List<Flame> getFlameList() {
+        return flameList;
+    }
 }

@@ -25,29 +25,37 @@ public class Enemy extends DynamicEntity {
     }
 
     private void updateMove(Map map) {
+        int count = 0;
+        int changeDir = 200;
+
         int min = 1;
         int max = 4;
 
-        int ran = (int) Math.floor(Math.random() * (max - min + 1) + min);
+        int ran;
 
-        if (ran == 1) {
-            if (checkCollisionMap(map, x, y - speed, DIRECTION.UP)) {
-                y -= speed;
+        if(count++ == changeDir) {
+            ran = (int) Math.floor(Math.random() * (max - min + 1) + min);
+            count = 0;
+
+            if (ran == 1) {
+                if (checkCollisionMap(map, x, y - speed, DIRECTION.UP)) {
+                    y -= speed;
+                }
             }
-        }
-        if (ran == 2) {
-            if (checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT)) {
-                x += speed;
+            if (ran == 2) {
+                if (checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT)) {
+                    x += speed;
+                }
             }
-        }
-        if (ran == 3) {
-            if (checkCollisionMap(map, x - speed, y, DIRECTION.LEFT)) {
-                x -= speed;
+            if (ran == 3) {
+                if (checkCollisionMap(map, x - speed, y, DIRECTION.LEFT)) {
+                    x -= speed;
+                }
             }
-        }
-        if (ran == 4) {
-            if (checkCollisionMap(map, x, y + speed, DIRECTION.DOWN)) {
-                y += speed;
+            if (ran == 4) {
+                if (checkCollisionMap(map, x, y + speed, DIRECTION.DOWN)) {
+                    y += speed;
+                }
             }
         }
     }
