@@ -50,12 +50,12 @@ public class Map {
                             entity = new Brick(j, i, Sprite.brick.getFxImage());
                             break;
                         case '1':
-                            tempEnemy = new Ballom(j, i, Sprite.balloom_right1.getFxImage());
+                            tempEnemy = new Balloom(j, i, Sprite.balloom_right1.getFxImage());
                             enemyList.add(tempEnemy);
                             entity = new Grass(j, i, Sprite.grass.getFxImage());
                             break;
                         case '2':
-                            tempEnemy = new Ballom(j, i, Sprite.balloom_right1.getFxImage());
+                            tempEnemy = new Oneal(j, i, Sprite.oneal_right1.getFxImage());
                             enemyList.add(tempEnemy);
                             entity = new Grass(j, i, Sprite.grass.getFxImage());
                         default:
