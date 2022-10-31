@@ -17,7 +17,7 @@ import static uet.oop.bomberman.BombermanGame.map;
 public class Enemy extends DynamicEntity {
     public Enemy(int x, int y, Image img) {
         super(x, y, img);
-        speed = 2;
+        speed = 1;
     }
 
     @Override

@@ -4,12 +4,13 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.Map;
 import uet.oop.bomberman.graphics.Sprite;
 
-public class Ballom extends Enemy{
+public class Balloom extends Enemy{
 
     private int randomMove = 1;
 
-    public Ballom(int x, int y, Image img) {
+    public Balloom(int x, int y, Image img) {
         super(x, y, img);
+        direction = DIRECTION.RIGHT;
     }
 
     @Override
@@ -57,10 +58,10 @@ public class Ballom extends Enemy{
                         frame = Sprite.balloom_right1.getFxImage();
                         break;
                     case 1:
-                        frame = Sprite.balloom_left1.getFxImage();
+                        frame = Sprite.balloom_right2.getFxImage();
                         break;
                     case 2:
-                        frame = Sprite.balloom_right1.getFxImage();
+                        frame = Sprite.balloom_right3.getFxImage();
                         break;
                 }
                 break;
@@ -70,10 +71,10 @@ public class Ballom extends Enemy{
                         frame = Sprite.balloom_left1.getFxImage();
                         break;
                     case 1:
-                        frame = Sprite.balloom_right1.getFxImage();
+                        frame = Sprite.balloom_left2.getFxImage();
                         break;
                     case 2:
-                        frame = Sprite.balloom_left1.getFxImage();
+                        frame = Sprite.balloom_left3.getFxImage();
                         break;
                 }
                 break;
