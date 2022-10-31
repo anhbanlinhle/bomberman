@@ -13,7 +13,7 @@ public class Oneal extends Enemy {
   public Oneal(int x, int y, Image img) {
     super(x, y, img);
     direction = DIRECTION.RIGHT;
-    speed = 3;
+    speed = 4;
     newDir = DIRECTION.RIGHT;
   }
 

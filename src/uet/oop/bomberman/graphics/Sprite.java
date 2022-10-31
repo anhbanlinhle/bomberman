@@ -55,6 +55,9 @@ public class Sprite {
 	public static Sprite player_dead1 = new Sprite(DEFAULT_SIZE, 4, 2, SpriteSheet.tiles, 14, 16);
 	public static Sprite player_dead2 = new Sprite(DEFAULT_SIZE, 5, 2, SpriteSheet.tiles, 13, 15);
 	public static Sprite player_dead3 = new Sprite(DEFAULT_SIZE, 6, 2, SpriteSheet.tiles, 16, 16);
+	public static Sprite player_dead4 = new Sprite(DEFAULT_SIZE, 4, 3, SpriteSheet.tiles, 14, 16);
+	public static Sprite player_dead5 = new Sprite(DEFAULT_SIZE, 5, 3, SpriteSheet.tiles, 13, 15);
+	public static Sprite player_dead6 = new Sprite(DEFAULT_SIZE, 6, 3, SpriteSheet.tiles, 16, 16);
 
 	/*
 	 * |--------------------------------------------------------------------------
@@ -117,9 +120,20 @@ public class Sprite {
 	public static Sprite kondoria_dead = new Sprite(DEFAULT_SIZE, 10, 8, SpriteSheet.tiles, 16, 16);
 
 	// ALL
-	public static Sprite mob_dead1 = new Sprite(DEFAULT_SIZE, 15, 0, SpriteSheet.tiles, 16, 16);
-	public static Sprite mob_dead2 = new Sprite(DEFAULT_SIZE, 15, 1, SpriteSheet.tiles, 16, 16);
-	public static Sprite mob_dead3 = new Sprite(DEFAULT_SIZE, 15, 2, SpriteSheet.tiles, 16, 16);
+	public static Sprite pink_dead1 = new Sprite(DEFAULT_SIZE, 4, 4, SpriteSheet.tiles, 16, 16);
+	public static Sprite pink_dead2 = new Sprite(DEFAULT_SIZE, 4, 5, SpriteSheet.tiles, 16, 16);
+	public static Sprite pink_dead3 = new Sprite(DEFAULT_SIZE, 4, 6, SpriteSheet.tiles, 16, 16);
+	public static Sprite pink_dead4 = new Sprite(DEFAULT_SIZE, 4, 7, SpriteSheet.tiles, 16, 16);
+
+	public static Sprite red_dead1 = new Sprite(DEFAULT_SIZE, 4, 8, SpriteSheet.tiles, 16, 16);
+	public static Sprite red_dead2 = new Sprite(DEFAULT_SIZE, 4, 9, SpriteSheet.tiles, 16, 16);
+	public static Sprite red_dead3 = new Sprite(DEFAULT_SIZE, 4, 10, SpriteSheet.tiles, 16, 16);
+	public static Sprite red_dead4 = new Sprite(DEFAULT_SIZE, 4, 11, SpriteSheet.tiles, 16, 16);
+
+	public static Sprite blue_dead1 = new Sprite(DEFAULT_SIZE, 4, 12, SpriteSheet.tiles, 16, 16);
+	public static Sprite blue_dead2 = new Sprite(DEFAULT_SIZE, 4, 13, SpriteSheet.tiles, 16, 16);
+	public static Sprite blue_dead3 = new Sprite(DEFAULT_SIZE, 4, 14, SpriteSheet.tiles, 16, 16);
+	public static Sprite blue_dead4 = new Sprite(DEFAULT_SIZE, 4, 15, SpriteSheet.tiles, 16, 16);
 
 	/*
 	 * |--------------------------------------------------------------------------
