@@ -85,10 +85,14 @@ public class BombermanGame extends Application {
                 menu.update();
                 break;
             case IN_GAME:
-                for (Entity entity : entities) {
-                    entity.update();
+                if (bomberman.isAlive()) {
+                    for (Entity entity : entities) {
+                            entity.update();
+                        }
+                    enemyManager.update();
                 }
-                enemyManager.update();
+                else
+                    bomberman.update();
                 break;
             case EXIT:
                 System.exit(0);
@@ -100,7 +104,6 @@ public class BombermanGame extends Application {
         switch (menu.getGameState()) {
             case IN_MENU:
                 menu.render(gc);
-                System.out.println("IN menu");
                 break;
             case IN_GAME:
                 gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());

@@ -15,6 +15,10 @@ public abstract class Entity {
     // Tọa độ Y tính từ góc trái trên trong Canvas
     protected int y;
 
+    protected int centerX;
+
+    protected int centerY;
+
     protected Image img;
 
     protected ENTITY_TYPE type;
@@ -62,11 +66,20 @@ public abstract class Entity {
         return y;
     }
 
+    public int getCenterX() {
+        return centerX;
+    }
+
+    public int getCenterY() {
+        return centerY;
+    }
+
     public enum ENTITY_TYPE {
         BRICK,
         BOMB,
         WALL,
         FLAME,
-        GRASS
+        GRASS,
+        ENEMY
     }
 }

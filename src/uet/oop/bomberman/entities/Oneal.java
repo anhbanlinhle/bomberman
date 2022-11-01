@@ -196,6 +196,6 @@ public class Oneal extends Enemy {
   }
 
   public void loadDie(int count) {
-    img = Sprite.movingSprite(Sprite.blue_dead1, Sprite.blue_dead2, Sprite.blue_dead3, count, 40).getFxImage();
+    img = Sprite.movingSprite(Sprite.blue_dead1, Sprite.blue_dead2, Sprite.blue_dead3, count, 36).getFxImage();
   }
 }

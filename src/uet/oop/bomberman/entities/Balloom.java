@@ -121,6 +121,6 @@ public class Balloom extends Enemy{
         img = Sprite.balloom_dead.getFxImage();
     }
     public void loadDie(int count) {
-        img = Sprite.movingSprite(Sprite.pink_dead1, Sprite.pink_dead2, Sprite.pink_dead3, count, 40).getFxImage();
+        img = Sprite.movingSprite(Sprite.pink_dead1, Sprite.pink_dead2, Sprite.pink_dead3, count, 36).getFxImage();
     }
 }
