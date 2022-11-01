@@ -19,8 +19,8 @@ import java.util.List;
 public class BombermanGame extends Application {
 
     private Timer timer;
-    public static final int WIDTH = 26;
-    public static final int HEIGHT = 13;
+    public static final int WIDTH = Texture.WIDTH;
+    public static final int HEIGHT = Texture.HEIGHT;
 
     public static Menu menu = new Menu();
     private GraphicsContext gc;
@@ -80,25 +80,20 @@ public class BombermanGame extends Application {
     }
 
     public void update() {
-        // switch (menu.)
         switch (menu.getGameState()) {
             case IN_MENU:
                 menu.update();
                 break;
             case IN_GAME:
                 for (Entity entity : entities) {
-//            entities.get(i).update(map);
                     entity.update();
                 }
                 enemyManager.update();
                 break;
             case EXIT:
                 System.exit(0);
-                break;
-                
+                break;       
         }
-        // entities.forEach(Entity::update);
-
     }
 
     public void render() {
@@ -108,18 +103,13 @@ public class BombermanGame extends Application {
                 System.out.println("IN menu");
                 break;
             case IN_GAME:
-            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-            map.renderMap(gc);
-            entities.forEach(g -> g.render(gc));
-            enemyManager.getEnemyList().forEach(g -> g.render(gc));
+                gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                map.renderMap(gc);
+                entities.forEach(g -> g.render(gc));
+                enemyManager.getEnemyList().forEach(g -> g.render(gc));
                 break;
             case EXIT:
                 break;
         }
-
-    // public void update() {
-    //     // switch (menu.)
-    //     // entities.forEach(Entity::update);
-    // }
     }
 }

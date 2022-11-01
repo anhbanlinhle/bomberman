@@ -57,7 +57,7 @@ public class Oneal extends Enemy {
       listDir.add(DIRECTION.RIGHT);
     }
 
-    if (listDir.size() > 2) {
+    if (listDir.size() > 1) {
       DIRECTION curDir = direction;
       switch (direction) {
         case UP:
@@ -193,5 +193,9 @@ public class Oneal extends Enemy {
   @Override
   public void die() {
     img = Sprite.oneal_dead.getFxImage();
+  }
+
+  public void loadDie(int count) {
+    img = Sprite.movingSprite(Sprite.blue_dead1, Sprite.blue_dead2, Sprite.blue_dead3, count, 40).getFxImage();
   }
 }

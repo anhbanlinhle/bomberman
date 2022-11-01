@@ -18,12 +18,14 @@ public abstract class DynamicEntity extends Entity {
     protected STATUS status;
     protected int healthPoint;
     protected int countFrame;
+    protected int countDead;
 
     List<Entity> mapEntity;
 
     public DynamicEntity(int x, int y, Image img) {
         super(x, y, img);
         isAlive = true;
+        countDead = 0;
     }
 //
 //    public DynamicEntity(int x, int y, Image img, List<Entity> map) {
@@ -72,6 +74,14 @@ public abstract class DynamicEntity extends Entity {
 
     public void setAlive(boolean alive) {
         isAlive = alive;
+    }
+
+    public int getCountDead() {
+        return this.countDead;
+    }
+
+    public void increaseCountDead() {
+        this.countDead++;
     }
 
     public int convertToMapCordinate(int n) {
@@ -269,6 +279,8 @@ public abstract class DynamicEntity extends Entity {
     }
 
     public void die(){
+    }
+    public void loadDie(int count){
     }
 
     public enum DIRECTION {

@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities;
 
 import javafx.scene.canvas.GraphicsContext;
 import uet.oop.bomberman.Map;
+import uet.oop.bomberman.entities.Entity.ENTITY_TYPE;
 import uet.oop.bomberman.graphics.Sprite;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,15 +40,18 @@ public class BombManager {
         }
         if (checkDuplicate && bombRemain > 0) {
             bombList.add(bomb);
+            map.replace(bomb.convertToMapCordinate(bomb.x), bomb.convertToMapCordinate(bomb.y), bomb);
             bombRemain--;
         }
     }
 
     public void bombExploded(int index) {
         bombPath = new boolean[]{true, true, true, true};
+
+        int bomX = bombList.get(index).getX() / Sprite.SCALED_SIZE;
+        int bomY = bombList.get(index).getY() / Sprite.SCALED_SIZE;
+
         for (int i = 1; i <= flameLength; i++) {
-            int bomX = bombList.get(index).getX() / Sprite.SCALED_SIZE;
-            int bomY = bombList.get(index).getY() / Sprite.SCALED_SIZE;
             flamePosX = bomX;
             flamePosY = bomY;
             flameList.add(new Flame(flamePosX, flamePosY, Flame.FLAME_TYPE.BOMB, Flame.DIRECTION.DOWN));
@@ -92,6 +96,8 @@ public class BombManager {
 
             System.out.println("Next");
         }
+        Grass restore = new Grass(bomX, bomY, Sprite.grass.getFxImage());
+        map.replace(bomX, bomY, restore);
         removeBomb(index);
 
     }
