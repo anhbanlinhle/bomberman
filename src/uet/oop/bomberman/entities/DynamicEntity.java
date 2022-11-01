@@ -270,6 +270,8 @@ public abstract class DynamicEntity extends Entity {
 
     public void die(){
     }
+    public void loadDie(int count){
+    }
 
     public enum DIRECTION {
         UP,
