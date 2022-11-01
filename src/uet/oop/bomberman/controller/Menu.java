@@ -90,7 +90,7 @@ public class Menu {
     public void render(GraphicsContext gc) {
         switch(GAME_STATE) {
             case IN_MENU:
-                gc.drawImage(backGroundImage, 0, 0, 31 * 48, 13 * 48);
+                gc.drawImage(backGroundImage, 0, 0, Texture.WIDTH * Sprite.SCALED_SIZE, Texture.HEIGHT * Sprite.SCALED_SIZE);
                 for (int i = 0; i < button.size(); i++) {
                     if (chooseButton == i) {
                         button.get(i).renderChoosen(gc);

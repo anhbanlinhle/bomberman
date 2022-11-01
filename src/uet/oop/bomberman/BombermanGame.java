@@ -19,7 +19,7 @@ import java.util.List;
 public class BombermanGame extends Application {
 
     private Timer timer;
-    public static final int WIDTH = 31;
+    public static final int WIDTH = 26;
     public static final int HEIGHT = 13;
 
     public static Menu menu = new Menu();
