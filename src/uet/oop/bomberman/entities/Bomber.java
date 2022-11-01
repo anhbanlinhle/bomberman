@@ -23,6 +23,9 @@ import static uet.oop.bomberman.BombermanGame.enemyManager;
 
 public class Bomber extends DynamicEntity {
     private KeyListener keyHandle;
+    
+    public int loseDelay;
+
 
     public Bomber(int x, int y, Image img, KeyListener keyHandle) {
         super(x, y, img);
@@ -59,6 +62,7 @@ public class Bomber extends DynamicEntity {
                 System.out.println("Game Over");
                 countDead = 0;
             }
+            loseDelay++;
         }
 
     }

@@ -80,6 +80,8 @@ public class BombermanGame extends Application {
     }
 
     public void update() {
+        int loseDelay = 360;
+
         switch (menu.getGameState()) {
             case IN_MENU:
                 menu.update();
@@ -93,7 +95,10 @@ public class BombermanGame extends Application {
                 }
                 else
                     bomberman.update();
-                break;
+                    
+                if (bomberman.loseDelay == loseDelay)
+                    menu.setGameState(Menu.GAME_STATE.EXIT);
+               break;
             case EXIT:
                 System.exit(0);
                 break;       
