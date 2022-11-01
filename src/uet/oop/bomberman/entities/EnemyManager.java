@@ -37,11 +37,11 @@ public class EnemyManager {
                 enemyList.get(i).update();
             } else {
                 enemyList.get(i).die();
-                count++;
-                if (count >= 10)
-                    enemyList.get(i).loadDie(count);
+                enemyList.get(i).increaseCountDead();
+                if (enemyList.get(i).getCountDead() >= 10)
+                    enemyList.get(i).loadDie(enemyList.get(i).getCountDead());
                 int DELAY_REMOVE_ENEMY = 40;
-                if (count == DELAY_REMOVE_ENEMY){
+                if (enemyList.get(i).getCountDead() == DELAY_REMOVE_ENEMY){
                     enemyList.remove(i);
                     count = 0;
                 }
