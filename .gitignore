@@ -1,6 +1,5 @@
-/target
-target/
 /bin
+/target
 /.idea
 *.iml
 .classpath
