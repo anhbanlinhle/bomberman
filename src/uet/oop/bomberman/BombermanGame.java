@@ -20,7 +20,7 @@ public class BombermanGame extends Application {
 
     private Timer timer;
     public static final int WIDTH = 31;
-    public static final int HEIGHT = 15;
+    public static final int HEIGHT = 13;
 
     public static Menu menu = new Menu();
     private GraphicsContext gc;
@@ -35,7 +35,9 @@ public class BombermanGame extends Application {
         Application.launch(BombermanGame.class);
     }
 
-    Map map = new Map();
+    public static Map map;
+    public static BombManager bombManager;
+    public static EnemyManager enemyManager;
     Bomber bomberman;
 
     @Override
@@ -57,34 +59,38 @@ public class BombermanGame extends Application {
         stage.show();
         timer = new Timer(this);
 
+        // Control system
         keyH = new KeyListener(scene);
         menu = new Menu(keyH);
+        map = new Map();
+        bombManager = new BombManager();
+        enemyManager = new EnemyManager();
         map.loadMap(keyH);
-        bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage(), keyH);
-        Entity enemy1 = new Enemy(10, 5, Sprite.player_right.getFxImage());
-        entities.add(bomberman);
-        entities.add(enemy1);
-        bomberman.update(map);
-        enemy1.update(map);
+        enemyManager.setEnemyList(map.getEnemyList());
 
+        // Entity
+        bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage(), keyH);
+        entities.add(bomberman);
+        bomberman.update();
     }
 
     public void loop() {
         render();
-        update(map);
-
+        update();
     }
 
-    public void update(Map map) {
+    public void update() {
         // switch (menu.)
         switch (menu.getGameState()) {
             case IN_MENU:
                 menu.update();
                 break;
             case IN_GAME:
-                for (int i = 0; i < entities.size(); i++) {
-                    entities.get(i).update(map);
+                for (Entity entity : entities) {
+//            entities.get(i).update(map);
+                    entity.update();
                 }
+                enemyManager.update();
                 break;
             case EXIT:
                 System.exit(0);
@@ -102,12 +108,18 @@ public class BombermanGame extends Application {
                 System.out.println("IN menu");
                 break;
             case IN_GAME:
-                gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-                map.renderMap(gc);
-                entities.forEach(g -> g.render(gc));
+            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+            map.renderMap(gc);
+            entities.forEach(g -> g.render(gc));
+            enemyManager.getEnemyList().forEach(g -> g.render(gc));
                 break;
             case EXIT:
                 break;
         }
+
+    // public void update() {
+    //     // switch (menu.)
+    //     // entities.forEach(Entity::update);
+    // }
     }
 }

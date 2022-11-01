@@ -9,7 +9,7 @@ import javafx.scene.input.KeyEvent;
 
 public class KeyListener implements EventHandler<KeyEvent> {
     public static enum DIRECTION {
-        UP, DOWN, LEFT, RIGHT, CENTER, NOTGO;
+        NOT_MOVE, UP, DOWN, LEFT, RIGHT, CENTER;
     }
 
     public static boolean isUP = false, isDOWN = false, isLEFT = false, isRIGHT = false;
