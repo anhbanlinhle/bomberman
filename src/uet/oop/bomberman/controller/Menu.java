@@ -37,7 +37,7 @@ public class Menu {
 
     private final int GAME = 0;
     private final int EXIT = 1;
-    private long delayInput = 0;
+    private long delayInput = 10;
     public static STATE GAME_STATE = STATE.IN_MENU;
     private KeyListener keyListener;
     List<Button> button = new ArrayList<>();
@@ -65,7 +65,7 @@ public class Menu {
         this.GAME_STATE = STATE.IN_MENU;
         this.keyListener = keyListener;
 
-        Text text = new Text("PLAY GAME");
+        Text text = new Text("PLAY");
         text.setFont(Texture.PIXELFONT);
         text.setFill(Color.WHITE);
         button.add(new Button((Texture.WIDTH * 3 / 4) * Sprite.SCALED_SIZE + 10 - (int) text.getLayoutBounds().getWidth() / 2,
