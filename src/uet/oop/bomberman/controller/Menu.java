@@ -26,7 +26,7 @@ public class Menu {
 
     public Menu() {
         try {
-            backGroundImage = new Image(Files.newInputStream(Paths.get("res/textures/backgr.png")));
+            backGroundImage = new Image(Files.newInputStream(Paths.get("res/textures/backgr.jpg")));
             System.out.println("duoc luon");
 
         } catch (IOException e) {
@@ -68,14 +68,14 @@ public class Menu {
         Text text = new Text("PLAY GAME");
         text.setFont(Texture.PIXELFONT);
         text.setFill(Color.WHITE);
-        button.add(new Button(Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
-                Texture.HEIGHT / 2 * Sprite.SCALED_SIZE + (int) text.getLayoutBounds().getHeight() / 2, text));
+        button.add(new Button((Texture.WIDTH * 3 / 4) * Sprite.SCALED_SIZE + 10 - (int) text.getLayoutBounds().getWidth() / 2,
+                (Texture.HEIGHT / 6) * Sprite.SCALED_SIZE + (int) text.getLayoutBounds().getHeight() / 2, text));
 
         text = new Text("EXIT");
         text.setFont(Texture.PIXELFONT);
         text.setFill(Color.WHITE);
-        button.add(new Button(Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
-                Texture.HEIGHT / 2 * Sprite.SCALED_SIZE + 9 * (int) text.getLayoutBounds().getHeight() / 2, text));
+        button.add(new Button((Texture.WIDTH * 3 / 4) * Sprite.SCALED_SIZE + 10 - (int) text.getLayoutBounds().getWidth() / 2,
+                Texture.HEIGHT / 6 * Sprite.SCALED_SIZE + 10 + 3 * (int) text.getLayoutBounds().getHeight() / 2, text));
         chooseButton = GAME;
     }
 
@@ -90,7 +90,7 @@ public class Menu {
     public void render(GraphicsContext gc) {
         switch(GAME_STATE) {
             case IN_MENU:
-                gc.drawImage(backGroundImage, 0, 0, 31 * 32, 15 * 32);
+                gc.drawImage(backGroundImage, 0, 0, 31 * 48, 13 * 48);
                 for (int i = 0; i < button.size(); i++) {
                     if (chooseButton == i) {
                         button.get(i).renderChoosen(gc);

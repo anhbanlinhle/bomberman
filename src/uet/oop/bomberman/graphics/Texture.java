@@ -22,7 +22,7 @@ import javafx.scene.image.*;
 
 public class Texture {
     public static final int WIDTH = 31;
-    public static final int HEIGHT = 15;
+    public static final int HEIGHT = 13;
 
     public static int coordinateX = 0;
     public static int coordinateY = 1;
@@ -39,7 +39,7 @@ public class Texture {
         try {
             DEFAULTFONT = Font.loadFont(Files.newInputStream(Paths.get("res/font/default.ttf")), 60);
             CHOOSENFONT = Font.loadFont(Files.newInputStream(Paths.get("res/font/title.ttf")), 25);
-            PIXELFONT = Font.loadFont(Files.newInputStream(Paths.get("res/font/pixel.ttf")), 40);
+            PIXELFONT = Font.loadFont(Files.newInputStream(Paths.get("res/font/pixel.ttf")), 90);
             
         } catch (IOException e) {
             System.out.println("[IOException] Wrong filepaths.");
