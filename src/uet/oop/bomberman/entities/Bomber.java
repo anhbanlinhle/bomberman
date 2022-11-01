@@ -19,27 +19,48 @@ import uet.oop.bomberman.Map;
 
 import static uet.oop.bomberman.BombermanGame.bombManager;
 import static uet.oop.bomberman.BombermanGame.map;
+import static uet.oop.bomberman.BombermanGame.enemyManager;
 
 public class Bomber extends DynamicEntity {
     private KeyListener keyHandle;
+
     public Bomber(int x, int y, Image img, KeyListener keyHandle) {
         super(x, y, img);
         this.keyHandle = keyHandle;
         speed = 3;
         status = STATUS.IDLE;
         direction = DIRECTION.RIGHT;
-
+        isAlive = true;
     }
 
     @Override
     public void update() {
-        updateMove(map);
-        updateBombs();
-        bombManager.update();
-        countFrame++;
-        countFrame = countFrame % 24;
-        img = setFrame();
-        checkColisionFlame(bombManager);
+        if (isAlive) {
+            updateMove(map);
+            updateBombs();
+            bombManager.update();
+            countFrame++;
+            countFrame = countFrame % 24;
+            img = setFrame();
+            checkColisionFlame(bombManager);
+            centerX = x + Sprite.SCALED_SIZE / 2;
+            centerY = y + Sprite.SCALED_SIZE / 2;
+
+            if (checkCollisionEnemy() || checkColisionFlame(bombManager))
+                setAlive(false);
+        }
+        else {
+            countDead++;
+            die1(countDead);
+            if (countDead >= 60)
+                die2(countDead);
+            int DELAY_REMOVE = 120;
+            if (countDead == DELAY_REMOVE) {
+                System.out.println("Game Over");
+                countDead = 0;
+            }
+        }
+
     }
 
     public Image setFrame() {
@@ -166,9 +187,30 @@ public class Bomber extends DynamicEntity {
 
     }
 
+    private boolean checkCollisionEnemy() {
+        List<Enemy> checkList = enemyManager.getEnemyList();
+        for (int i = 0; i < checkList.size(); i++) {
+            int difX = Math.abs(checkList.get(i).getCenterX() - centerX);
+            int difY = Math.abs(checkList.get(i).getCenterY() - centerY);
+            
+            if (difX < Sprite.SCALED_SIZE / 2 && difY < Sprite.SCALED_SIZE / 2) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public void render(GraphicsContext gc) {
         bombManager.render(gc);
         super.render(gc);
+    }
+
+    public void die1(int count) {
+        img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, count, 60).getFxImage();
+    }
+
+    public void die2(int count) {
+        img = Sprite.movingSprite(Sprite.player_dead4, Sprite.player_dead5, Sprite.player_dead6, count, 60).getFxImage();
     }
 }

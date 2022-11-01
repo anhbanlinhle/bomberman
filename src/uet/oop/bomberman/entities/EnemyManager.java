@@ -38,9 +38,9 @@ public class EnemyManager {
             } else {
                 enemyList.get(i).die();
                 enemyList.get(i).increaseCountDead();
-                if (enemyList.get(i).getCountDead() >= 10)
+                if (enemyList.get(i).getCountDead() >= 9)
                     enemyList.get(i).loadDie(enemyList.get(i).getCountDead());
-                int DELAY_REMOVE_ENEMY = 40;
+                int DELAY_REMOVE_ENEMY = 36;
                 if (enemyList.get(i).getCountDead() == DELAY_REMOVE_ENEMY){
                     enemyList.remove(i);
                     count = 0;
