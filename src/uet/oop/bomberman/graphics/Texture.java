@@ -21,8 +21,8 @@ import javafx.scene.image.*;
 
 
 public class Texture {
-    public static final int WIDTH = 30;
-    public static final int HEIGHT = 17;
+    public static final int WIDTH = 16;
+    public static final int HEIGHT = 10;
 
     public static int coordinateX = 0;
     public static int coordinateY = 1;

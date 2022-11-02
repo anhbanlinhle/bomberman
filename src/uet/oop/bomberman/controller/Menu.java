@@ -23,10 +23,12 @@ public class Menu {
     }
 
     public static Image backGroundImage;
+    public static Image gameOverImage;
 
     public Menu() {
         try {
             backGroundImage = new Image(Files.newInputStream(Paths.get("res/textures/backgr.jpg")));
+            gameOverImage = new Image(Files.newInputStream(Paths.get("res/textures/gameOver.png")));
             System.out.println("duoc luon");
 
         } catch (IOException e) {
@@ -79,24 +81,17 @@ public class Menu {
                 Texture.HEIGHT / 6 * Sprite.SCALED_SIZE + 10 + 3 * (int) text.getLayoutBounds().getHeight() / 2, text));
         chooseButton = GAME;
 
-        text = new Text("TRY AGAIN");
+        text = new Text("YES");
         text.setFont(Texture.PIXELFONT);
         text.setFill(Color.WHITE);
-        buttonRetry.add(new Button(Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
-                Texture.HEIGHT / 2 * Sprite.SCALED_SIZE + (int) text.getLayoutBounds().getHeight() / 2 + 50, text));
+        buttonRetry.add(new Button(Texture.WIDTH * 2 / 8 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
+                    (Texture.HEIGHT * 3 / 4) * Sprite.SCALED_SIZE + (int) text.getLayoutBounds().getHeight() / 2, text));
 
-        text = new Text("QUIT");
+        text = new Text("NO");
         text.setFont(Texture.PIXELFONT);
         text.setFill(Color.WHITE);
-        buttonRetry.add(new Button(Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
-                Texture.HEIGHT / 2 * Sprite.SCALED_SIZE + (int) text.getLayoutBounds().getHeight() / 2 + 150, text));
-    
-        text = new Text("GAME OVER");
-        text.setFont(Texture.PIXELFONT);
-        text.setFill(Color.RED);
-        buttonRetry.add(new Button(Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
-                Texture.HEIGHT / 2 * Sprite.SCALED_SIZE + (int) text.getLayoutBounds().getHeight() / 2 - 100, text));
-
+        buttonRetry.add(new Button(Texture.WIDTH * 6 / 8 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
+                    (Texture.HEIGHT * 3 / 4) * Sprite.SCALED_SIZE + (int) text.getLayoutBounds().getHeight() / 2, text));
     }
 
     public STATE getGameState() {
@@ -120,6 +115,7 @@ public class Menu {
                 }
                 break;
             case GAME_OVER:
+                gc.drawImage(gameOverImage, 0, 0, Texture.WIDTH * Sprite.SCALED_SIZE, Texture.HEIGHT * Sprite.SCALED_SIZE);
                 for (int i = 0; i < buttonRetry.size(); i++) {
                     if (chooseButton == i) {
                         buttonRetry.get(i).renderChoosen(gc);
@@ -179,17 +175,17 @@ public class Menu {
                                 break;
                         }
                     }
-                    else if (keyListener.isPressed(KeyCode.S)) {
+                    else if (keyListener.isPressed(KeyCode.A)) {
 
                         chooseButton++;
-                        if (chooseButton == buttonRetry.size() - 1) {
+                        if (chooseButton == buttonRetry.size()) {
                             chooseButton = 0;
                         }
-                    } else if (keyListener.isPressed(KeyCode.W)) {
+                    } else if (keyListener.isPressed(KeyCode.D)) {
 
                         chooseButton--;
-                        if (chooseButton < 1) {
-                            chooseButton = buttonRetry.size() - 2;
+                        if (chooseButton < 0) {
+                            chooseButton = buttonRetry.size() - 1;
                         } 
                     }
                 break;
