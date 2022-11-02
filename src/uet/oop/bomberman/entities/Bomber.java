@@ -152,30 +152,60 @@ public class Bomber extends DynamicEntity {
             if (keyHandle.isPressed(KeyCode.W)) {
                 status = STATUS.WALK;
                 direction = DIRECTION.UP;
-                if (checkCollisionMap(map, x, y - speed, direction)) {
+                if (checkCollisionMap(map, x, y - speed, direction, ENTITY_TYPE.BRICK)
+                && checkCollisionMap(map, x, y - speed, direction, ENTITY_TYPE.WALL)
+                && checkCollisionMap(map, x, y - speed, direction, ENTITY_TYPE.BOMB)) {
                     y -= speed;
                 }
             } if (keyHandle.isPressed(KeyCode.D)) {
                 status = STATUS.WALK;
                 direction = DIRECTION.RIGHT;
-                if (checkCollisionMap(map, x + speed, y, direction)) {
+                if (checkCollisionMap(map, x + speed, y, direction, ENTITY_TYPE.BRICK)
+                && checkCollisionMap(map, x + speed, y, direction, ENTITY_TYPE.WALL)
+                && checkCollisionMap(map, x + speed, y, direction, ENTITY_TYPE.BOMB)) {
                     x += speed;
                 }
             } if (keyHandle.isPressed(KeyCode.A)) {
                 status = STATUS.WALK;
                 direction = DIRECTION.LEFT;
-                if (checkCollisionMap(map, x - speed, y, direction)) {
+                if (checkCollisionMap(map, x - speed, y, direction, ENTITY_TYPE.BRICK)
+                && checkCollisionMap(map, x - speed, y, direction, ENTITY_TYPE.WALL)
+                && checkCollisionMap(map, x - speed, y, direction, ENTITY_TYPE.BOMB)) {
                     x -= speed;
                 }
             } if (keyHandle.isPressed(KeyCode.S)) {
                 status = STATUS.WALK;
                 direction = DIRECTION.DOWN;
-                if (checkCollisionMap(map, x, y + speed, direction)) {
+                if (checkCollisionMap(map, x, y + speed, direction, ENTITY_TYPE.BRICK)
+                && checkCollisionMap(map, x, y + speed, direction, ENTITY_TYPE.WALL)
+                && checkCollisionMap(map, x, y + speed, direction, ENTITY_TYPE.BOMB)) {
                     y += speed;
                 }
             }
         } else {
             status = STATUS.IDLE;
+        }
+
+        if (!checkCollisionMap(map, x, y, direction, ENTITY_TYPE.BOMB_ITEM)) {
+            int grassX = convertToMapCordinate(x),
+                grassY = convertToMapCordinate(y);
+            switch(direction) {
+                case UP:
+                    grassY--;
+                    break;
+                case DOWN:
+                    grassY++;
+                    break;
+                case LEFT:
+                    grassX--;
+                    break;
+                case RIGHT:
+                    grassX++;
+                    break;
+            }
+            Grass grass = new Grass(grassX, grassY, Sprite.grass.getFxImage());
+            map.replace(grassX, grassY, grass);
+            bombManager.increaseBomb();
         }
     }
 
@@ -194,10 +224,11 @@ public class Bomber extends DynamicEntity {
     private boolean checkCollisionEnemy() {
         List<Enemy> checkList = enemyManager.getEnemyList();
         for (int i = 0; i < checkList.size(); i++) {
+            
             int difX = Math.abs(checkList.get(i).getCenterX() - centerX);
             int difY = Math.abs(checkList.get(i).getCenterY() - centerY);
             
-            if (difX + 6 < Sprite.SCALED_SIZE && difY < Sprite.SCALED_SIZE) {
+            if (difX + 6 < Sprite.SCALED_SIZE && difY + 6 < Sprite.SCALED_SIZE) {
                 return true;
             }
         }

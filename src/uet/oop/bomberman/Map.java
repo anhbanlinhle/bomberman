@@ -58,6 +58,15 @@ public class Map {
                             tempEnemy = new Oneal(j, i, Sprite.oneal_right1.getFxImage());
                             enemyList.add(tempEnemy);
                             entity = new Grass(j, i, Sprite.grass.getFxImage());
+                            break;
+                        case '3':
+                            tempEnemy = new Doll(j, i, Sprite.doll_right1.getFxImage());
+                            enemyList.add(tempEnemy);
+                            entity = new Grass(j, i, Sprite.grass.getFxImage());
+                            break;
+                        case 'b':
+                            entity = new BombItem(j, i, Sprite.brick.getFxImage());
+                            break;
                         default:
                             entity = new Grass(j, i, Sprite.grass.getFxImage());
                     }

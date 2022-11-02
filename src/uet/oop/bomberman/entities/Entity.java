@@ -80,6 +80,9 @@ public abstract class Entity {
         WALL,
         FLAME,
         GRASS,
-        ENEMY
+        ENEMY,
+        BOMB_ITEM,
+        SPEED_ITEM,
+        FLAME_ITEM
     }
 }
