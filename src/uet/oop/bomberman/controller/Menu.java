@@ -71,23 +71,23 @@ public class Menu {
         Text text = new Text("PLAY");
         text.setFont(Texture.PIXELFONT);
         text.setFill(Color.WHITE);
-        buttonMenu.add(new Button((Texture.WIDTH * 3 / 4) * Sprite.SCALED_SIZE + 10 - (int) text.getLayoutBounds().getWidth() / 2,
+        buttonMenu.add(new Button((Texture.WIDTH * 3 / 4) * Sprite.SCALED_SIZE + 10 - (int) text.getLayoutBounds().getWidth() / 2 + 50,
                 (Texture.HEIGHT / 6) * Sprite.SCALED_SIZE + (int) text.getLayoutBounds().getHeight() / 2, text));
 
         text = new Text("EXIT");
         text.setFont(Texture.PIXELFONT);
         text.setFill(Color.WHITE);
-        buttonMenu.add(new Button((Texture.WIDTH * 3 / 4) * Sprite.SCALED_SIZE + 10 - (int) text.getLayoutBounds().getWidth() / 2,
+        buttonMenu.add(new Button((Texture.WIDTH * 3 / 4) * Sprite.SCALED_SIZE + 10 - (int) text.getLayoutBounds().getWidth() / 2 + 50,
                 Texture.HEIGHT / 6 * Sprite.SCALED_SIZE + 10 + 3 * (int) text.getLayoutBounds().getHeight() / 2, text));
         chooseButton = GAME;
 
-        text = new Text("YES");
+        text = new Text("Yes");
         text.setFont(Texture.PIXELFONT);
         text.setFill(Color.WHITE);
         buttonRetry.add(new Button(Texture.WIDTH * 2 / 8 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
                     (Texture.HEIGHT * 3 / 4) * Sprite.SCALED_SIZE + (int) text.getLayoutBounds().getHeight() / 2, text));
 
-        text = new Text("NO");
+        text = new Text("No");
         text.setFont(Texture.PIXELFONT);
         text.setFill(Color.WHITE);
         buttonRetry.add(new Button(Texture.WIDTH * 6 / 8 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,

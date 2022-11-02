@@ -109,9 +109,10 @@ public class BombermanGame extends Application {
                         }
                     enemyManager.update();
                 }
-                else
+                else {
                     bomberman.update();
-
+                    bombManager.update();
+                }
                 if (bomberman.loseDelay == loseDelay) {
                     removeBomber();
                     menu.setGameState(Menu.GAME_STATE.GAME_OVER);
