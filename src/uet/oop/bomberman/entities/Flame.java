@@ -11,8 +11,10 @@ public class Flame extends Entity {
         MIDDLE,
         END,
         BOMB,
-
-        BRICK
+        BRICK,
+        BOMB_ITEM,
+        SPEED_ITEM,
+        FLAME_ITEM,
     };
 
     enum DIRECTION {

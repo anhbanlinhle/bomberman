@@ -99,6 +99,7 @@ public class BombermanGame extends Application {
                 if (bomberman.isAlive()) {
                     bomberman.update();
                     enemyManager.update();
+                    // System.out.println(map.getEntity(3, 2).getType());
                 }
                 else {
                     bomberman.update();
