@@ -62,16 +62,29 @@ public class BombermanGame extends Application {
         // Control system
         keyH = new KeyListener(scene);
         menu = new Menu(keyH);
+        
+        // Entity
+        createGame();
+    }
+
+    public void createGame() {
         map = new Map();
         bombManager = new BombManager();
         enemyManager = new EnemyManager();
         map.loadMap(keyH);
         enemyManager.setEnemyList(map.getEnemyList());
-
-        // Entity
         bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage(), keyH);
         entities.add(bomberman);
         bomberman.update();
+    }
+
+    public void removeBomber() {
+        for (int i = entities.size() - 1; i  >= 0; i--) {
+            if (entities.get(i) instanceof Bomber) {
+                entities.remove(i);
+                break;
+            }
+        }   
     }
 
     public void loop() {
@@ -80,10 +93,13 @@ public class BombermanGame extends Application {
     }
 
     public void update() {
-        int loseDelay = 360;
+        int loseDelay = 120;
 
         switch (menu.getGameState()) {
             case IN_MENU:
+                menu.update();
+                break;
+            case GAME_OVER:
                 menu.update();
                 break;
             case IN_GAME:
@@ -95,10 +111,15 @@ public class BombermanGame extends Application {
                 }
                 else
                     bomberman.update();
-                    
-                if (bomberman.loseDelay == loseDelay)
-                    menu.setGameState(Menu.GAME_STATE.EXIT);
+
+                if (bomberman.loseDelay == loseDelay) {
+                    removeBomber();
+                    menu.setGameState(Menu.GAME_STATE.GAME_OVER);
+                    menu.update();
+                    createGame();
+                }
                break;
+            
             case EXIT:
                 System.exit(0);
                 break;       
@@ -108,6 +129,9 @@ public class BombermanGame extends Application {
     public void render() {
         switch (menu.getGameState()) {
             case IN_MENU:
+                menu.render(gc);
+                break;
+            case GAME_OVER:
                 menu.render(gc);
                 break;
             case IN_GAME:
