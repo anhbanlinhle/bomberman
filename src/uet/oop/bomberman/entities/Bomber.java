@@ -197,7 +197,7 @@ public class Bomber extends DynamicEntity {
             int difX = Math.abs(checkList.get(i).getCenterX() - centerX);
             int difY = Math.abs(checkList.get(i).getCenterY() - centerY);
             
-            if (difX < Sprite.SCALED_SIZE / 2 && difY < Sprite.SCALED_SIZE / 2) {
+            if (difX + 6 < Sprite.SCALED_SIZE && difY < Sprite.SCALED_SIZE) {
                 return true;
             }
         }
