@@ -152,25 +152,33 @@ public class Bomber extends DynamicEntity {
             if (keyHandle.isPressed(KeyCode.W)) {
                 status = STATUS.WALK;
                 direction = DIRECTION.UP;
-                if (checkCollisionMap(map, x, y - speed, direction)) {
+                if (checkCollisionMap(map, x, y - speed, direction, ENTITY_TYPE.BRICK)
+                && checkCollisionMap(map, x, y - speed, direction, ENTITY_TYPE.WALL)
+                && checkCollisionMap(map, x, y - speed, direction, ENTITY_TYPE.BOMB)) {
                     y -= speed;
                 }
             } if (keyHandle.isPressed(KeyCode.D)) {
                 status = STATUS.WALK;
                 direction = DIRECTION.RIGHT;
-                if (checkCollisionMap(map, x + speed, y, direction)) {
+                if (checkCollisionMap(map, x + speed, y, direction, ENTITY_TYPE.BRICK)
+                && checkCollisionMap(map, x + speed, y, direction, ENTITY_TYPE.WALL)
+                && checkCollisionMap(map, x + speed, y, direction, ENTITY_TYPE.BOMB)) {
                     x += speed;
                 }
             } if (keyHandle.isPressed(KeyCode.A)) {
                 status = STATUS.WALK;
                 direction = DIRECTION.LEFT;
-                if (checkCollisionMap(map, x - speed, y, direction)) {
+                if (checkCollisionMap(map, x - speed, y, direction, ENTITY_TYPE.BRICK)
+                && checkCollisionMap(map, x - speed, y, direction, ENTITY_TYPE.WALL)
+                && checkCollisionMap(map, x - speed, y, direction, ENTITY_TYPE.BOMB)) {
                     x -= speed;
                 }
             } if (keyHandle.isPressed(KeyCode.S)) {
                 status = STATUS.WALK;
                 direction = DIRECTION.DOWN;
-                if (checkCollisionMap(map, x, y + speed, direction)) {
+                if (checkCollisionMap(map, x, y + speed, direction, ENTITY_TYPE.BRICK)
+                && checkCollisionMap(map, x, y + speed, direction, ENTITY_TYPE.WALL)
+                && checkCollisionMap(map, x, y + speed, direction, ENTITY_TYPE.BOMB)) {
                     y += speed;
                 }
             }

@@ -93,28 +93,36 @@ public class Oneal extends Enemy {
       findDirection(map);
       
     if (newDir == DIRECTION.UP) {
-      if (checkCollisionMap(map, x, y - speed, DIRECTION.UP)) {
+      if (checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.BRICK)
+          && checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.WALL)
+          && checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.BOMB)) {
         direction = DIRECTION.UP;
         y -= speed;
       } else
         findDirection(map);
     }
     if (newDir == DIRECTION.RIGHT) {
-      if (checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT)) {
+      if (checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT, ENTITY_TYPE.BRICK)
+          && checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT, ENTITY_TYPE.WALL)
+          && checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT, ENTITY_TYPE.BOMB)) {
         direction = DIRECTION.RIGHT;
         x += speed;
       } else
         findDirection(map);
     }
     if (newDir == DIRECTION.LEFT) {
-      if (checkCollisionMap(map, x - speed, y, DIRECTION.LEFT)) {
+      if (checkCollisionMap(map, x - speed, y, DIRECTION.LEFT, ENTITY_TYPE.BRICK)
+          && checkCollisionMap(map, x - speed, y, DIRECTION.LEFT, ENTITY_TYPE.WALL)
+          && checkCollisionMap(map, x - speed, y, DIRECTION.LEFT, ENTITY_TYPE.BOMB)) {
         direction = DIRECTION.LEFT;
         x -= speed;
       } else
         findDirection(map);
     }
     if (newDir == DIRECTION.DOWN) {
-      if (checkCollisionMap(map, x, y + speed, DIRECTION.DOWN)) {
+      if (checkCollisionMap(map, x, y + speed, DIRECTION.DOWN, ENTITY_TYPE.BRICK)
+          && checkCollisionMap(map, x, y + speed, DIRECTION.DOWN, ENTITY_TYPE.WALL)
+          && checkCollisionMap(map, x, y + speed, DIRECTION.DOWN, ENTITY_TYPE.BOMB)) {
         direction = DIRECTION.DOWN;
         y += speed;
       } else

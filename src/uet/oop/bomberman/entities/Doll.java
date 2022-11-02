@@ -84,178 +84,37 @@ public class Doll extends Enemy {
   }
 
   @Override
-  public boolean checkCollisionMap(Map map, int a, int b, DIRECTION direction) {
-    // player's map cordinate
-    int xMap = convertToMapCordinate(this.x);
-    int yMap = convertToMapCordinate(this.y);
-
-    // cor for check
-    int xCheck;
-    int yCheck;
-    ENTITY_TYPE type_check;
-
-    // check up
-    if (direction == DIRECTION.UP) {
-      xCheck = xMap;
-      yCheck = yMap - 1;
-
-      // just up
-      type_check = map.entityTypeAtCordinate(xCheck, yCheck);
-      if (type_check == ENTITY_TYPE.WALL
-          || type_check == ENTITY_TYPE.BOMB) {
-        if (b < (yCheck + 1) * Sprite.SCALED_SIZE) {
-          return false;
-        }
-      }
-
-      // up left
-      type_check = map.entityTypeAtCordinate(xCheck - 1, yCheck);
-      if (type_check == ENTITY_TYPE.WALL
-          || type_check == ENTITY_TYPE.BOMB) {
-        if (b < (yCheck + 1) * Sprite.SCALED_SIZE && a < xCheck * Sprite.SCALED_SIZE) {
-          return false;
-        }
-      }
-
-      // up right
-      type_check = map.entityTypeAtCordinate(xCheck + 1, yCheck);
-      if (type_check == ENTITY_TYPE.WALL
-          || type_check == ENTITY_TYPE.BOMB) {
-        if (b < (yCheck + 1) * Sprite.SCALED_SIZE && a > xCheck * Sprite.SCALED_SIZE) {
-          return false;
-        }
-      }
-
-    }
-
-    // check down
-    if (direction == DIRECTION.DOWN) {
-      xCheck = xMap;
-      yCheck = yMap + 1;
-
-      // just down
-      type_check = map.entityTypeAtCordinate(xCheck, yCheck);
-      if (type_check == ENTITY_TYPE.WALL
-          || type_check == ENTITY_TYPE.BOMB) {
-        if (b > (yCheck - 1) * Sprite.SCALED_SIZE) {
-          return false;
-        }
-      }
-
-      // down left
-      type_check = map.entityTypeAtCordinate(xCheck - 1, yCheck);
-      if (type_check == ENTITY_TYPE.WALL
-          || type_check == ENTITY_TYPE.BOMB) {
-        if (b > (yCheck - 1) * Sprite.SCALED_SIZE && a < xCheck * Sprite.SCALED_SIZE) {
-          return false;
-        }
-      }
-
-      // down right
-      type_check = map.entityTypeAtCordinate(xCheck + 1, yCheck);
-      if (type_check == ENTITY_TYPE.WALL
-          || type_check == ENTITY_TYPE.BOMB) {
-        if (b > (yCheck - 1) * Sprite.SCALED_SIZE && a > xCheck * Sprite.SCALED_SIZE) {
-          return false;
-        }
-      }
-    }
-
-    // check left
-    if (direction == DIRECTION.LEFT) {
-      xCheck = xMap - 1;
-      yCheck = yMap;
-
-      // just left
-      type_check = map.entityTypeAtCordinate(xCheck, yCheck);
-      if (type_check == ENTITY_TYPE.WALL
-          || type_check == ENTITY_TYPE.BOMB) {
-        if (a < (xCheck + 1) * Sprite.SCALED_SIZE) {
-          return false;
-        }
-      }
-
-      // left up
-      type_check = map.entityTypeAtCordinate(xCheck, yCheck - 1);
-      if (type_check == ENTITY_TYPE.WALL
-          || type_check == ENTITY_TYPE.BOMB) {
-        if (a < (xCheck + 1) * Sprite.SCALED_SIZE && b < yCheck * Sprite.SCALED_SIZE) {
-          return false;
-        }
-      }
-
-      // left down
-      type_check = map.entityTypeAtCordinate(xCheck, yCheck + 1);
-      if (type_check == ENTITY_TYPE.WALL
-          || type_check == ENTITY_TYPE.BOMB) {
-        if (a < (xCheck + 1) * Sprite.SCALED_SIZE && b > yCheck * Sprite.SCALED_SIZE) {
-          return false;
-        }
-      }
-    }
-    // check right
-    if (direction == DIRECTION.RIGHT) {
-      xCheck = xMap + 1;
-      yCheck = yMap;
-
-      // just right
-      type_check = map.entityTypeAtCordinate(xCheck, yCheck);
-      if (type_check == ENTITY_TYPE.WALL
-          || type_check == ENTITY_TYPE.BOMB) {
-        if (a > (xCheck - 1) * Sprite.SCALED_SIZE) {
-          return false;
-        }
-      }
-
-      // right up
-      type_check = map.entityTypeAtCordinate(xCheck, yCheck - 1);
-      if (type_check == ENTITY_TYPE.WALL
-          || type_check == ENTITY_TYPE.BOMB) {
-        if (a > (xCheck - 1) * 32 && b < yCheck * Sprite.SCALED_SIZE) {
-          return false;
-        }
-      }
-
-      // right down
-      type_check = map.entityTypeAtCordinate(xCheck, yCheck + 1);
-      if (type_check == ENTITY_TYPE.WALL
-          || type_check == ENTITY_TYPE.BOMB) {
-        if (a > (xCheck - 1) * 32 && b > yCheck * Sprite.SCALED_SIZE) {
-          return false;
-        }
-      }
-    }
-    return true;
-  }
-
-  @Override
   public void updateMove(Map map) {
     if (x % 48 == 0 && y % 48 == 0 && convertToMapCordinate(x) % 2 == 1 && convertToMapCordinate(y) % 2 == 1)
       findDirection(map);
 
     if (newDir == DIRECTION.UP) {
-      if (checkCollisionMap(map, x, y - speed, DIRECTION.UP)) {
+      if (checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.WALL)
+          && checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.BOMB)) {
         direction = DIRECTION.UP;
         y -= speed;
       } else
         findDirection(map);
     }
     if (newDir == DIRECTION.RIGHT) {
-      if (checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT)) {
+      if (checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT, ENTITY_TYPE.WALL)
+          && checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT, ENTITY_TYPE.BOMB)) {
         direction = DIRECTION.RIGHT;
         x += speed;
       } else
         findDirection(map);
     }
     if (newDir == DIRECTION.LEFT) {
-      if (checkCollisionMap(map, x - speed, y, DIRECTION.LEFT)) {
+      if (checkCollisionMap(map, x - speed, y, DIRECTION.LEFT, ENTITY_TYPE.WALL)
+          && checkCollisionMap(map, x - speed, y, DIRECTION.LEFT, ENTITY_TYPE.BOMB)) {
         direction = DIRECTION.LEFT;
         x -= speed;
       } else
         findDirection(map);
     }
     if (newDir == DIRECTION.DOWN) {
-      if (checkCollisionMap(map, x, y + speed, DIRECTION.DOWN)) {
+      if (checkCollisionMap(map, x, y + speed, DIRECTION.DOWN, ENTITY_TYPE.WALL)
+          && checkCollisionMap(map, x, y + speed, DIRECTION.DOWN, ENTITY_TYPE.BOMB)) {
         direction = DIRECTION.DOWN;
         y += speed;
       } else
