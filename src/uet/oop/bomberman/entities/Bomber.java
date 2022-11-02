@@ -23,6 +23,9 @@ import static uet.oop.bomberman.BombermanGame.enemyManager;
 
 public class Bomber extends DynamicEntity {
     private KeyListener keyHandle;
+    
+    public int loseDelay;
+
 
     public Bomber(int x, int y, Image img, KeyListener keyHandle) {
         super(x, y, img);
@@ -59,6 +62,7 @@ public class Bomber extends DynamicEntity {
                 System.out.println("Game Over");
                 countDead = 0;
             }
+            loseDelay++;
         }
 
     }
@@ -193,7 +197,7 @@ public class Bomber extends DynamicEntity {
             int difX = Math.abs(checkList.get(i).getCenterX() - centerX);
             int difY = Math.abs(checkList.get(i).getCenterY() - centerY);
             
-            if (difX < Sprite.SCALED_SIZE / 2 && difY < Sprite.SCALED_SIZE / 2) {
+            if (difX + 6 < Sprite.SCALED_SIZE && difY < Sprite.SCALED_SIZE) {
                 return true;
             }
         }

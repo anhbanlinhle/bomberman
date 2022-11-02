@@ -19,14 +19,16 @@ import uet.oop.bomberman.graphics.Sprite;
 
 public class Menu {
     public static enum STATE {
-        IN_MENU, IN_GAME, EXIT
+        IN_MENU, IN_GAME, GAME_OVER, EXIT
     }
 
     public static Image backGroundImage;
+    public static Image gameOverImage;
 
     public Menu() {
         try {
             backGroundImage = new Image(Files.newInputStream(Paths.get("res/textures/backgr.jpg")));
+            gameOverImage = new Image(Files.newInputStream(Paths.get("res/textures/gameOver.png")));
             System.out.println("duoc luon");
 
         } catch (IOException e) {
@@ -40,7 +42,8 @@ public class Menu {
     private long delayInput = 10;
     public static STATE GAME_STATE = STATE.IN_MENU;
     private KeyListener keyListener;
-    List<Button> button = new ArrayList<>();
+    List<Button> buttonMenu = new ArrayList<>();
+    List<Button> buttonRetry = new ArrayList<>();
     Button startButton;
 
     private int chooseButton;
@@ -68,15 +71,27 @@ public class Menu {
         Text text = new Text("PLAY");
         text.setFont(Texture.PIXELFONT);
         text.setFill(Color.WHITE);
-        button.add(new Button((Texture.WIDTH * 3 / 4) * Sprite.SCALED_SIZE + 10 - (int) text.getLayoutBounds().getWidth() / 2,
+        buttonMenu.add(new Button((Texture.WIDTH * 3 / 4) * Sprite.SCALED_SIZE + 10 - (int) text.getLayoutBounds().getWidth() / 2 + 50,
                 (Texture.HEIGHT / 6) * Sprite.SCALED_SIZE + (int) text.getLayoutBounds().getHeight() / 2, text));
 
         text = new Text("EXIT");
         text.setFont(Texture.PIXELFONT);
         text.setFill(Color.WHITE);
-        button.add(new Button((Texture.WIDTH * 3 / 4) * Sprite.SCALED_SIZE + 10 - (int) text.getLayoutBounds().getWidth() / 2,
+        buttonMenu.add(new Button((Texture.WIDTH * 3 / 4) * Sprite.SCALED_SIZE + 10 - (int) text.getLayoutBounds().getWidth() / 2 + 50,
                 Texture.HEIGHT / 6 * Sprite.SCALED_SIZE + 10 + 3 * (int) text.getLayoutBounds().getHeight() / 2, text));
         chooseButton = GAME;
+
+        text = new Text("Yes");
+        text.setFont(Texture.PIXELFONT);
+        text.setFill(Color.WHITE);
+        buttonRetry.add(new Button(Texture.WIDTH * 2 / 8 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
+                    (Texture.HEIGHT * 3 / 4) * Sprite.SCALED_SIZE + (int) text.getLayoutBounds().getHeight() / 2, text));
+
+        text = new Text("No");
+        text.setFont(Texture.PIXELFONT);
+        text.setFill(Color.WHITE);
+        buttonRetry.add(new Button(Texture.WIDTH * 6 / 8 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
+                    (Texture.HEIGHT * 3 / 4) * Sprite.SCALED_SIZE + (int) text.getLayoutBounds().getHeight() / 2, text));
     }
 
     public STATE getGameState() {
@@ -91,14 +106,23 @@ public class Menu {
         switch(GAME_STATE) {
             case IN_MENU:
                 gc.drawImage(backGroundImage, 0, 0, Texture.WIDTH * Sprite.SCALED_SIZE, Texture.HEIGHT * Sprite.SCALED_SIZE);
-                for (int i = 0; i < button.size(); i++) {
+                for (int i = 0; i < buttonMenu.size(); i++) {
                     if (chooseButton == i) {
-                        button.get(i).renderChoosen(gc);
+                        buttonMenu.get(i).renderChoosen(gc);
                     } else {
-                        button.get(i).render(gc);
+                        buttonMenu.get(i).render(gc);
                     }
                 }
                 break;
+            case GAME_OVER:
+                gc.drawImage(gameOverImage, 0, 0, Texture.WIDTH * Sprite.SCALED_SIZE, Texture.HEIGHT * Sprite.SCALED_SIZE);
+                for (int i = 0; i < buttonRetry.size(); i++) {
+                    if (chooseButton == i) {
+                        buttonRetry.get(i).renderChoosen(gc);
+                    } else {
+                        buttonRetry.get(i).render(gc);
+                    }
+                }
             default:
                 break;
             
@@ -124,17 +148,46 @@ public class Menu {
                     else if (keyListener.isPressed(KeyCode.S)) {
 
                         chooseButton++;
-                        if (chooseButton == button.size()) {
+                        if (chooseButton == buttonMenu.size()) {
                             chooseButton = 0;
                         }
                     } else if (keyListener.isPressed(KeyCode.W)) {
 
                         chooseButton--;
                         if (chooseButton < 0) {
-                            chooseButton = button.size() - 1;
+                            chooseButton = buttonMenu.size() - 1;
                         }
                     
                 }
+                break;
+                }
+            case GAME_OVER:
+                now = Timer.getNow();
+                if (now - delayInput > Timer.TIME_PER_FRAME * 5) {
+                    delayInput = now;
+                    if (keyListener.isPressed(KeyCode.ENTER)) {
+                        switch(chooseButton) {
+                            case GAME:
+                                setGameState(STATE.IN_GAME);
+                                break;
+                            case EXIT:
+                                setGameState(STATE.IN_MENU);
+                                break;
+                        }
+                    }
+                    else if (keyListener.isPressed(KeyCode.A)) {
+
+                        chooseButton++;
+                        if (chooseButton == buttonRetry.size()) {
+                            chooseButton = 0;
+                        }
+                    } else if (keyListener.isPressed(KeyCode.D)) {
+
+                        chooseButton--;
+                        if (chooseButton < 0) {
+                            chooseButton = buttonRetry.size() - 1;
+                        } 
+                    }
                 break;
                 }
             default:
