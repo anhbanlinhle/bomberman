@@ -185,6 +185,12 @@ public class Bomber extends DynamicEntity {
         } else {
             status = STATUS.IDLE;
         }
+
+        if (!checkCollisionMap(map, x, y, direction, ENTITY_TYPE.BOMB_ITEM)) {
+            Grass grass = new Grass(convertToMapCordinate(x/48*48), convertToMapCordinate(y/48*48), Sprite.grass.getFxImage());
+            map.replace(convertToMapCordinate(x/48*48), convertToMapCordinate(y/48*48), grass);
+            bombManager.increaseBomb();
+        }
     }
 
     private void updateBombs() {

@@ -24,7 +24,7 @@ public class BombManager {
     public BombManager() {
         bombList = new ArrayList<>();
         flameList = new ArrayList<>();
-        bombRemain = 2;
+        bombRemain = 1;
         flameLength = 1;
         flamePosX = 0;
         flamePosY = 0;
@@ -149,5 +149,9 @@ public class BombManager {
 
     public void increaseBomb() {
         bombRemain++;
+    }
+
+    public int getBombRemain() {
+        return bombRemain;
     }
 }
