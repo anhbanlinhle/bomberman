@@ -194,10 +194,11 @@ public class Bomber extends DynamicEntity {
     private boolean checkCollisionEnemy() {
         List<Enemy> checkList = enemyManager.getEnemyList();
         for (int i = 0; i < checkList.size(); i++) {
+            
             int difX = Math.abs(checkList.get(i).getCenterX() - centerX);
             int difY = Math.abs(checkList.get(i).getCenterY() - centerY);
             
-            if (difX + 6 < Sprite.SCALED_SIZE && difY < Sprite.SCALED_SIZE) {
+            if (difX + 6 < Sprite.SCALED_SIZE && difY + 6 < Sprite.SCALED_SIZE) {
                 return true;
             }
         }

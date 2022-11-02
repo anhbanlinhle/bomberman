@@ -13,8 +13,8 @@ public class Oneal extends Enemy {
   public Oneal(int x, int y, Image img) {
     super(x, y, img);
     direction = DIRECTION.RIGHT;
-    speed = 4;
-    newDir = DIRECTION.RIGHT;
+    speed = 2;
+    newDir = DIRECTION.LEFT;
   }
 
   public void findDirection(Map map) {

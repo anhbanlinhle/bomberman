@@ -11,6 +11,7 @@ public class Balloom extends Enemy{
     public Balloom(int x, int y, Image img) {
         super(x, y, img);
         direction = DIRECTION.RIGHT;
+        speed = 3;
     }
 
     @Override
