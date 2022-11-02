@@ -99,6 +99,7 @@ public class BombermanGame extends Application {
                 if (bomberman.isAlive()) {
                     bomberman.update();
                     enemyManager.update();
+                    System.out.println("Bomb remain: " + bombManager.getBombRemain());
                 }
                 else {
                     bomberman.update();

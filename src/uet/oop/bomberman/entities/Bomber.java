@@ -187,8 +187,24 @@ public class Bomber extends DynamicEntity {
         }
 
         if (!checkCollisionMap(map, x, y, direction, ENTITY_TYPE.BOMB_ITEM)) {
-            Grass grass = new Grass(convertToMapCordinate(x/48*48), convertToMapCordinate(y/48*48), Sprite.grass.getFxImage());
-            map.replace(convertToMapCordinate(x/48*48), convertToMapCordinate(y/48*48), grass);
+            int grassX = convertToMapCordinate(x),
+                grassY = convertToMapCordinate(y);
+            switch(direction) {
+                case UP:
+                    grassY--;
+                    break;
+                case DOWN:
+                    grassY++;
+                    break;
+                case LEFT:
+                    grassX--;
+                    break;
+                case RIGHT:
+                    grassX++;
+                    break;
+            }
+            Grass grass = new Grass(grassX, grassY, Sprite.grass.getFxImage());
+            map.replace(grassX, grassY, grass);
             bombManager.increaseBomb();
         }
     }
