@@ -7,8 +7,8 @@ import uet.oop.bomberman.BombermanGame;
 
 public class Timer {
 
-    private static final int FPS = 15;
-    private static final long TIME_PER_FRAME = 1000000000 / FPS;
+    private static final int FPS = 45;
+    static final long TIME_PER_FRAME = 1000000000 / FPS;
     private static final long NEXT_TIME = TIME_PER_FRAME + System.nanoTime();
 
     private AnimationTimer timer;

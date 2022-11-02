@@ -9,46 +9,28 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import uet.oop.bomberman.controller.KeyListener;
+import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.Map;
 
-public class Enemy extends DynamicEntity {
-    int speed;
+import static uet.oop.bomberman.BombermanGame.bombManager;
+import static uet.oop.bomberman.BombermanGame.map;
 
+public class Enemy extends DynamicEntity {
     public Enemy(int x, int y, Image img) {
         super(x, y, img);
         speed = 1;
+        setType(ENTITY_TYPE.ENEMY);
     }
 
     @Override
-    public void update(Map map) {
+    public void update() {
         updateMove(map);
+        checkColisionFlame(bombManager);
+        centerX = x + Sprite.SCALED_SIZE / 2;
+        centerY = y + Sprite.SCALED_SIZE / 2;
     }
 
-    private void updateMove(Map map) {
-        int min = 1;
-        int max = 4;
+    public void updateMove(Map map) {
 
-        int ran = (int) Math.floor(Math.random() * (max - min + 1) + min);
-
-        if (ran == 1) {
-            if (checkCollisionMap(map, x, y - speed, 0)) {
-                y -= speed;
-            }
-        }
-        if (ran == 2) {
-            if (checkCollisionMap(map, x + speed, y, 3)) {
-                x += speed;
-            }
-        }
-        if (ran == 3) {
-            if (checkCollisionMap(map, x - speed, y, 2)) {
-                x -= speed;
-            }
-        }
-        if (ran == 4) {
-            if (checkCollisionMap(map, x, y + speed, 1)) {
-                y += speed;
-            }
-        }
     }
 }

@@ -12,18 +12,21 @@ import uet.oop.bomberman.controller.KeyListener;
 import uet.oop.bomberman.controller.Menu;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.graphics.Sprite;
-
+import uet.oop.bomberman.graphics.Texture;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BombermanGame extends Application {
 
     private Timer timer;
-    public static final int WIDTH = 31;
-    public static final int HEIGHT = 15;
+    public static final int WIDTH = Texture.WIDTH;
+    public static final int HEIGHT = Texture.HEIGHT;
 
+    public static Menu menu = new Menu();
     private GraphicsContext gc;
     private Canvas canvas;
+    private Texture textures;
+    
     private List<Entity> entities = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
     private KeyListener keyH;
@@ -32,7 +35,9 @@ public class BombermanGame extends Application {
         Application.launch(BombermanGame.class);
     }
 
-    Map map = new Map();
+    public static Map map;
+    public static BombManager bombManager;
+    public static EnemyManager enemyManager;
     Bomber bomberman;
 
     @Override
@@ -41,48 +46,103 @@ public class BombermanGame extends Application {
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
-
+        textures = new Texture(canvas);
         // Tao root container
         Group root = new Group();
         root.getChildren().add(canvas);
 
         // Tao scene
         Scene scene = new Scene(root);
-        Menu menu = new Menu();
+
         // Them scene vao stage
         stage.setScene(scene);
         stage.show();
         timer = new Timer(this);
 
+        // Control system
         keyH = new KeyListener(scene);
-        map.loadMap(keyH);
-        bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage(), keyH);
-        Entity enemy1 = new Enemy(10, 5, Sprite.player_right.getFxImage());
-        entities.add(bomberman);
-        entities.add(enemy1);
-        bomberman.update(map);
-        enemy1.update(map);
+        menu = new Menu(keyH);
+        
+        // Entity
+        createGame();
+    }
 
+    public void createGame() {
+        map = new Map();
+        bombManager = new BombManager();
+        enemyManager = new EnemyManager();
+        map.loadMap(keyH);
+        enemyManager.setEnemyList(map.getEnemyList());
+        bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage(), keyH);
+        entities.add(bomberman);
+        bomberman.update();
+    }
+
+    public void removeBomber() {
+        for (int i = entities.size() - 1; i  >= 0; i--) {
+            if (entities.get(i) instanceof Bomber) {
+                entities.remove(i);
+                break;
+            }
+        }   
     }
 
     public void loop() {
         render();
-        update(map);
-
+        update();
     }
 
+    public void update() {
+        int loseDelay = 120;
 
-    public void update(Map map) {
-        // switch (menu.)
-        // entities.forEach(Entity::update);
-        for (int i = 0; i < entities.size(); i++) {
-            entities.get(i).update(map);
+        switch (menu.getGameState()) {
+            case IN_MENU:
+                menu.update();
+                break;
+            case GAME_OVER:
+                menu.update();
+                break;
+            case IN_GAME:
+                if (bomberman.isAlive()) {
+                    for (Entity entity : entities) {
+                            entity.update();
+                        }
+                    enemyManager.update();
+                }
+                else {
+                    bomberman.update();
+                    bombManager.update();
+                }
+                if (bomberman.loseDelay == loseDelay) {
+                    removeBomber();
+                    menu.setGameState(Menu.GAME_STATE.GAME_OVER);
+                    menu.update();
+                    createGame();
+                }
+               break;
+            
+            case EXIT:
+                System.exit(0);
+                break;       
         }
     }
 
     public void render() {
-        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        map.renderMap(gc);
-        entities.forEach(g -> g.render(gc));
+        switch (menu.getGameState()) {
+            case IN_MENU:
+                menu.render(gc);
+                break;
+            case GAME_OVER:
+                menu.render(gc);
+                break;
+            case IN_GAME:
+                gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                map.renderMap(gc);
+                entities.forEach(g -> g.render(gc));
+                enemyManager.getEnemyList().forEach(g -> g.render(gc));
+                break;
+            case EXIT:
+                break;
+        }
     }
 }

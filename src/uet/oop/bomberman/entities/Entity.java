@@ -15,9 +15,13 @@ public abstract class Entity {
     // Tọa độ Y tính từ góc trái trên trong Canvas
     protected int y;
 
+    protected int centerX;
+
+    protected int centerY;
+
     protected Image img;
 
-    protected int type;
+    protected ENTITY_TYPE type;
 
     public Entity() {
     }
@@ -27,6 +31,11 @@ public abstract class Entity {
         this.x = xUnit * Sprite.SCALED_SIZE;
         this.y = yUnit * Sprite.SCALED_SIZE;
         this.img = img;
+    }
+
+    public Entity(int xUnit, int yUnit) {
+        this.x = xUnit * Sprite.SCALED_SIZE;
+        this.y = yUnit * Sprite.SCALED_SIZE;
     }
 
     public void render(GraphicsContext gc) {
@@ -41,11 +50,11 @@ public abstract class Entity {
 
     }
 
-    public int getType() {
+    public ENTITY_TYPE getType() {
         return this.type;
     }
 
-    public void setType(int type) {
+    public void setType(ENTITY_TYPE type) {
         this.type = type;
     }
 
@@ -55,5 +64,22 @@ public abstract class Entity {
 
     public int getY() {
         return y;
+    }
+
+    public int getCenterX() {
+        return centerX;
+    }
+
+    public int getCenterY() {
+        return centerY;
+    }
+
+    public enum ENTITY_TYPE {
+        BRICK,
+        BOMB,
+        WALL,
+        FLAME,
+        GRASS,
+        ENEMY
     }
 }

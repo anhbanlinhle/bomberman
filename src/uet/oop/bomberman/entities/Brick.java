@@ -7,12 +7,12 @@ public class Brick extends Entity {
 
     public Brick(int x, int y, Image img) {
         super(x, y, img);
-        setType(2);
+        setType(ENTITY_TYPE.BRICK);
     }
 
     @Override
     public void update(Map map) {
-        // TODO Auto-generated method stub
+       
 
     }
 
