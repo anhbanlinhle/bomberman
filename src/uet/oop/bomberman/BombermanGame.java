@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import uet.oop.bomberman.controller.Timer;
 import uet.oop.bomberman.controller.KeyListener;
 import uet.oop.bomberman.controller.Menu;
+import uet.oop.bomberman.controller.SoundFile;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.graphics.Texture;
@@ -44,6 +45,7 @@ public class BombermanGame extends Application {
     public void start(Stage stage) {
 
         // Tao Canvas
+        SoundFile.backgroundGame.loop();
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
         textures = new Texture(canvas);
@@ -103,6 +105,8 @@ public class BombermanGame extends Application {
                 menu.update();
                 break;
             case IN_GAME:
+                SoundFile.backgroundGame.stop();
+                SoundFile.playGame.loop();
                 if (bomberman.isAlive()) {
                     for (Entity entity : entities) {
                             entity.update();
@@ -114,6 +118,9 @@ public class BombermanGame extends Application {
                     bombManager.update();
                 }
                 if (bomberman.loseDelay == loseDelay) {
+                    SoundFile.playGame.stop();
+                    SoundFile.lose.play();
+
                     removeBomber();
                     menu.setGameState(Menu.GAME_STATE.GAME_OVER);
                     menu.update();

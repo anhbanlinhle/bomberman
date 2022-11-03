@@ -14,6 +14,7 @@ import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.graphics.SpriteSheet;
 import uet.oop.bomberman.controller.KeyListener;
+import uet.oop.bomberman.controller.SoundFile;
 import uet.oop.bomberman.controller.KeyListener.DIRECTION;
 import uet.oop.bomberman.Map;
 
@@ -31,101 +32,9 @@ public class Bomber extends DynamicEntity {
         super(x, y, img);
         this.keyHandle = keyHandle;
         speed = 3;
-<<<<<<< HEAD
-        moving = false;
-        direction = 3;
-    }
-
-    @Override
-    public void update(Map map) {
-        updateMove(map);
-        updateBombs();
-        bombManager.update();
-        countFrame++;
-        countFrame = countFrame % 9;
-        img = setFrame();
-    }
-
-    public Image setFrame() {
-        int frameNum = countFrame / 3;
-        Image frame = null;
-        if (moving) {
-            switch (direction) {
-                case 0:
-                    switch (frameNum) {
-                        case 0:
-                            frame = Sprite.player_up.getFxImage();
-                            break;
-                        case 1:
-                            frame = Sprite.player_up_1.getFxImage();
-                            break;
-                        case 2:
-                            frame = Sprite.player_up_2.getFxImage();
-                            break;
-                    }
-                    break;
-                case 1:
-                    switch (frameNum) {
-                        case 0:
-                            frame = Sprite.player_down.getFxImage();
-                            break;
-                        case 1:
-                            frame = Sprite.player_down_1.getFxImage();
-                            break;
-                        case 2:
-                            frame = Sprite.player_down_2.getFxImage();
-                            break;
-                    }
-                    break;
-                case 2:
-                    switch (frameNum) {
-                        case 0:
-                            frame = Sprite.player_left.getFxImage();
-                            break;
-                        case 1:
-                            frame = Sprite.player_left_1.getFxImage();
-                            break;
-                        case 2:
-                            frame = Sprite.player_left_2.getFxImage();
-                            break;
-                    }
-                    break;
-                case 3:
-                    switch (frameNum) {
-                        case 0:
-                            frame = Sprite.player_right.getFxImage();
-                            break;
-                        case 1:
-                            frame = Sprite.player_right_1.getFxImage();
-                            break;
-                        case 2:
-                            frame = Sprite.player_right_2.getFxImage();
-                            break;
-                    }
-                    break;
-            }
-        } else {
-            switch (direction) {
-                case 0:
-                    frame = Sprite.player_up.getFxImage();
-                    break;
-                case 1:
-                    frame = Sprite.player_down.getFxImage();
-                    break;
-                case 2:
-                    frame = Sprite.player_left.getFxImage();
-                    break;
-                case 3:
-                    frame = Sprite.player_right.getFxImage();
-                    break;
-            }
-        }
-        return frame;
-=======
         status = STATUS.IDLE;
         direction = DIRECTION.RIGHT;
         isAlive = true;
->>>>>>> 3e9c13dab7e27ade5a75c06d450287e78823587f
     }
 
     @Override
@@ -145,6 +54,7 @@ public class Bomber extends DynamicEntity {
                 setAlive(false);
         }
         else {
+            SoundFile.playGame.stop();
             countDead++;
             die1(countDead);
             if (countDead >= 60)
@@ -159,32 +69,6 @@ public class Bomber extends DynamicEntity {
 
     }
 
-<<<<<<< HEAD
-    private void updateMove(Map map) {
-        if (keyHandle.isPressed(KeyCode.W)) {
-            moving = true;
-            direction = 0;
-            if (checkCollisionMap(map, x, y - speed, direction)) {
-                y -= speed;
-            }
-        } else if (keyHandle.isPressed(KeyCode.D)) {
-            moving = true;
-            direction = 3;
-            if (checkCollisionMap(map, x + speed, y, direction)) {
-                x += speed;
-            }
-        } else if (keyHandle.isPressed(KeyCode.A)) {
-            moving = true;
-            direction = 2;
-            if (checkCollisionMap(map, x - speed, y, direction)) {
-                x -= speed;
-            }
-        } else if (keyHandle.isPressed(KeyCode.S)) {
-            moving = true;
-            direction = 1;
-            if (checkCollisionMap(map, x, y + speed, direction)) {
-                y += speed;
-=======
     public Image setFrame() {
         int frameNum = countFrame / 8;
         Image frame = null;
@@ -257,13 +141,10 @@ public class Bomber extends DynamicEntity {
                 case RIGHT:
                     frame = Sprite.player_right.getFxImage();
                     break;
->>>>>>> 3e9c13dab7e27ade5a75c06d450287e78823587f
             }
-        } else {
+        } /*else {
             moving = false;
-        }
-<<<<<<< HEAD
-=======
+        }*/
         return frame;
     }
 
@@ -300,7 +181,6 @@ public class Bomber extends DynamicEntity {
         } else {
             status = STATUS.IDLE;
         }
->>>>>>> 3e9c13dab7e27ade5a75c06d450287e78823587f
     }
 
     private void updateBombs() {

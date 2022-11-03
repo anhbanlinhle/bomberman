@@ -136,6 +136,7 @@ public class Menu {
                 if (now - delayInput > Timer.TIME_PER_FRAME * 5) {
                     delayInput = now;
                     if (keyListener.isPressed(KeyCode.ENTER)) {
+                        SoundFile.menuSelect.play();
                         switch(chooseButton) {
                             case GAME:
                                 setGameState(STATE.IN_GAME);
@@ -146,13 +147,13 @@ public class Menu {
                         }
                     }
                     else if (keyListener.isPressed(KeyCode.S)) {
-
+                        SoundFile.menuMove.play();
                         chooseButton++;
                         if (chooseButton == buttonMenu.size()) {
                             chooseButton = 0;
                         }
                     } else if (keyListener.isPressed(KeyCode.W)) {
-
+                        SoundFile.menuMove.play();
                         chooseButton--;
                         if (chooseButton < 0) {
                             chooseButton = buttonMenu.size() - 1;
@@ -166,6 +167,7 @@ public class Menu {
                 if (now - delayInput > Timer.TIME_PER_FRAME * 5) {
                     delayInput = now;
                     if (keyListener.isPressed(KeyCode.ENTER)) {
+                        SoundFile.menuSelect.play();
                         switch(chooseButton) {
                             case GAME:
                                 setGameState(STATE.IN_GAME);
@@ -176,13 +178,13 @@ public class Menu {
                         }
                     }
                     else if (keyListener.isPressed(KeyCode.A)) {
-
+                        SoundFile.menuMove.play();
                         chooseButton++;
                         if (chooseButton == buttonRetry.size()) {
                             chooseButton = 0;
                         }
                     } else if (keyListener.isPressed(KeyCode.D)) {
-
+                        SoundFile.menuMove.play();
                         chooseButton--;
                         if (chooseButton < 0) {
                             chooseButton = buttonRetry.size() - 1;
