@@ -8,4 +8,8 @@
 /.vscode
 .DS_Store
 target/
+<<<<<<< HEAD
 .vscode/
+=======
+.vscode/
+>>>>>>> 3e9c13dab7e27ade5a75c06d450287e78823587f

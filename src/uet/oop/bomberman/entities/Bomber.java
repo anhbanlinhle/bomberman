@@ -11,9 +11,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.controller.Camera;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.graphics.SpriteSheet;
 import uet.oop.bomberman.controller.KeyListener;
+import uet.oop.bomberman.controller.SoundFile;
 import uet.oop.bomberman.controller.KeyListener.DIRECTION;
 import uet.oop.bomberman.Map;
 
@@ -22,8 +24,8 @@ import static uet.oop.bomberman.BombermanGame.map;
 import static uet.oop.bomberman.BombermanGame.enemyManager;
 
 public class Bomber extends DynamicEntity {
+    private final int DIE_TIME = 60;
     private KeyListener keyHandle;
-    
     public int loseDelay;
 
 
@@ -53,6 +55,7 @@ public class Bomber extends DynamicEntity {
                 setAlive(false);
         }
         else {
+            SoundFile.playGame.stop();
             countDead++;
             die1(countDead);
             if (countDead >= 60)
@@ -140,7 +143,9 @@ public class Bomber extends DynamicEntity {
                     frame = Sprite.player_right.getFxImage();
                     break;
             }
-        }
+        } /*else {
+            moving = false;
+        }*/
         return frame;
     }
 
@@ -207,6 +212,70 @@ public class Bomber extends DynamicEntity {
             map.replace(grassX, grassY, grass);
             bombManager.increaseBomb();
         }
+        if (!checkCollisionMap(map, x, y, direction, ENTITY_TYPE.SPEED_ITEM)) {
+            int grassX = convertToMapCordinate(x),
+                    grassY = convertToMapCordinate(y);
+            switch (direction) {
+                case UP:
+                    grassY--;
+                    break;
+                case DOWN:
+                    grassY++;
+                    break;
+                case LEFT:
+                    grassX--;
+                    break;
+                case RIGHT:
+                    grassX++;
+                    break;
+            }
+            Grass grass = new Grass(grassX, grassY, Sprite.grass.getFxImage());
+            map.replace(grassX, grassY, grass);
+            speed++;
+            switch (direction) {
+                case UP:
+                    while (y%speed != 0) {
+                        y--;
+                    }
+                    break;
+                case DOWN: 
+                    while (y%speed != 0) {
+                        y++;
+                    }
+                    break;
+                case LEFT:
+                    while (x%speed != 0) {
+                        x--;
+                    }
+                    break;
+                case RIGHT:
+                    while (x%speed != 0) {
+                        x++;
+                    }
+                    break;
+            }
+        }
+        if (!checkCollisionMap(map, x, y, direction, ENTITY_TYPE.FLAME_ITEM)) {
+            int grassX = convertToMapCordinate(x),
+                    grassY = convertToMapCordinate(y);
+            switch (direction) {
+                case UP:
+                    grassY--;
+                    break;
+                case DOWN:
+                    grassY++;
+                    break;
+                case LEFT:
+                    grassX--;
+                    break;
+                case RIGHT:
+                    grassX++;
+                    break;
+            }
+            Grass grass = new Grass(grassX, grassY, Sprite.grass.getFxImage());
+            map.replace(grassX, grassY, grass);
+            bombManager.increaseFlameLength();
+        }
     }
 
     private void updateBombs() {
@@ -236,16 +305,16 @@ public class Bomber extends DynamicEntity {
     }
 
     @Override
-    public void render(GraphicsContext gc) {
-        bombManager.render(gc);
-        super.render(gc);
+    public void render(GraphicsContext gc, Camera camera) {
+        bombManager.render(gc, camera);
+        super.render(gc,camera );
     }
 
     public void die1(int count) {
-        img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, count, 60).getFxImage();
+        img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, count, DIE_TIME).getFxImage();
     }
 
     public void die2(int count) {
-        img = Sprite.movingSprite(Sprite.player_dead4, Sprite.player_dead5, Sprite.player_dead6, count, 60).getFxImage();
+        img = Sprite.movingSprite(Sprite.player_dead4, Sprite.player_dead5, Sprite.player_dead6, count, DIE_TIME).getFxImage();
     }
 }

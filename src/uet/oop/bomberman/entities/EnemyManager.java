@@ -1,11 +1,14 @@
 package uet.oop.bomberman.entities;
 
 import javafx.scene.canvas.GraphicsContext;
+import uet.oop.bomberman.controller.Camera;
+import uet.oop.bomberman.controller.SoundFile;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class EnemyManager {
+    private final int DELAY_REMOVE_ENEMY = 36;
     private List<Enemy> enemyList;
 
     private int count = 0;
@@ -32,27 +35,29 @@ public class EnemyManager {
 
     public void update() {
         // Remove dead enemy
-        for (int i = 0; i < enemyList.size(); i++) {
-            if(enemyList.get(i).isAlive()){
-                enemyList.get(i).update();
-            } else {
+        for (int i = enemyList.size() - 1; i >= 0; i--) {
+            if(!enemyList.get(i).isAlive()){
+                // SoundFile.monsterDie.play();
                 enemyList.get(i).die();
                 enemyList.get(i).increaseCountDead();
                 if (enemyList.get(i).getCountDead() >= 9)
                     enemyList.get(i).loadDie(enemyList.get(i).getCountDead());
-                int DELAY_REMOVE_ENEMY = 36;
+
                 if (enemyList.get(i).getCountDead() == DELAY_REMOVE_ENEMY){
                     enemyList.remove(i);
                     count = 0;
                 }
             }
+            else {
+                enemyList.get(i).update();
+            }
         }
     }
 
-    public void render(GraphicsContext gc) {
-        for (Enemy i :
+    public void render(GraphicsContext gc, Camera camera) {
+        for (Enemy enemy :
                 enemyList) {
-            i.render(gc);
+            enemy.render(gc, camera);
         }
     }
 }

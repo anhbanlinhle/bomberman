@@ -1,9 +1,11 @@
 package uet.oop.bomberman.entities;
 
 import javafx.scene.canvas.GraphicsContext;
+import uet.oop.bomberman.controller.Camera;
 import uet.oop.bomberman.graphics.Sprite;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.Map;
+import uet.oop.bomberman.controller.SoundFile;
 
 import java.util.List;
 
@@ -240,8 +242,7 @@ public abstract class DynamicEntity extends Entity {
                         && this.x + 12 < flameRightPos
                         && this.y < flameDownPos
                         && this.y + Sprite.SCALED_SIZE > flameUpPos) {
-                    System.out.println(flameLeftPos + " " + flameRightPos + " " + flameUpPos + " " + flameDownPos + "||" + this.x + " " + this.y);
-                    System.out.println("DIE");
+                    SoundFile.monsterDie.play();
                     isAlive = false;
                 }
             }
@@ -271,7 +272,7 @@ public abstract class DynamicEntity extends Entity {
     }
 
     @Override
-    public void render(GraphicsContext gc) {
-        super.render(gc);
+    public void render(GraphicsContext gc, Camera camera) {
+        super.render(gc, camera);
     }
 }

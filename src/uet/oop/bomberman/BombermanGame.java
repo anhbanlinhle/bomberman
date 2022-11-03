@@ -7,9 +7,11 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
+import uet.oop.bomberman.controller.Camera;
 import uet.oop.bomberman.controller.Timer;
 import uet.oop.bomberman.controller.KeyListener;
 import uet.oop.bomberman.controller.Menu;
+import uet.oop.bomberman.controller.SoundFile;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.graphics.Texture;
@@ -28,20 +30,22 @@ public class BombermanGame extends Application {
     private Canvas canvas;
     private Texture textures;
     private KeyListener keyH;
-
-    public static void main(String[] args) {
-        Application.launch(BombermanGame.class);
-    }
+    public Camera camera;
 
     public static Map map;
     public static BombManager bombManager;
     public static EnemyManager enemyManager;
+
     Bomber bomberman;
+    public static void main(String[] args) {
+        Application.launch(BombermanGame.class);
+    }
 
     @Override
     public void start(Stage stage) {
 
         // Tao Canvas
+        SoundFile.backgroundGame.loop();
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
         textures = new Texture(canvas);
@@ -58,9 +62,10 @@ public class BombermanGame extends Application {
         timer = new Timer(this);
 
         // Control system
+
         keyH = new KeyListener(scene);
         menu = new Menu(keyH);
-        
+
         // Entity
         createGame();
     }
@@ -70,6 +75,7 @@ public class BombermanGame extends Application {
         bombManager = new BombManager();
         enemyManager = new EnemyManager();
         map.loadMap(keyH);
+        camera = new Camera(1, 1, map.getWidth(), map.getHeight(), Texture.WIDTH, Texture.HEIGHT);
         enemyManager.setEnemyList(map.getEnemyList());
         bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage(), keyH);
     }
@@ -96,10 +102,12 @@ public class BombermanGame extends Application {
                 menu.update();
                 break;
             case IN_GAME:
+                SoundFile.backgroundGame.stop();
                 if (bomberman.isAlive()) {
+                    SoundFile.playGame.loop();
                     bomberman.update();
                     enemyManager.update();
-                    System.out.println("Bomb remain: " + bombManager.getBombRemain());
+                    camera.update(bomberman);
                 }
                 else {
                     bomberman.update();
@@ -107,12 +115,15 @@ public class BombermanGame extends Application {
                 }
                 if (bomberman.loseDelay == LOSE_DELAY) {
                     bomberman = null;
+                    SoundFile.playGame.stop();
+                    SoundFile.lose.play();
                     menu.setGameState(Menu.GAME_STATE.GAME_OVER);
                     menu.update();
                     cleanGame();
                     createGame();
                 }
-               break;
+                
+                break;
             
             case EXIT:
                 System.exit(0);
@@ -130,9 +141,9 @@ public class BombermanGame extends Application {
                 break;
             case IN_GAME:
                 gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-                map.renderMap(gc);
-                bomberman.render(gc);
-                enemyManager.getEnemyList().forEach(g -> g.render(gc));
+                map.renderMap(gc, camera);
+                bomberman.render(gc, camera);
+                enemyManager.render(gc, camera);
                 break;
             case EXIT:
                 break;
