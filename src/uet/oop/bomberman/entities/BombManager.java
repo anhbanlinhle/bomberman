@@ -104,6 +104,7 @@ BombManager {
                         BombItem item = new BombItem(flamePosX, flamePosY, Sprite.powerup_bombs.getFxImage());
                         item.setType(ENTITY_TYPE.BOMB_ITEM);
                         map.replace(flamePosX, flamePosY, item);
+                        map.itemList.add(item);
                         flameList.add(new Flame(flamePosX, flamePosY, Flame.FLAME_TYPE.BRICK, flameDirection[j]));
                     } 
 
@@ -113,6 +114,7 @@ BombManager {
                         SpeedItem item = new SpeedItem(flamePosX, flamePosY, Sprite.powerup_speed.getFxImage());
                         item.setType(ENTITY_TYPE.SPEED_ITEM);
                         map.replace(flamePosX, flamePosY, item);
+                        map.itemList.add(item);
                         flameList.add(new Flame(flamePosX, flamePosY, Flame.FLAME_TYPE.BRICK, flameDirection[j]));
                     }
 
@@ -122,12 +124,13 @@ BombManager {
                         FlameItem item = new FlameItem(flamePosX, flamePosY, Sprite.powerup_flames.getFxImage());
                         item.setType(ENTITY_TYPE.FLAME_ITEM);
                         map.replace(flamePosX, flamePosY, item);
+                        map.itemList.add(item);
                         flameList.add(new Flame(flamePosX, flamePosY, Flame.FLAME_TYPE.BRICK, flameDirection[j]));
                     }
 
-                    else if (map.getEntity(flamePosX, flamePosY).getType() == ENTITY_TYPE.SPEED_ITEM
-                            || map.getEntity(flamePosX, flamePosY).getType() == ENTITY_TYPE.BOMB_ITEM) {
+                    else if (map.getEntity(flamePosX, flamePosY) instanceof Item) {
                         bombPath[j] = false;
+                        ((DynamicEntity)map.getEntity(flamePosX, flamePosY)).setAlive(false);
                         Grass grass = new Grass(flamePosX, flamePosY, Sprite.grass.getFxImage());
                         map.replace(flamePosX, flamePosY, grass);
                         flameList.add(new Flame(flamePosX, flamePosY, Flame.FLAME_TYPE.BRICK, flameDirection[j]));

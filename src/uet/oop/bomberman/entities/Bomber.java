@@ -50,6 +50,7 @@ public class Bomber extends DynamicEntity {
             checkColisionFlame(bombManager);
             centerX = x + Sprite.SCALED_SIZE / 2;
             centerY = y + Sprite.SCALED_SIZE / 2;
+            checkCollisionItem();
 
             if (checkCollisionEnemy() || checkColisionFlame(bombManager))
                 setAlive(false);
@@ -190,91 +191,57 @@ public class Bomber extends DynamicEntity {
         } else {
             status = STATUS.IDLE;
         }
+    }
 
-        if (!checkCollisionMap(map, x, y, direction, ENTITY_TYPE.BOMB_ITEM)) {
-            int grassX = convertToMapCordinate(x),
-                grassY = convertToMapCordinate(y);
-            switch(direction) {
-                case UP:
-                    grassY--;
-                    break;
-                case DOWN:
-                    grassY++;
-                    break;
-                case LEFT:
-                    grassX--;
-                    break;
-                case RIGHT:
-                    grassX++;
-                    break;
-            }
-            Grass grass = new Grass(grassX, grassY, Sprite.grass.getFxImage());
-            map.replace(grassX, grassY, grass);
-            bombManager.increaseBomb();
-        }
-        if (!checkCollisionMap(map, x, y, direction, ENTITY_TYPE.SPEED_ITEM)) {
-            int grassX = convertToMapCordinate(x),
-                    grassY = convertToMapCordinate(y);
-            switch (direction) {
-                case UP:
-                    grassY--;
-                    break;
-                case DOWN:
-                    grassY++;
-                    break;
-                case LEFT:
-                    grassX--;
-                    break;
-                case RIGHT:
-                    grassX++;
-                    break;
-            }
-            Grass grass = new Grass(grassX, grassY, Sprite.grass.getFxImage());
-            map.replace(grassX, grassY, grass);
-            speed++;
-            switch (direction) {
-                case UP:
-                    while (y%speed != 0) {
-                        y--;
+    private void checkCollisionItem() {
+        List<Item> checkList = map.itemList;
+        for (int i = 0; i < checkList.size(); i++) {
+            int difX = Math.abs(checkList.get(i).x - x);
+            int difY = Math.abs(checkList.get(i).y - y);
+
+            if (checkList.get(i).isAlive()) {
+                if (difX < Sprite.SCALED_SIZE && difY < Sprite.SCALED_SIZE) {
+                    if (checkList.get(i) instanceof BombItem) {
+                        bombManager.increaseBomb();
                     }
-                    break;
-                case DOWN: 
-                    while (y%speed != 0) {
-                        y++;
+                    if (checkList.get(i) instanceof SpeedItem) {
+                        speed++;
+                        switch (direction) {
+                            case UP:
+                                while (y%speed != 0) {
+                                    y--;
+                                }
+                                break;
+                            case DOWN: 
+                                while (y%speed != 0) {
+                                    y++;
+                                }
+                                break;
+                            case LEFT:
+                                while (x%speed != 0) {
+                                    x--;
+                                }
+                                break;
+                            case RIGHT:
+                                while (x%speed != 0) {
+                                    x++;
+                                }
+                                break;
+                        }
                     }
-                    break;
-                case LEFT:
-                    while (x%speed != 0) {
-                        x--;
+                    if (checkList.get(i) instanceof FlameItem) {
+                        bombManager.increaseFlameLength();
                     }
-                    break;
-                case RIGHT:
-                    while (x%speed != 0) {
-                        x++;
-                    }
-                    break;
+                    int grassX = checkList.get(i).getCenterX(),
+                        grassY = checkList.get(i).getCenterY();
+                    Grass grass = new Grass(grassX, grassY, Sprite.grass.getFxImage());
+                    map.replace(grassX, grassY, grass);
+                    checkList.remove(i);
+                }
             }
-        }
-        if (!checkCollisionMap(map, x, y, direction, ENTITY_TYPE.FLAME_ITEM)) {
-            int grassX = convertToMapCordinate(x),
-                    grassY = convertToMapCordinate(y);
-            switch (direction) {
-                case UP:
-                    grassY--;
-                    break;
-                case DOWN:
-                    grassY++;
-                    break;
-                case LEFT:
-                    grassX--;
-                    break;
-                case RIGHT:
-                    grassX++;
-                    break;
+            else {
+                checkList.remove(i);
             }
-            Grass grass = new Grass(grassX, grassY, Sprite.grass.getFxImage());
-            map.replace(grassX, grassY, grass);
-            bombManager.increaseFlameLength();
         }
     }
 

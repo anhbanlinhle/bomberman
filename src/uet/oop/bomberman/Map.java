@@ -17,6 +17,7 @@ import java.util.Scanner;
 public class Map {
     private List<List<Entity>> mapEntity;
     private List<Enemy> enemyList;
+    public static List<Item> itemList;
     private int height, width;
 
     static char[][] levelSymbol;
@@ -26,6 +27,7 @@ public class Map {
         currentMapNo = 1;
         mapEntity = new ArrayList<>();
         enemyList = new ArrayList<>();
+        itemList = new ArrayList<>();
     }
 
     public void loadMap(KeyListener keyListener) {
@@ -44,6 +46,7 @@ public class Map {
                     // Read text form line
                     Entity entity;
                     Enemy tempEnemy;
+                    Item tempItem;
                     switch (fileLine.charAt(j)) {
                         case '#':
                             entity = new Wall(j, i, Sprite.wall.getFxImage());
