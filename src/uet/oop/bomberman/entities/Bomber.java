@@ -22,8 +22,8 @@ import static uet.oop.bomberman.BombermanGame.map;
 import static uet.oop.bomberman.BombermanGame.enemyManager;
 
 public class Bomber extends DynamicEntity {
+    private final int DIE_TIME = 60;
     private KeyListener keyHandle;
-    
     public int loseDelay;
 
 
@@ -242,10 +242,10 @@ public class Bomber extends DynamicEntity {
     }
 
     public void die1(int count) {
-        img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, count, 60).getFxImage();
+        img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, count, DIE_TIME).getFxImage();
     }
 
     public void die2(int count) {
-        img = Sprite.movingSprite(Sprite.player_dead4, Sprite.player_dead5, Sprite.player_dead6, count, 60).getFxImage();
+        img = Sprite.movingSprite(Sprite.player_dead4, Sprite.player_dead5, Sprite.player_dead6, count, DIE_TIME).getFxImage();
     }
 }

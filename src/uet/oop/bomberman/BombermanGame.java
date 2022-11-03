@@ -58,6 +58,7 @@ public class BombermanGame extends Application {
         timer = new Timer(this);
 
         // Control system
+
         keyH = new KeyListener(scene);
         menu = new Menu(keyH);
         

@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bomb extends DynamicEntity {
+
+  private final int BOMB_TIME = 120;
   static boolean bombIsPlaced;
   private boolean explode;
   private int count;
@@ -28,9 +30,9 @@ public class Bomb extends DynamicEntity {
   @Override
   public void update() {
     // count = count % 99;
-    img = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, count, 60).getFxImage();
+    img = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, count, BOMB_TIME).getFxImage();
     count++;
-    if (count >= 60) {
+    if (count >= BOMB_TIME) {
       explode = true;
     }
   }
