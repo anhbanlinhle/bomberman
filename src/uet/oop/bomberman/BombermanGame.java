@@ -137,7 +137,7 @@ public class BombermanGame extends Application {
                 gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                 map.renderMap(gc, camera);
                 bomberman.render(gc, camera);
-                enemyManager.getEnemyList().forEach(g -> g.render(gc));
+                enemyManager.render(gc, camera);
                 break;
             case EXIT:
                 break;

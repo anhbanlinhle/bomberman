@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Bomb extends DynamicEntity {
 
-  private final int BOMB_TIME = 120;
+  private final int BOMB_TIME = 180;
   static boolean bombIsPlaced;
   private boolean explode;
   private int count;

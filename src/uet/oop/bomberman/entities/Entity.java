@@ -39,10 +39,6 @@ public abstract class Entity {
         this.y = yUnit * Sprite.SCALED_SIZE;
     }
 
-    public void render(GraphicsContext gc) {
-        gc.drawImage(img, x, y);
-    }
-
     public void render(GraphicsContext gc, Camera camera) {
         gc.drawImage(img, x - camera.getX(), y - camera.getY());
     }
