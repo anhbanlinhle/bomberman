@@ -240,8 +240,6 @@ public abstract class DynamicEntity extends Entity {
                         && this.x + 12 < flameRightPos
                         && this.y < flameDownPos
                         && this.y + Sprite.SCALED_SIZE > flameUpPos) {
-                    System.out.println(flameLeftPos + " " + flameRightPos + " " + flameUpPos + " " + flameDownPos + "||" + this.x + " " + this.y);
-                    System.out.println("DIE");
                     isAlive = false;
                 }
             }
