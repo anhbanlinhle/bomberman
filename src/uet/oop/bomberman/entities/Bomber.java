@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.controller.Camera;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.graphics.SpriteSheet;
 import uet.oop.bomberman.controller.KeyListener;
@@ -236,9 +237,9 @@ public class Bomber extends DynamicEntity {
     }
 
     @Override
-    public void render(GraphicsContext gc) {
-        bombManager.render(gc);
-        super.render(gc);
+    public void render(GraphicsContext gc, Camera camera) {
+        bombManager.render(gc, camera);
+        super.render(gc,camera );
     }
 
     public void die1(int count) {

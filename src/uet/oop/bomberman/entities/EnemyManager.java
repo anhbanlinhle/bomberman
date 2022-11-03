@@ -1,6 +1,7 @@
 package uet.oop.bomberman.entities;
 
 import javafx.scene.canvas.GraphicsContext;
+import uet.oop.bomberman.controller.Camera;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,10 +50,10 @@ public class EnemyManager {
         }
     }
 
-    public void render(GraphicsContext gc) {
-        for (Enemy i :
+    public void render(GraphicsContext gc, Camera camera) {
+        for (Enemy enemy :
                 enemyList) {
-            i.render(gc);
+            enemy.render(gc, camera);
         }
     }
 }

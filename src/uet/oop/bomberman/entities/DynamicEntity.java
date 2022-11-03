@@ -1,6 +1,7 @@
 package uet.oop.bomberman.entities;
 
 import javafx.scene.canvas.GraphicsContext;
+import uet.oop.bomberman.controller.Camera;
 import uet.oop.bomberman.graphics.Sprite;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.Map;
@@ -271,7 +272,7 @@ public abstract class DynamicEntity extends Entity {
     }
 
     @Override
-    public void render(GraphicsContext gc) {
-        super.render(gc);
+    public void render(GraphicsContext gc, Camera camera) {
+        super.render(gc, camera);
     }
 }

@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities;
 
 import javafx.scene.canvas.GraphicsContext;
 import uet.oop.bomberman.Map;
+import uet.oop.bomberman.controller.Camera;
 import uet.oop.bomberman.entities.Entity.ENTITY_TYPE;
 import uet.oop.bomberman.graphics.Sprite;
 import java.util.ArrayList;
@@ -9,7 +10,8 @@ import java.util.List;
 
 import static uet.oop.bomberman.BombermanGame.map;
 
-public class BombManager {
+public class
+BombManager {
 
     Flame.DIRECTION[] flameDirection = {Flame.DIRECTION.UP, Flame.DIRECTION.DOWN, Flame.DIRECTION.RIGHT, Flame.DIRECTION.LEFT};
     private int bombRemain;
@@ -134,12 +136,12 @@ public class BombManager {
         }
     }
 
-    public void render(GraphicsContext gc) {
+    public void render(GraphicsContext gc, Camera camera) {
         for (Bomb bomb : bombList) {
-            bomb.render(gc);
+            bomb.render(gc, camera);
         }
         for (Flame flame : flameList) {
-            flame.render(gc);
+            flame.render(gc, camera);
         }
     }
 

@@ -1,6 +1,7 @@
 package uet.oop.bomberman;
 
 import javafx.scene.canvas.GraphicsContext;
+import uet.oop.bomberman.controller.Camera;
 import uet.oop.bomberman.controller.KeyListener;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.entities.Entity.ENTITY_TYPE;
@@ -17,6 +18,7 @@ public class Map {
     private List<List<Entity>> mapEntity;
     private List<Enemy> enemyList;
     private int height, width;
+
     static char[][] levelSymbol;
     private static int currentMapNo;
 
@@ -80,9 +82,9 @@ public class Map {
         }
     }
 
-    public void renderMap(GraphicsContext gc) {
+    public void renderMap(GraphicsContext gc, Camera camera) {
         for (int i = 0; i < height; i++) {
-            mapEntity.get(i).forEach(g -> g.render(gc));
+            mapEntity.get(i).forEach(g -> g.render(gc, camera));
         }
     }
 
@@ -95,7 +97,7 @@ public class Map {
     }
 
     //Get Entity as block coordinate not real coordinate
-    public Entity getEntity(int x, int y){
+    public Entity getEntity(int x, int y) {
         return mapEntity.get(y).get(x);
     }
 

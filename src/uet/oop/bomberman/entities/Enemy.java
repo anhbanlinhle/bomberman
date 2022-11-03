@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import uet.oop.bomberman.controller.Camera;
 import uet.oop.bomberman.controller.KeyListener;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.Map;
@@ -32,5 +33,10 @@ public class Enemy extends DynamicEntity {
 
     public void updateMove(Map map) {
 
+    }
+
+    @Override
+    public void render(GraphicsContext gc, Camera camera) {
+        super.render(gc, camera);
     }
 }
