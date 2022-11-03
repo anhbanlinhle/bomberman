@@ -130,9 +130,9 @@ BombManager {
                         map.replace(flamePosX, flamePosY, grass);
                         flameList.add(new Flame(flamePosX, flamePosY, Flame.FLAME_TYPE.BRICK, flameDirection[j]));
                     }
-//                    else {
-//                        bombPath[j] = false;
-//                    }
+                   else {
+                       bombPath[j] = false;
+                   }
                 }
             }
         }
