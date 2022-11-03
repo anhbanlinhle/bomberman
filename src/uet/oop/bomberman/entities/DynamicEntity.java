@@ -5,6 +5,7 @@ import uet.oop.bomberman.controller.Camera;
 import uet.oop.bomberman.graphics.Sprite;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.Map;
+import uet.oop.bomberman.controller.SoundFile;
 
 import java.util.List;
 
@@ -241,6 +242,7 @@ public abstract class DynamicEntity extends Entity {
                         && this.x + 12 < flameRightPos
                         && this.y < flameDownPos
                         && this.y + Sprite.SCALED_SIZE > flameUpPos) {
+                    SoundFile.monsterDie.play();
                     isAlive = false;
                 }
             }

@@ -37,7 +37,7 @@ public class EnemyManager {
         // Remove dead enemy
         for (int i = enemyList.size() - 1; i >= 0; i--) {
             if(!enemyList.get(i).isAlive()){
-                SoundFile.monsterDie.play();
+                // SoundFile.monsterDie.play();
                 enemyList.get(i).die();
                 enemyList.get(i).increaseCountDead();
                 if (enemyList.get(i).getCountDead() >= 9)
