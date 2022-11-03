@@ -30,7 +30,7 @@ public class Bomber extends DynamicEntity {
     public Bomber(int x, int y, Image img, KeyListener keyHandle) {
         super(x, y, img);
         this.keyHandle = keyHandle;
-        speed = 2;
+        speed = 3;
         status = STATUS.IDLE;
         direction = DIRECTION.RIGHT;
         isAlive = true;
@@ -249,6 +249,27 @@ public class Bomber extends DynamicEntity {
                     }
                     break;
             }
+        }
+        if (!checkCollisionMap(map, x, y, direction, ENTITY_TYPE.FLAME_ITEM)) {
+            int grassX = convertToMapCordinate(x),
+                    grassY = convertToMapCordinate(y);
+            switch (direction) {
+                case UP:
+                    grassY--;
+                    break;
+                case DOWN:
+                    grassY++;
+                    break;
+                case LEFT:
+                    grassX--;
+                    break;
+                case RIGHT:
+                    grassX++;
+                    break;
+            }
+            Grass grass = new Grass(grassX, grassY, Sprite.grass.getFxImage());
+            map.replace(grassX, grassY, grass);
+            bombManager.increaseFlameLength();
         }
     }
 

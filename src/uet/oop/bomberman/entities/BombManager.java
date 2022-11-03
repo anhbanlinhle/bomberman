@@ -182,4 +182,12 @@ public class BombManager {
     public int getBombRemain() {
         return bombRemain;
     }
+
+    public void increaseFlameLength() {
+        flameLength++;
+    }
+
+    public int getFlameLength() {
+        return flameLength;
+    }
 }
