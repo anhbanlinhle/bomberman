@@ -34,7 +34,7 @@ public class Flame extends Entity {
         flameEnd = false;
         this.flameType = flameType;
         this.direction = direction;
-        flameTime = 10;
+        flameTime = 20;
         count = 0;
 
     }

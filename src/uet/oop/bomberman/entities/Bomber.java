@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.controller.Camera;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.graphics.SpriteSheet;
 import uet.oop.bomberman.controller.KeyListener;
@@ -22,8 +23,8 @@ import static uet.oop.bomberman.BombermanGame.map;
 import static uet.oop.bomberman.BombermanGame.enemyManager;
 
 public class Bomber extends DynamicEntity {
+    private final int DIE_TIME = 60;
     private KeyListener keyHandle;
-    
     public int loseDelay;
 
 
@@ -300,16 +301,16 @@ public class Bomber extends DynamicEntity {
     }
 
     @Override
-    public void render(GraphicsContext gc) {
-        bombManager.render(gc);
-        super.render(gc);
+    public void render(GraphicsContext gc, Camera camera) {
+        bombManager.render(gc, camera);
+        super.render(gc,camera );
     }
 
     public void die1(int count) {
-        img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, count, 60).getFxImage();
+        img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, count, DIE_TIME).getFxImage();
     }
 
     public void die2(int count) {
-        img = Sprite.movingSprite(Sprite.player_dead4, Sprite.player_dead5, Sprite.player_dead6, count, 60).getFxImage();
+        img = Sprite.movingSprite(Sprite.player_dead4, Sprite.player_dead5, Sprite.player_dead6, count, DIE_TIME).getFxImage();
     }
 }
