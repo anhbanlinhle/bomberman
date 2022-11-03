@@ -3,6 +3,7 @@ package uet.oop.bomberman.entities;
 import javafx.scene.canvas.GraphicsContext;
 import uet.oop.bomberman.Map;
 import uet.oop.bomberman.controller.Camera;
+import uet.oop.bomberman.controller.SoundFile;
 import uet.oop.bomberman.entities.Entity.ENTITY_TYPE;
 import uet.oop.bomberman.graphics.Sprite;
 import java.util.ArrayList;
@@ -48,6 +49,7 @@ BombManager {
     }
 
     public void bombExploded(int index) {
+        SoundFile.bombExplose.play();
         bombPath = new boolean[]{true, true, true, true};
 
         int bomX = bombList.get(index).getX() / Sprite.SCALED_SIZE;

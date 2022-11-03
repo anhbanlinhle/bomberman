@@ -15,6 +15,7 @@ import uet.oop.bomberman.controller.Camera;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.graphics.SpriteSheet;
 import uet.oop.bomberman.controller.KeyListener;
+import uet.oop.bomberman.controller.SoundFile;
 import uet.oop.bomberman.controller.KeyListener.DIRECTION;
 import uet.oop.bomberman.Map;
 
@@ -54,6 +55,7 @@ public class Bomber extends DynamicEntity {
                 setAlive(false);
         }
         else {
+            SoundFile.playGame.stop();
             countDead++;
             die1(countDead);
             if (countDead >= 60)
@@ -141,7 +143,9 @@ public class Bomber extends DynamicEntity {
                     frame = Sprite.player_right.getFxImage();
                     break;
             }
-        }
+        } /*else {
+            moving = false;
+        }*/
         return frame;
     }
 

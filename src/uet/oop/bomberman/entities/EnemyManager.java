@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities;
 
 import javafx.scene.canvas.GraphicsContext;
 import uet.oop.bomberman.controller.Camera;
+import uet.oop.bomberman.controller.SoundFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,10 +35,9 @@ public class EnemyManager {
 
     public void update() {
         // Remove dead enemy
-        for (int i = 0; i < enemyList.size(); i++) {
-            if(enemyList.get(i).isAlive()){
-                enemyList.get(i).update();
-            } else {
+        for (int i = enemyList.size() - 1; i >= 0; i--) {
+            if(!enemyList.get(i).isAlive()){
+                SoundFile.monsterDie.play();
                 enemyList.get(i).die();
                 enemyList.get(i).increaseCountDead();
                 if (enemyList.get(i).getCountDead() >= 9)
@@ -47,6 +47,9 @@ public class EnemyManager {
                     enemyList.remove(i);
                     count = 0;
                 }
+            }
+            else {
+                enemyList.get(i).update();
             }
         }
     }
