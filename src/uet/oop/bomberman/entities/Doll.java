@@ -7,14 +7,14 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.Map;
 import uet.oop.bomberman.graphics.Sprite;
 
-public class Oneal extends Enemy {
+public class Doll extends Enemy {
   private DIRECTION newDir;
-  
-  public Oneal(int x, int y, Image img) {
+
+  public Doll(int x, int y, Image img) {
     super(x, y, img);
     direction = DIRECTION.RIGHT;
-    speed = 2;
-    newDir = DIRECTION.LEFT;
+    speed = 1;
+    newDir = DIRECTION.RIGHT;
   }
 
   public void findDirection(Map map) {
@@ -27,32 +27,28 @@ public class Oneal extends Enemy {
 
     // case up
     type_check = map.entityTypeAtCordinate(xMap, yMap - 1);
-    if (type_check != ENTITY_TYPE.BRICK
-        && type_check != ENTITY_TYPE.WALL
+    if (type_check != ENTITY_TYPE.WALL
         && type_check != ENTITY_TYPE.BOMB) {
       listDir.add(DIRECTION.UP);
     }
 
     // case down
     type_check = map.entityTypeAtCordinate(xMap, yMap + 1);
-    if (type_check != ENTITY_TYPE.BRICK
-        && type_check != ENTITY_TYPE.WALL
+    if (type_check != ENTITY_TYPE.WALL
         && type_check != ENTITY_TYPE.BOMB) {
       listDir.add(DIRECTION.DOWN);
     }
 
     // case left
     type_check = map.entityTypeAtCordinate(xMap - 1, yMap);
-    if (type_check != ENTITY_TYPE.BRICK
-        && type_check != ENTITY_TYPE.WALL
+    if (type_check != ENTITY_TYPE.WALL
         && type_check != ENTITY_TYPE.BOMB) {
       listDir.add(DIRECTION.LEFT);
     }
 
     // case right
     type_check = map.entityTypeAtCordinate(xMap + 1, yMap);
-    if (type_check != ENTITY_TYPE.BRICK
-        && type_check != ENTITY_TYPE.WALL
+    if (type_check != ENTITY_TYPE.WALL
         && type_check != ENTITY_TYPE.BOMB) {
       listDir.add(DIRECTION.RIGHT);
     }
@@ -84,17 +80,16 @@ public class Oneal extends Enemy {
     }
     int ranDir = (int) Math.floor(Math.random() * (listDir.size() - 1 + 1) + 1);
 
-    newDir = listDir.get(ranDir-1);
+    newDir = listDir.get(ranDir - 1);
   }
 
   @Override
   public void updateMove(Map map) {
-    if (this.x % 48 == 0 && this.y % 48 == 0)
+    if (x % 48 == 0 && y % 48 == 0 && convertToMapCordinate(x) % 2 == 1 && convertToMapCordinate(y) % 2 == 1)
       findDirection(map);
-      
+
     if (newDir == DIRECTION.UP) {
-      if (checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.BRICK)
-          && checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.WALL)
+      if (checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.WALL)
           && checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.BOMB)) {
         direction = DIRECTION.UP;
         y -= speed;
@@ -102,8 +97,7 @@ public class Oneal extends Enemy {
         findDirection(map);
     }
     if (newDir == DIRECTION.RIGHT) {
-      if (checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT, ENTITY_TYPE.BRICK)
-          && checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT, ENTITY_TYPE.WALL)
+      if (checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT, ENTITY_TYPE.WALL)
           && checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT, ENTITY_TYPE.BOMB)) {
         direction = DIRECTION.RIGHT;
         x += speed;
@@ -111,8 +105,7 @@ public class Oneal extends Enemy {
         findDirection(map);
     }
     if (newDir == DIRECTION.LEFT) {
-      if (checkCollisionMap(map, x - speed, y, DIRECTION.LEFT, ENTITY_TYPE.BRICK)
-          && checkCollisionMap(map, x - speed, y, DIRECTION.LEFT, ENTITY_TYPE.WALL)
+      if (checkCollisionMap(map, x - speed, y, DIRECTION.LEFT, ENTITY_TYPE.WALL)
           && checkCollisionMap(map, x - speed, y, DIRECTION.LEFT, ENTITY_TYPE.BOMB)) {
         direction = DIRECTION.LEFT;
         x -= speed;
@@ -120,8 +113,7 @@ public class Oneal extends Enemy {
         findDirection(map);
     }
     if (newDir == DIRECTION.DOWN) {
-      if (checkCollisionMap(map, x, y + speed, DIRECTION.DOWN, ENTITY_TYPE.BRICK)
-          && checkCollisionMap(map, x, y + speed, DIRECTION.DOWN, ENTITY_TYPE.WALL)
+      if (checkCollisionMap(map, x, y + speed, DIRECTION.DOWN, ENTITY_TYPE.WALL)
           && checkCollisionMap(map, x, y + speed, DIRECTION.DOWN, ENTITY_TYPE.BOMB)) {
         direction = DIRECTION.DOWN;
         y += speed;
@@ -137,52 +129,52 @@ public class Oneal extends Enemy {
       case UP:
         switch (frameNum) {
           case 0:
-            frame = Sprite.oneal_left1.getFxImage();
+            frame = Sprite.doll_left1.getFxImage();
             break;
           case 1:
-            frame = Sprite.oneal_left2.getFxImage();
+            frame = Sprite.doll_left2.getFxImage();
             break;
           case 2:
-            frame = Sprite.oneal_left3.getFxImage();
+            frame = Sprite.doll_left3.getFxImage();
             break;
         }
         break;
       case DOWN:
         switch (frameNum) {
           case 0:
-            frame = Sprite.oneal_right1.getFxImage();
+            frame = Sprite.doll_right1.getFxImage();
             break;
           case 1:
-            frame = Sprite.oneal_right2.getFxImage();
+            frame = Sprite.doll_right2.getFxImage();
             break;
           case 2:
-            frame = Sprite.oneal_right3.getFxImage();
+            frame = Sprite.doll_right3.getFxImage();
             break;
         }
         break;
       case LEFT:
         switch (frameNum) {
           case 0:
-            frame = Sprite.oneal_left1.getFxImage();
+            frame = Sprite.doll_left1.getFxImage();
             break;
           case 1:
-            frame = Sprite.oneal_left2.getFxImage();
+            frame = Sprite.doll_left2.getFxImage();
             break;
           case 2:
-            frame = Sprite.oneal_left3.getFxImage();
+            frame = Sprite.doll_left3.getFxImage();
             break;
         }
         break;
       case RIGHT:
         switch (frameNum) {
           case 0:
-            frame = Sprite.oneal_right1.getFxImage();
+            frame = Sprite.doll_right1.getFxImage();
             break;
           case 1:
-            frame = Sprite.oneal_right2.getFxImage();
+            frame = Sprite.doll_right2.getFxImage();
             break;
           case 2:
-            frame = Sprite.oneal_right3.getFxImage();
+            frame = Sprite.doll_right3.getFxImage();
             break;
         }
         break;
@@ -200,10 +192,10 @@ public class Oneal extends Enemy {
 
   @Override
   public void die() {
-    img = Sprite.oneal_dead.getFxImage();
+    img = Sprite.doll_dead.getFxImage();
   }
 
   public void loadDie(int count) {
-    img = Sprite.movingSprite(Sprite.blue_dead1, Sprite.blue_dead2, Sprite.blue_dead3, count, 36).getFxImage();
+    img = Sprite.movingSprite(Sprite.red_dead1, Sprite.red_dead2, Sprite.red_dead3, count, 36).getFxImage();
   }
 }

@@ -11,8 +11,10 @@ public class Flame extends Entity {
         MIDDLE,
         END,
         BOMB,
-
-        BRICK
+        BRICK,
+        BOMB_ITEM,
+        SPEED_ITEM,
+        FLAME_ITEM,
     };
 
     enum DIRECTION {
@@ -32,7 +34,7 @@ public class Flame extends Entity {
         flameEnd = false;
         this.flameType = flameType;
         this.direction = direction;
-        flameTime = 30;
+        flameTime = 10;
         count = 0;
 
     }

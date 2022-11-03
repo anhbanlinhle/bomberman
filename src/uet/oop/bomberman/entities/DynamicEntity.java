@@ -91,7 +91,7 @@ public abstract class DynamicEntity extends Entity {
         return newCor;
     }
 
-    public boolean checkCollisionMap(Map map, int a, int b, DIRECTION direction) {
+    public boolean checkCollisionMap(Map map, int a, int b, DIRECTION direction, ENTITY_TYPE type) {
 
         // player's map cordinate
         int xMap = convertToMapCordinate(this.x);
@@ -109,31 +109,24 @@ public abstract class DynamicEntity extends Entity {
 
             // just up
             type_check = map.entityTypeAtCordinate(xCheck, yCheck);
-            if (type_check == ENTITY_TYPE.BRICK
-                    || type_check == ENTITY_TYPE.WALL
-                    || type_check == ENTITY_TYPE.BOMB) {
+            if (type_check == type) {
                 if (b < (yCheck + 1) * Sprite.SCALED_SIZE) {
                     return false;
                 }
             }
 
-
             // up left
             type_check = map.entityTypeAtCordinate(xCheck - 1, yCheck);
-            if (type_check == ENTITY_TYPE.BRICK
-                    || type_check == ENTITY_TYPE.WALL
-                    || type_check == ENTITY_TYPE.BOMB) {
-                if (b < (yCheck + 1) * Sprite.SCALED_SIZE && a < xCheck * Sprite.SCALED_SIZE - 6) {
+            if (type_check == type) {
+                if (b < (yCheck + 1) * Sprite.SCALED_SIZE && a < xCheck * Sprite.SCALED_SIZE) {
                     return false;
                 }
             }
 
             // up right
             type_check = map.entityTypeAtCordinate(xCheck + 1, yCheck);
-            if (type_check == ENTITY_TYPE.BRICK
-                    || type_check == ENTITY_TYPE.WALL
-                    || type_check == ENTITY_TYPE.BOMB) {
-                if (b < (yCheck + 1) * Sprite.SCALED_SIZE && a > xCheck * Sprite.SCALED_SIZE + 6) {
+            if (type_check == type) {
+                if (b < (yCheck + 1) * Sprite.SCALED_SIZE && a > xCheck * Sprite.SCALED_SIZE) {
                     return false;
                 }
             }
@@ -147,9 +140,7 @@ public abstract class DynamicEntity extends Entity {
 
             // just down
             type_check = map.entityTypeAtCordinate(xCheck, yCheck);
-            if (type_check == ENTITY_TYPE.BRICK
-                    || type_check == ENTITY_TYPE.WALL
-                    || type_check == ENTITY_TYPE.BOMB) {
+            if (type_check == type) {
                 if (b > (yCheck - 1) * Sprite.SCALED_SIZE) {
                     return false;
                 }
@@ -157,20 +148,16 @@ public abstract class DynamicEntity extends Entity {
 
             // down left
             type_check = map.entityTypeAtCordinate(xCheck - 1, yCheck);
-            if (type_check == ENTITY_TYPE.BRICK
-                    || type_check == ENTITY_TYPE.WALL
-                    || type_check == ENTITY_TYPE.BOMB) {
-                if (b > (yCheck - 1) * Sprite.SCALED_SIZE && a < xCheck * Sprite.SCALED_SIZE - 6) {
+            if (type_check == type) {
+                if (b > (yCheck - 1) * Sprite.SCALED_SIZE && a < xCheck * Sprite.SCALED_SIZE) {
                     return false;
                 }
             }
 
             // down right
             type_check = map.entityTypeAtCordinate(xCheck + 1, yCheck);
-            if (type_check == ENTITY_TYPE.BRICK
-                    || type_check == ENTITY_TYPE.WALL
-                    || type_check == ENTITY_TYPE.BOMB) {
-                if (b > (yCheck - 1) * Sprite.SCALED_SIZE && a > xCheck * Sprite.SCALED_SIZE + 6) {
+            if (type_check == type) {
+                if (b > (yCheck - 1) * Sprite.SCALED_SIZE && a > xCheck * Sprite.SCALED_SIZE) {
                     return false;
                 }
             }
@@ -183,9 +170,7 @@ public abstract class DynamicEntity extends Entity {
 
             // just left
             type_check = map.entityTypeAtCordinate(xCheck, yCheck);
-            if (type_check == ENTITY_TYPE.BRICK
-                    || type_check == ENTITY_TYPE.WALL
-                    || type_check == ENTITY_TYPE.BOMB) {
+            if (type_check == type) {
                 if (a < (xCheck + 1) * Sprite.SCALED_SIZE) {
                     return false;
                 }
@@ -193,20 +178,16 @@ public abstract class DynamicEntity extends Entity {
 
             // left up
             type_check = map.entityTypeAtCordinate(xCheck, yCheck - 1);
-            if (type_check == ENTITY_TYPE.BRICK
-                    || type_check == ENTITY_TYPE.WALL
-                    || type_check == ENTITY_TYPE.BOMB) {
-                if (a < (xCheck + 1) * Sprite.SCALED_SIZE && b < yCheck * Sprite.SCALED_SIZE - 3) {
+            if (type_check == type) {
+                if (a < (xCheck + 1) * Sprite.SCALED_SIZE && b < yCheck * Sprite.SCALED_SIZE) {
                     return false;
                 }
             }
 
             // left down
             type_check = map.entityTypeAtCordinate(xCheck, yCheck + 1);
-            if (type_check == ENTITY_TYPE.BRICK
-                    || type_check == ENTITY_TYPE.WALL
-                    || type_check == ENTITY_TYPE.BOMB) {
-                if (a < (xCheck + 1) * Sprite.SCALED_SIZE && b > yCheck * Sprite.SCALED_SIZE + 3) {
+            if (type_check == type) {
+                if (a < (xCheck + 1) * Sprite.SCALED_SIZE && b > yCheck * Sprite.SCALED_SIZE) {
                     return false;
                 }
             }
@@ -218,30 +199,24 @@ public abstract class DynamicEntity extends Entity {
 
             // just right
             type_check = map.entityTypeAtCordinate(xCheck, yCheck);
-            if (type_check == ENTITY_TYPE.BRICK
-                    || type_check == ENTITY_TYPE.WALL
-                    || type_check == ENTITY_TYPE.BOMB) {
-                if (a - 4 > (xCheck - 1) * Sprite.SCALED_SIZE) {
+            if (type_check == type) {
+                if (a > (xCheck - 1) * Sprite.SCALED_SIZE) {
                     return false;
                 }
             }
 
             // right up
             type_check = map.entityTypeAtCordinate(xCheck, yCheck - 1);
-            if (type_check == ENTITY_TYPE.BRICK
-                    || type_check == ENTITY_TYPE.WALL
-                    || type_check == ENTITY_TYPE.BOMB) {
-                if (a - 4 > (xCheck - 1) * 32 && b < yCheck * Sprite.SCALED_SIZE - 3) {
+            if (type_check == type) {
+                if (a > (xCheck - 1) * 32 && b < yCheck * Sprite.SCALED_SIZE) {
                     return false;
                 }
             }
 
             // right down
             type_check = map.entityTypeAtCordinate(xCheck, yCheck + 1);
-            if (type_check == ENTITY_TYPE.BRICK
-                    || type_check == ENTITY_TYPE.WALL
-                    || type_check == ENTITY_TYPE.BOMB) {
-                if (a - 4 > (xCheck - 1) * 32 && b > yCheck * Sprite.SCALED_SIZE + 3) {
+            if (type_check == type) {
+                if (a > (xCheck - 1) * 32 && b > yCheck * Sprite.SCALED_SIZE) {
                     return false;
                 }
             }
