@@ -67,6 +67,12 @@ public class Map {
                         case 'b':
                             entity = new BombItem(j, i, Sprite.brick.getFxImage());
                             break;
+                        case 's':
+                            entity = new SpeedItem(j, i, Sprite.brick.getFxImage());
+                            break;
+                        case 'f':
+                            entity = new FlameItem(j, i, Sprite.brick.getFxImage());
+                            break;
                         default:
                             entity = new Grass(j, i, Sprite.grass.getFxImage());
                     }

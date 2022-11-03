@@ -80,28 +80,56 @@ public class BombManager {
                 if(bombPath[j]){
                     if(!(map.getEntity(flamePosX, flamePosY) instanceof Wall)
                             && !(map.entityTypeAtCordinate(flamePosX, flamePosY) == ENTITY_TYPE.BRICK)
-                                 && !(map.entityTypeAtCordinate(flamePosX, flamePosY) == ENTITY_TYPE.BOMB_ITEM)) {
+                            && !(map.entityTypeAtCordinate(flamePosX, flamePosY) == ENTITY_TYPE.BOMB_ITEM)
+                            && !(map.entityTypeAtCordinate(flamePosX, flamePosY) == ENTITY_TYPE.SPEED_ITEM)
+                            && !(map.entityTypeAtCordinate(flamePosX, flamePosY) == ENTITY_TYPE.FLAME_ITEM)) {
 
                         flameList.add(new Flame(flamePosX, flamePosY, type, flameDirection[j]));
                     }
+                    
                     else if(map.getEntity(flamePosX, flamePosY) instanceof Brick) {
                         bombPath[j] = false;
                         Grass grass =  new Grass(flamePosX, flamePosY, Sprite.grass.getFxImage());
                         map.replace(flamePosX, flamePosY,grass);
                         flameList.add(new Flame(flamePosX, flamePosY, Flame.FLAME_TYPE.BRICK, flameDirection[j]));
-                    } else if (map.getEntity(flamePosX, flamePosY) instanceof BombItem
+                    } 
+                    
+                    else if (map.getEntity(flamePosX, flamePosY) instanceof BombItem
                             && map.getEntity(flamePosX, flamePosY).getType() == ENTITY_TYPE.BRICK) {
                         bombPath[j] = false;
                         BombItem item = new BombItem(flamePosX, flamePosY, Sprite.powerup_bombs.getFxImage());
                         item.setType(ENTITY_TYPE.BOMB_ITEM);
                         map.replace(flamePosX, flamePosY, item);
                         flameList.add(new Flame(flamePosX, flamePosY, Flame.FLAME_TYPE.BRICK, flameDirection[j]));
-                    } else if (map.getEntity(flamePosX, flamePosY).getType() == ENTITY_TYPE.BOMB_ITEM) {
+                    } 
+
+                    else if (map.getEntity(flamePosX, flamePosY) instanceof SpeedItem
+                            && map.getEntity(flamePosX, flamePosY).getType() == ENTITY_TYPE.BRICK) {
+                        bombPath[j] = false;
+                        SpeedItem item = new SpeedItem(flamePosX, flamePosY, Sprite.powerup_speed.getFxImage());
+                        item.setType(ENTITY_TYPE.SPEED_ITEM);
+                        map.replace(flamePosX, flamePosY, item);
+                        flameList.add(new Flame(flamePosX, flamePosY, Flame.FLAME_TYPE.BRICK, flameDirection[j]));
+                    }
+
+                    else if (map.getEntity(flamePosX, flamePosY) instanceof FlameItem
+                            && map.getEntity(flamePosX, flamePosY).getType() == ENTITY_TYPE.BRICK) {
+                        bombPath[j] = false;
+                        FlameItem item = new FlameItem(flamePosX, flamePosY, Sprite.powerup_flames.getFxImage());
+                        item.setType(ENTITY_TYPE.FLAME_ITEM);
+                        map.replace(flamePosX, flamePosY, item);
+                        flameList.add(new Flame(flamePosX, flamePosY, Flame.FLAME_TYPE.BRICK, flameDirection[j]));
+                    }
+
+                    else if (map.getEntity(flamePosX, flamePosY).getType() == ENTITY_TYPE.SPEED_ITEM
+                            || map.getEntity(flamePosX, flamePosY).getType() == ENTITY_TYPE.BOMB_ITEM) {
                         bombPath[j] = false;
                         Grass grass = new Grass(flamePosX, flamePosY, Sprite.grass.getFxImage());
                         map.replace(flamePosX, flamePosY, grass);
                         flameList.add(new Flame(flamePosX, flamePosY, Flame.FLAME_TYPE.BRICK, flameDirection[j]));
-                    } else {
+                    }
+                    
+                    else {
                         bombPath[j] = false;
                     }
                 }
