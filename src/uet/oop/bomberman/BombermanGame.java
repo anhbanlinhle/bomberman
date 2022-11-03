@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import uet.oop.bomberman.controller.Camera;
 import uet.oop.bomberman.controller.Timer;
@@ -96,6 +97,9 @@ public class BombermanGame extends Application {
     public void update() {
         switch (menu.getGameState()) {
             case IN_MENU:
+                SoundFile.backgroundGame.stop();
+                SoundFile.backgroundGame.loop();
+                SoundFile.lose.stop();
                 menu.update();
                 break;
             case GAME_OVER:
@@ -104,10 +108,24 @@ public class BombermanGame extends Application {
             case IN_GAME:
                 SoundFile.backgroundGame.stop();
                 if (bomberman.isAlive()) {
-                    SoundFile.playGame.loop();
-                    bomberman.update();
-                    enemyManager.update();
-                    camera.update(bomberman);
+                    
+                    if (keyH.isPressed(KeyCode.ESCAPE)) {
+                        menu.setIsPlaying(false);
+                    }
+                    if (menu.isPlaying()){
+                        SoundFile.playGame.loop();
+                        bomberman.update();
+                        enemyManager.update();
+                        camera.update(bomberman);
+                    }
+                    else {
+                        SoundFile.playGame.stop();
+                        menu.update();
+                    }
+                    if (keyH.isPressed(KeyCode.ESCAPE)) {
+                        menu.setIsPlaying(false);
+                        menu.update();
+                    }
                 }
                 else {
                     bomberman.update();
@@ -141,9 +159,15 @@ public class BombermanGame extends Application {
                 break;
             case IN_GAME:
                 gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                if (!menu.isPlaying()) {
+                    menu.render(gc);
+                }
                 map.renderMap(gc, camera);
                 bomberman.render(gc, camera);
                 enemyManager.render(gc, camera);
+                if (!menu.isPlaying()) {
+                    menu.render(gc);
+                }
                 break;
             case EXIT:
                 break;

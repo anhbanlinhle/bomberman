@@ -64,5 +64,12 @@ public class Button {
         gc.setFill(Color.CYAN);
         gc.fillText(buttonName.getText(), x, y);
     }
+
+    public void renderMini(GraphicsContext gc) {
+        gc.strokeText(buttonName.getText(), x, y);
+        gc.setFont(Texture.PIXELFONTMINI);
+        gc.setFill(Color.CYAN);
+        gc.fillText(buttonName.getText(), x, y);
+    }
     
 }
