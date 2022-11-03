@@ -227,6 +227,28 @@ public class Bomber extends DynamicEntity {
             Grass grass = new Grass(grassX, grassY, Sprite.grass.getFxImage());
             map.replace(grassX, grassY, grass);
             speed++;
+            switch (direction) {
+                case UP:
+                    while (y%speed != 0) {
+                        y--;
+                    }
+                    break;
+                case DOWN: 
+                    while (y%speed != 0) {
+                        y++;
+                    }
+                    break;
+                case LEFT:
+                    while (x%speed != 0) {
+                        x--;
+                    }
+                    break;
+                case RIGHT:
+                    while (x%speed != 0) {
+                        x++;
+                    }
+                    break;
+            }
         }
     }
 

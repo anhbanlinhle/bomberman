@@ -28,9 +28,9 @@ public class Bomb extends DynamicEntity {
   @Override
   public void update() {
     // count = count % 99;
-    img = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, count, 60).getFxImage();
+    img = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, count, 90).getFxImage();
     count++;
-    if (count >= 60) {
+    if (count >= 90) {
       explode = true;
     }
   }

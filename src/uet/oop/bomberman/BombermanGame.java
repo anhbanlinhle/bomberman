@@ -100,6 +100,7 @@ public class BombermanGame extends Application {
                     bomberman.update();
                     enemyManager.update();
                     System.out.println("Bomb remain: " + bombManager.getBombRemain());
+                    System.out.println("Speed : " + bomberman.getSpeed());
                 }
                 else {
                     bomberman.update();
@@ -108,8 +109,8 @@ public class BombermanGame extends Application {
                 if (bomberman.loseDelay == LOSE_DELAY) {
                     bomberman = null;
                     menu.setGameState(Menu.GAME_STATE.GAME_OVER);
-                    menu.update();
                     cleanGame();
+                    menu.update();
                     createGame();
                 }
                break;
