@@ -2,6 +2,7 @@ package uet.oop.bomberman.controller;
 
 public class SoundFile {
 
+    public static Sound bombPlace = new Sound("res/sound/newbomb.wav");
     public static Sound bombExplose = new Sound("res/sound/bomb_bang.wav");
     public static Sound bomberDie = new Sound("res/sound/bomberdie.wav");
     public static Sound item = new Sound("res/sound/item.wav");  

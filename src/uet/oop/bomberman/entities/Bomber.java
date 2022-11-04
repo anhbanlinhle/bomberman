@@ -59,8 +59,10 @@ public class Bomber extends DynamicEntity {
             checkCollisionItem();
             checkCollisionPortal();
 
-            if (checkCollisionEnemy() || checkColisionFlame(bombManager))
+            if (checkCollisionEnemy() || checkColisionFlame(bombManager)) {
+                SoundFile.bomberDie.play();
                 setAlive(false);
+            }
         }
         else {
             SoundFile.playGame.stop();
@@ -207,6 +209,7 @@ public class Bomber extends DynamicEntity {
 
             if (checkList.get(i).isAlive()) {
                 if (difX < Sprite.SCALED_SIZE && difY < Sprite.SCALED_SIZE) {
+                    SoundFile.item.play();
                     if (checkList.get(i) instanceof BombItem) {
                         bombManager.increaseBomb();
                     }
