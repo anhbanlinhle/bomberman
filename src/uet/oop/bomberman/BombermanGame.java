@@ -111,6 +111,14 @@ public class BombermanGame extends Application {
                 menu.update();
                 SoundFile.lose.loop();
                 break;
+            case NEW_GAME:
+                levelNo = 0;
+                cleanGame();
+                createGame(levelNo);
+                menu.setGameState(STATE.IN_GAME);
+                menu.setIsPlaying(true);
+                menu.update();
+                break;
             case IN_GAME:
                 SoundFile.lose.stop();
                 SoundFile.backgroundGame.stop();
@@ -121,7 +129,6 @@ public class BombermanGame extends Application {
                     }
                     if (bomberman.isMeetPortal()) {
                         SoundFile.win.play();
-                        System.out.println("Win");
                         menu.setGameState(STATE.NEXT_STAGE);
                         menu.update();
                     }
@@ -150,9 +157,8 @@ public class BombermanGame extends Application {
                     menu.setGameState(Menu.GAME_STATE.GAME_OVER);
                     menu.update();
                     cleanGame();
-                    createGame(0);
+                    createGame(levelNo);
                 }
-                
                 break;
             case NEXT_STAGE:
                 SoundFile.playGame.stop();
