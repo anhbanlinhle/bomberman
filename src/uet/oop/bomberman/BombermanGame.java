@@ -1,6 +1,5 @@
 package uet.oop.bomberman;
 
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -17,8 +16,6 @@ import uet.oop.bomberman.controller.SoundFile;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.graphics.Texture;
-import java.util.ArrayList;
-import java.util.List;
 
 public class BombermanGame extends Application {
 
@@ -39,7 +36,7 @@ public class BombermanGame extends Application {
     public static EnemyManager enemyManager;
 
     public static int levelNo = 0;
-    Bomber bomberman;
+    public static Bomber bomberman;
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
