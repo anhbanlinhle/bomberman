@@ -29,6 +29,11 @@ public class Bomber extends DynamicEntity {
     public int loseDelay;
     private boolean meetPortal;
 
+    public boolean isMeetPortal() {
+        return this.meetPortal;
+    }
+
+    
     public Bomber(int x, int y, Image img, KeyListener keyHandle) {
         super(x, y, img);
         this.keyHandle = keyHandle;
@@ -250,7 +255,7 @@ public class Bomber extends DynamicEntity {
         int difX = Math.abs(map.getPortalX() - x),
             difY = Math.abs(map.getPortalY() - y);
         if (difX < Sprite.SCALED_SIZE && difY < Sprite.SCALED_SIZE) {
-            if (enemyManager.getEnemyList().size() == 0) {
+            if (enemyManager.getEnemyList().size() > 0 ) {
                 meetPortal = true;
                 System.out.println("Win");
             }

@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import uet.oop.bomberman.controller.Camera;
 import uet.oop.bomberman.controller.Timer;
+import uet.oop.bomberman.controller.Menu.STATE;
 import uet.oop.bomberman.controller.KeyListener;
 import uet.oop.bomberman.controller.Menu;
 import uet.oop.bomberman.controller.SoundFile;
@@ -38,6 +39,7 @@ public class BombermanGame extends Application {
     public static EnemyManager enemyManager;
 
     Bomber bomberman;
+
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
     }
@@ -97,8 +99,9 @@ public class BombermanGame extends Application {
     public void update() {
         switch (menu.getGameState()) {
             case IN_MENU:
-                SoundFile.backgroundGame.stop();
                 SoundFile.backgroundGame.loop();
+                SoundFile.win.stop();
+                SoundFile.playGame.stop();
                 SoundFile.lose.stop();
                 menu.update();
                 break;
@@ -106,28 +109,38 @@ public class BombermanGame extends Application {
                 menu.update();
                 break;
             case IN_GAME:
+                SoundFile.lose.stop();
                 SoundFile.backgroundGame.stop();
+                SoundFile.playGame.loop();
+                if (menu.isMuted()) {
+                    SoundFile.playGame.stop();
+                }
+                if (!menu.isMuted()) {
+                    SoundFile.playGame.loop();
+                }
                 if (bomberman.isAlive()) {
-                    
+                    if (bomberman.isMeetPortal()) {
+                        System.out.println("dc r");
+                        SoundFile.win.play();
+                        menu.setGameState(STATE.NEXT_STAGE);
+                    }
                     if (keyH.isPressed(KeyCode.ESCAPE)) {
                         menu.setIsPlaying(false);
                     }
-                    if (menu.isPlaying()){
-                        SoundFile.playGame.loop();
+                    if (menu.isPlaying()) {
+
                         bomberman.update();
                         enemyManager.update();
                         camera.update(bomberman);
-                    }
-                    else {
-                        SoundFile.playGame.stop();
+                    } else {
+                        // SoundFile.playGame.stop();
                         menu.update();
                     }
                     if (keyH.isPressed(KeyCode.ESCAPE)) {
                         menu.setIsPlaying(false);
                         menu.update();
                     }
-                }
-                else {
+                } else {
                     bomberman.update();
                     bombManager.update();
                 }
@@ -143,10 +156,13 @@ public class BombermanGame extends Application {
                 }
                 
                 break;
-            
+            case NEXT_STAGE:
+                SoundFile.playGame.stop();
+                menu.update();
+                break;
             case EXIT:
                 System.exit(0);
-                break;       
+                break;
         }
     }
 
@@ -170,6 +186,8 @@ public class BombermanGame extends Application {
                     menu.render(gc);
                 }
                 break;
+            case NEXT_STAGE:
+                menu.render(gc);
             case EXIT:
                 break;
         }

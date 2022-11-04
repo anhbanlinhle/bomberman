@@ -19,18 +19,20 @@ import uet.oop.bomberman.graphics.Sprite;
 
 public class Menu {
     public static enum STATE {
-        IN_MENU, IN_GAME, GAME_OVER, EXIT
+        IN_MENU, IN_GAME, GAME_OVER, NEXT_STAGE, EXIT
     }
 
     public static Image backGroundImage;
     public static Image gameOverImage;
     public static Image menuInGameImage;
+    public static Image nextStageImage;
 
     public Menu() {
         try {
             backGroundImage = new Image(Files.newInputStream(Paths.get("res/textures/backgr.jpg")));
             gameOverImage = new Image(Files.newInputStream(Paths.get("res/textures/gameOver.png")));
             menuInGameImage = new Image(Files.newInputStream(Paths.get("res/textures/menuingame.png")));
+            nextStageImage = new Image(Files.newInputStream(Paths.get("res/textures/nextstage.png")));
             System.out.println("duoc luon");
 
         } catch (IOException e) {
@@ -46,12 +48,23 @@ public class Menu {
     private KeyListener keyListener;
     private boolean isPlaying;
     private boolean isMuted = false;
+
     List<Button> buttonMenu = new ArrayList<>();
     List<Button> buttonRetry = new ArrayList<>();
-    List<Button> buttonInGame = new ArrayList<>();
+    List<Button> buttonInGame1 = new ArrayList<>();
+    List<Button> buttonInGame2 = new ArrayList<>();
+    List<Button> buttonNextStage = new ArrayList<>();
     Button startButton;
 
     private int chooseButton;
+
+    public boolean isMuted() {
+        return this.isMuted;
+    }
+
+    public void setIsMuted(boolean isMuted) {
+        this.isMuted = isMuted;
+    }
 
     public long getDelayInput() {
         return this.delayInput;
@@ -120,30 +133,53 @@ public class Menu {
         text = new Text("Continue");
         text.setFont(Texture.PIXELFONTMINI);
         text.setFill(Color.WHITE);
-        buttonInGame.add(new Button(
+
+        buttonInGame1.add(new Button(
+                Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
+                (Texture.HEIGHT * 2 / 4) * Sprite.SCALED_SIZE - 2 * (int) text.getLayoutBounds().getHeight() / 2,
+                text));
+        buttonInGame2.add(new Button(
                 Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
                 (Texture.HEIGHT * 2 / 4) * Sprite.SCALED_SIZE - 2 * (int) text.getLayoutBounds().getHeight() / 2,
                 text));
         text = new Text("Mute");
         text.setFont(Texture.PIXELFONTMINI);
         text.setFill(Color.WHITE);
-        buttonInGame.add(new Button(
+        buttonInGame1.add(new Button(
                 Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
                 (Texture.HEIGHT * 2 / 4) * Sprite.SCALED_SIZE + 0 * (int) text.getLayoutBounds().getHeight() / 2,
                 text));
         text = new Text("Unmute");
         text.setFont(Texture.PIXELFONTMINI);
         text.setFill(Color.WHITE);
-        buttonInGame.add(new Button(
+        buttonInGame2.add(new Button(
                 Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
                 (Texture.HEIGHT * 2 / 4) * Sprite.SCALED_SIZE + 0 * (int) text.getLayoutBounds().getHeight() / 2,
                 text));
         text = new Text("Exit");
         text.setFont(Texture.PIXELFONTMINI);
         text.setFill(Color.WHITE);
-        buttonInGame.add(new Button(
+        buttonInGame1.add(new Button(
                 Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
                 (Texture.HEIGHT * 2 / 4) * Sprite.SCALED_SIZE + 2 * (int) text.getLayoutBounds().getHeight() / 2,
+                text));
+        buttonInGame2.add(new Button(
+                Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
+                (Texture.HEIGHT * 2 / 4) * Sprite.SCALED_SIZE + 2 * (int) text.getLayoutBounds().getHeight() / 2,
+                text));
+        text = new Text("Continue");
+        text.setFont(Texture.PIXELFONT);
+        text.setFill(Color.WHITE);
+        buttonNextStage.add(new Button(
+                Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
+                (Texture.HEIGHT * 5 / 8) * Sprite.SCALED_SIZE + 1 * (int) text.getLayoutBounds().getHeight() / 2,
+                text));
+        text = new Text("Exit");
+        text.setFont(Texture.PIXELFONT);
+        text.setFill(Color.WHITE);
+        buttonNextStage.add(new Button(
+                Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
+                (Texture.HEIGHT * 6 / 8) * Sprite.SCALED_SIZE + 2 * (int) text.getLayoutBounds().getHeight() / 2,
                 text));
     }
 
@@ -164,11 +200,22 @@ public class Menu {
                             Texture.HEIGHT * Sprite.SCALED_SIZE / 2 - (Texture.HEIGHT * Sprite.SCALED_SIZE) / 4,
                             (Texture.WIDTH * Sprite.SCALED_SIZE) / 2,
                             (Texture.HEIGHT * Sprite.SCALED_SIZE) / 2);
-                    for (int i = 0; i < buttonInGame.size(); i++) {
-                        if (chooseButton == i) {
-                            buttonInGame.get(i).renderMini(gc);
-                        } else {
-                            buttonInGame.get(i).render(gc);
+                    if (!isMuted) {
+                        for (int i = 0; i < buttonInGame1.size(); i++) {
+                            if (chooseButton == i) {
+                                buttonInGame1.get(i).renderMini(gc);
+                            } else {
+                                buttonInGame1.get(i).render(gc);
+                            }
+                        }
+                    }
+                    if (isMuted) {
+                        for (int i = 0; i < buttonInGame2.size(); i++) {
+                            if (chooseButton == i) {
+                                buttonInGame2.get(i).renderMini(gc);
+                            } else {
+                                buttonInGame2.get(i).render(gc);
+                            }
                         }
                     }
                 }
@@ -192,6 +239,17 @@ public class Menu {
                         buttonRetry.get(i).renderChoosen(gc);
                     } else {
                         buttonRetry.get(i).render(gc);
+                    }
+                }
+                break;
+            case NEXT_STAGE:
+                gc.drawImage(nextStageImage, 0, 0, Texture.WIDTH * Sprite.SCALED_SIZE,
+                        Texture.HEIGHT * Sprite.SCALED_SIZE);
+                for (int i = 0; i < buttonNextStage.size(); i++) {
+                    if (chooseButton == i) {
+                        buttonNextStage.get(i).renderChoosen(gc);
+                    } else {
+                        buttonNextStage.get(i).render(gc);
                     }
                 }
             default:
@@ -275,10 +333,15 @@ public class Menu {
                                     setIsPlaying(true);
                                     break;
                                 case 1:
+                                    if (isMuted) {
+                                        isMuted = false;
+                                        SoundFile.playGame.loop();
+                                    } else if (!isMuted) {
+                                        isMuted = true;
+                                        SoundFile.playGame.stop();
+                                    }
                                     break;
                                 case 2:
-                                    break;
-                                case 3:
                                     setGameState(STATE.IN_MENU);
                                     chooseButton = 0;
                                     break;
@@ -286,15 +349,44 @@ public class Menu {
                         } else if (keyListener.isPressed(KeyCode.S)) {
                             SoundFile.menuMove.play();
                             chooseButton++;
-                            if (chooseButton == buttonInGame.size()) {
+                            if (chooseButton == buttonInGame1.size()) {
                                 chooseButton = 0;
                             }
                         } else if (keyListener.isPressed(KeyCode.W)) {
                             SoundFile.menuMove.play();
                             chooseButton--;
                             if (chooseButton < 0) {
-                                chooseButton = buttonMenu.size() - 1;
+                                chooseButton = buttonInGame1.size() - 1;
                             }
+                        }
+                    }
+                }
+                break;
+            case NEXT_STAGE:
+                now = Timer.getNow();
+                if (now - delayInput > Timer.TIME_PER_FRAME * 5) {
+                    delayInput = now;
+                    if (keyListener.isPressed(KeyCode.ENTER)) {
+                        SoundFile.menuSelect.play();
+                        switch (chooseButton) {
+                            case 0:
+                                setGameState(STATE.IN_GAME);
+                                break;
+                            case 1:
+                                setGameState(STATE.IN_MENU);
+                                break;
+                        }
+                    } else if (keyListener.isPressed(KeyCode.S)) {
+                        SoundFile.menuMove.play();
+                        chooseButton++;
+                        if (chooseButton == buttonNextStage.size()) {
+                            chooseButton = 0;
+                        }
+                    } else if (keyListener.isPressed(KeyCode.W)) {
+                        SoundFile.menuMove.play();
+                        chooseButton--;
+                        if (chooseButton < 0) {
+                            chooseButton = buttonNextStage.size() - 1;
                         }
                     }
                 }
