@@ -39,7 +39,7 @@ public class Texture {
         gc = canvas.getGraphicsContext2D();
         try {
             DEFAULTFONT = Font.loadFont(Files.newInputStream(Paths.get("res/font/default.ttf")), 60);
-            CHOOSENFONT = Font.loadFont(Files.newInputStream(Paths.get("res/font/title.ttf")), 25);
+            CHOOSENFONT = Font.loadFont(Files.newInputStream(Paths.get("res/font/title.ttf")), 15);
             PIXELFONT = Font.loadFont(Files.newInputStream(Paths.get("res/font/pixel.ttf")), 75);
             PIXELFONTMINI = Font.loadFont(Files.newInputStream(Paths.get("res/font/pixel.ttf")), 40);
         } catch (IOException e) {

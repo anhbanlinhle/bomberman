@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.lang.Thread.State;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +17,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import uet.oop.bomberman.graphics.Texture;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.controller.Timer;
 
 import static uet.oop.bomberman.BombermanGame.bombManager;
 import static uet.oop.bomberman.BombermanGame.bomberman;
+import static uet.oop.bomberman.BombermanGame.levelNo;
 
 public class Menu {
     public static enum STATE {
@@ -61,6 +64,7 @@ public class Menu {
     private int speed = 0;
     private int flame = 0;
     private int bomb = 0;
+    private int countColor = 0;
 
     List<Button> buttonMenu = new ArrayList<>();
     List<Button> buttonRetry = new ArrayList<>();
@@ -229,8 +233,7 @@ public class Menu {
         text.setFont(Texture.PIXELFONTMINI);
         text.setFill(Color.WHITE);
         buttonFunc.add(new Button(288, 115, text));
-
-        }
+    }
 
     public STATE getGameState() {
         return GAME_STATE;
@@ -333,19 +336,28 @@ public class Menu {
     }
 
     public void updateFunc() {
+        Color temp = Color.BLACK;
         buttonFunc = new ArrayList<>();
+
         Text text = new Text("" + (speed - 1));
-        text.setFont(Texture.PIXELFONTMINI);
-        text.setFill(Color.BLACK);
+        text.setFont(Texture.CHOOSENFONT);
+        text.setFill(temp);
         buttonFunc.add(new Button(480, 115, text));
+        
         text = new Text("" + flame);
-        text.setFont(Texture.PIXELFONTMINI);
-        text.setFill(Color.BLACK);
+        text.setFont(Texture.CHOOSENFONT);
+        text.setFill(temp);
         buttonFunc.add(new Button(384, 115, text));
+        
         text = new Text("" + bomb);
-        text.setFont(Texture.PIXELFONTMINI);
-        text.setFill(Color.BLACK);
+        text.setFont(Texture.CHOOSENFONT);
+        text.setFill(temp);
         buttonFunc.add(new Button(288, 115, text));
+
+        text = new Text("Level " + (levelNo + 1));
+        text.setFont(Texture.CHOOSENFONT);
+        text.setFill(Color.WHITE);
+        buttonFunc.add(new Button(344, 165, text));
     }
 
     public void update() {
