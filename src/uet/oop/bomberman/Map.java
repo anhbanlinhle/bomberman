@@ -20,6 +20,9 @@ public class Map {
     public static List<Item> itemList;
     private int height, width;
 
+    private int portalX;
+    private int portalY;
+
     static char[][] levelSymbol;
     private static int currentMapNo;
 
@@ -78,6 +81,9 @@ public class Map {
                         case 'f':
                             entity = new FlameItem(j, i, Sprite.brick.getFxImage());
                             break;
+                        case 'x':
+                            entity = new Portal(j, i, Sprite.brick.getFxImage());
+                            break;
                         default:
                             entity = new Grass(j, i, Sprite.grass.getFxImage());
                     }
@@ -124,5 +130,22 @@ public class Map {
 
     public List<Enemy> getEnemyList() {
         return enemyList;
+    }
+
+
+    public int getPortalX() {
+        return this.portalX;
+    }
+
+    public void setPortalX(int portalX) {
+        this.portalX = portalX;
+    }
+
+    public int getPortalY() {
+        return this.portalY;
+    }
+
+    public void setPortalY(int portalY) {
+        this.portalY = portalY;
     }
 }

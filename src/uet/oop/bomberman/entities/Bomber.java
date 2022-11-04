@@ -27,15 +27,16 @@ public class Bomber extends DynamicEntity {
     private final int DIE_TIME = 60;
     private KeyListener keyHandle;
     public int loseDelay;
-
+    private boolean meetPortal;
 
     public Bomber(int x, int y, Image img, KeyListener keyHandle) {
         super(x, y, img);
         this.keyHandle = keyHandle;
-        speed = 3;
+        speed = 2;
         status = STATUS.IDLE;
         direction = DIRECTION.RIGHT;
         isAlive = true;
+        meetPortal = false;
     }
 
     @Override
@@ -51,6 +52,7 @@ public class Bomber extends DynamicEntity {
             centerX = x + Sprite.SCALED_SIZE / 2;
             centerY = y + Sprite.SCALED_SIZE / 2;
             checkCollisionItem();
+            checkCollisionPortal();
 
             if (checkCollisionEnemy() || checkColisionFlame(bombManager))
                 setAlive(false);
@@ -245,16 +247,23 @@ public class Bomber extends DynamicEntity {
         }
     }
 
-    private void updateBombs() {
+    public void checkCollisionPortal() {
+        int difX = Math.abs(map.getPortalX() * Sprite.SCALED_SIZE - x),
+            difY = Math.abs(map.getPortalY() * Sprite.SCALED_SIZE - y);
+        if (difX < Sprite.SCALED_SIZE && difY < Sprite.SCALED_SIZE) {
+            if (enemyManager.getEnemyList().size() == 0) {
+                meetPortal = true;
+                System.out.println("Win");
+            }
+        }
+    }
 
-        // Handle Key Press SPACE
+    private void updateBombs() {
         if (keyHandle.isPressed(KeyCode.SPACE)) {
             int xBomb = convertToMapCordinate(x);
             int yBomb = convertToMapCordinate(y);
             bombManager.addBomb(new Bomb(xBomb, yBomb, Sprite.bomb.getFxImage()));
-            // tao bom -> dat bom (xBomb, yBomb);
         }
-
     }
 
     private boolean checkCollisionEnemy() {

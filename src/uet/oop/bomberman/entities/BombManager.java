@@ -128,6 +128,15 @@ BombManager {
                         flameList.add(new Flame(flamePosX, flamePosY, Flame.FLAME_TYPE.BRICK, flameDirection[j]));
                     }
 
+                    else if (map.getEntity(flamePosX, flamePosY) instanceof Portal
+                            && map.getEntity(flamePosX, flamePosY).getType() == ENTITY_TYPE.BRICK) {
+                        bombPath[j] = false;
+                        Portal portal = new Portal(flamePosX, flamePosY, Sprite.portal.getFxImage());
+                        portal.setType(ENTITY_TYPE.PORTAL);
+                        map.replace(flamePosX, flamePosY, portal);
+                        flameList.add(new Flame(flamePosX, flamePosY, Flame.FLAME_TYPE.BRICK, flameDirection[j]));
+                    }
+
                     else if (map.getEntity(flamePosX, flamePosY) instanceof Item) {
                         bombPath[j] = false;
                         ((DynamicEntity)map.getEntity(flamePosX, flamePosY)).setAlive(false);

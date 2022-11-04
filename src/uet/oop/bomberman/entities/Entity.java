@@ -84,6 +84,7 @@ public abstract class Entity {
         ENEMY,
         BOMB_ITEM,
         SPEED_ITEM,
-        FLAME_ITEM
+        FLAME_ITEM,
+        PORTAL
     }
 }
