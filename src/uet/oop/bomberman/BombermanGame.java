@@ -38,6 +38,7 @@ public class BombermanGame extends Application {
     public static BombManager bombManager;
     public static EnemyManager enemyManager;
 
+    public static int levelNo = 0;
     Bomber bomberman;
 
     public static void main(String[] args) {
@@ -70,11 +71,12 @@ public class BombermanGame extends Application {
         menu = new Menu(keyH);
 
         // Entity
-        createGame();
+        createGame(levelNo);
     }
 
-    public void createGame() {
+    public void createGame(int mapNo) {
         map = new Map();
+        map.setCurrentMapNo(mapNo + 1);
         bombManager = new BombManager();
         enemyManager = new EnemyManager();
         map.loadMap(keyH);
@@ -107,29 +109,31 @@ public class BombermanGame extends Application {
                 break;
             case GAME_OVER:
                 menu.update();
+                SoundFile.lose.loop();
                 break;
             case IN_GAME:
                 SoundFile.lose.stop();
                 SoundFile.backgroundGame.stop();
-                if (!menu.isMuted()) {
-                    SoundFile.playGame.loop();
-                }
+                
                 if (bomberman.isAlive()) {
+                    if (!menu.isMuted()) {
+                        SoundFile.playGame.loop();
+                    }
                     if (bomberman.isMeetPortal()) {
-                        System.out.println("dc r");
                         SoundFile.win.play();
+                        System.out.println("Win");
                         menu.setGameState(STATE.NEXT_STAGE);
+                        menu.update();
                     }
                     if (keyH.isPressed(KeyCode.ESCAPE)) {
                         menu.setIsPlaying(false);
                     }
                     if (menu.isPlaying()) {
-
                         bomberman.update();
                         enemyManager.update();
                         camera.update(bomberman);
                     } else {
-                        // SoundFile.playGame.stop();
+                        SoundFile.playGame.stop();
                         menu.update();
                     }
                     if (keyH.isPressed(KeyCode.ESCAPE)) {
@@ -143,12 +147,10 @@ public class BombermanGame extends Application {
                 if (bomberman.loseDelay == LOSE_DELAY) {
                     System.out.println("Game Over");
                     bomberman = null;
-                    SoundFile.playGame.stop();
-                    SoundFile.lose.play();
                     menu.setGameState(Menu.GAME_STATE.GAME_OVER);
                     menu.update();
                     cleanGame();
-                    createGame();
+                    createGame(0);
                 }
                 
                 break;
@@ -156,7 +158,20 @@ public class BombermanGame extends Application {
                 SoundFile.playGame.stop();
                 menu.update();
                 break;
+            case NEXT_LEVEL:
+                if (levelNo < 2) {
+                    levelNo++;
+                    cleanGame();
+                    createGame(levelNo);
+                    menu.setGameState(Menu.GAME_STATE.IN_GAME);
+                    menu.update();
+                } else {
+                    menu.setGameState(Menu.GAME_STATE.GAME_OVER);
+                    menu.update();
+                }
+                break;
             case EXIT:
+                cleanGame();
                 System.exit(0);
                 break;
         }

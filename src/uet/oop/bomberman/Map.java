@@ -26,14 +26,16 @@ public class Map {
     private int portalY;
 
     static char[][] levelSymbol;
-    private static int currentMapNo;
+    private int currentMapNo;
 
     public Map() {
-        currentMapNo = 1;
+        currentMapNo = 0;
         mapEntity = new ArrayList<>();
         enemyList = new ArrayList<>();
         itemList = new ArrayList<>();
     }
+
+    
 
     public void loadMap(KeyListener keyListener) {
         File fileMap = new File("res/levels/level" + currentMapNo + ".txt");
@@ -128,8 +130,12 @@ public class Map {
         return this.width;
     }
 
-    public static int getCurrentMapNo() {
+    public int getCurrentMapNo() {
         return currentMapNo;
+    }
+
+    public void setCurrentMapNo(int currentMapNo) {
+        this.currentMapNo = currentMapNo;
     }
 
     public List<Enemy> getEnemyList() {

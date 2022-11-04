@@ -19,7 +19,7 @@ import uet.oop.bomberman.graphics.Sprite;
 
 public class Menu {
     public static enum STATE {
-        IN_MENU, IN_GAME, GAME_OVER, NEXT_STAGE, EXIT
+        IN_MENU, IN_GAME, GAME_OVER, NEXT_STAGE, NEXT_LEVEL, EXIT
     }
 
     public static Image backGroundImage;
@@ -102,14 +102,14 @@ public class Menu {
         this.GAME_STATE = STATE.IN_MENU;
         this.keyListener = keyListener;
 
-        Text text = new Text("PLAY");
+        Text text = new Text("Continue");
         text.setFont(Texture.PIXELFONT);
         text.setFill(Color.WHITE);
         buttonMenu.add(new Button(
                 (Texture.WIDTH * 3 / 4) * Sprite.SCALED_SIZE + 10 - (int) text.getLayoutBounds().getWidth() / 2 + 50,
                 (Texture.HEIGHT / 6) * Sprite.SCALED_SIZE + (int) text.getLayoutBounds().getHeight() / 2, text));
 
-        text = new Text("EXIT");
+        text = new Text("Quit");
         text.setFont(Texture.PIXELFONT);
         text.setFill(Color.WHITE);
         buttonMenu.add(new Button(
@@ -156,7 +156,7 @@ public class Menu {
                 Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
                 (Texture.HEIGHT * 2 / 4) * Sprite.SCALED_SIZE + 0 * (int) text.getLayoutBounds().getHeight() / 2,
                 text));
-        text = new Text("Exit");
+        text = new Text("Menu");
         text.setFont(Texture.PIXELFONTMINI);
         text.setFill(Color.WHITE);
         buttonInGame1.add(new Button(
@@ -174,7 +174,7 @@ public class Menu {
                 Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
                 (Texture.HEIGHT * 5 / 8) * Sprite.SCALED_SIZE + 1 * (int) text.getLayoutBounds().getHeight() / 2,
                 text));
-        text = new Text("Exit");
+        text = new Text("Menu");
         text.setFont(Texture.PIXELFONT);
         text.setFill(Color.WHITE);
         buttonNextStage.add(new Button(
@@ -370,7 +370,7 @@ public class Menu {
                         SoundFile.menuSelect.play();
                         switch (chooseButton) {
                             case 0:
-                                setGameState(STATE.IN_GAME);
+                                setGameState(STATE.NEXT_LEVEL);
                                 break;
                             case 1:
                                 setGameState(STATE.IN_MENU);
