@@ -17,6 +17,9 @@ import javafx.scene.text.Text;
 import uet.oop.bomberman.graphics.Texture;
 import uet.oop.bomberman.graphics.Sprite;
 
+import static uet.oop.bomberman.BombermanGame.bombManager;
+import static uet.oop.bomberman.BombermanGame.bomberman;
+
 public class Menu {
     public static enum STATE {
         IN_MENU, NEW_GAME, IN_GAME, GAME_OVER, NEXT_STAGE, NEXT_LEVEL, WIN_GAME, EXIT
@@ -27,6 +30,9 @@ public class Menu {
     public static Image menuInGameImage;
     public static Image nextStageImage;
     public static Image winGameImage;
+    public static Image bombItem;
+    public static Image flameItem;
+    public static Image speedItem;
 
     public Menu() {
         try {
@@ -35,6 +41,9 @@ public class Menu {
             menuInGameImage = new Image(Files.newInputStream(Paths.get("res/textures/menuingame.png")));
             nextStageImage = new Image(Files.newInputStream(Paths.get("res/textures/nextstage.png")));
             winGameImage = new Image(Files.newInputStream(Paths.get("res/textures/win_image.png")));
+            bombItem = new Image(Files.newInputStream(Paths.get("res/textures/bomb_item.png")));
+            flameItem = new Image(Files.newInputStream(Paths.get("res/textures/flame_item.png")));
+            speedItem = new Image(Files.newInputStream(Paths.get("res/textures/speed_item.png")));
             System.out.println("duoc luon");
 
         } catch (IOException e) {
@@ -49,12 +58,17 @@ public class Menu {
     private boolean isPlaying;
     private boolean isMuted = false;
 
+    private int speed = 0;
+    private int flame = 0;
+    private int bomb = 0;
+
     List<Button> buttonMenu = new ArrayList<>();
     List<Button> buttonRetry = new ArrayList<>();
     List<Button> buttonInGame1 = new ArrayList<>();
     List<Button> buttonInGame2 = new ArrayList<>();
     List<Button> buttonNextStage = new ArrayList<>();
     List<Button> buttonWin = new ArrayList<>();
+    List<Button> buttonFunc = new ArrayList<>();
 
     Button startButton;
 
@@ -134,39 +148,38 @@ public class Menu {
         text = new Text("Continue");
         text.setFont(Texture.PIXELFONTMINI);
         text.setFill(Color.WHITE);
-
         buttonInGame1.add(new Button(
                 Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
-                (Texture.HEIGHT * 2 / 4) * Sprite.SCALED_SIZE - 2 * (int) text.getLayoutBounds().getHeight() / 2,
+                (Texture.HEIGHT * 2 / 4) * Sprite.SCALED_SIZE - 2 * (int) text.getLayoutBounds().getHeight() / 2 + 35,
                 text));
         buttonInGame2.add(new Button(
                 Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
-                (Texture.HEIGHT * 2 / 4) * Sprite.SCALED_SIZE - 2 * (int) text.getLayoutBounds().getHeight() / 2,
+                (Texture.HEIGHT * 2 / 4) * Sprite.SCALED_SIZE - 2 * (int) text.getLayoutBounds().getHeight() / 2 + 35,
                 text));
         text = new Text("Mute");
         text.setFont(Texture.PIXELFONTMINI);
         text.setFill(Color.WHITE);
         buttonInGame1.add(new Button(
                 Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
-                (Texture.HEIGHT * 2 / 4) * Sprite.SCALED_SIZE + 0 * (int) text.getLayoutBounds().getHeight() / 2,
+                (Texture.HEIGHT * 2 / 4) * Sprite.SCALED_SIZE + 0 * (int) text.getLayoutBounds().getHeight() / 2 + 40,
                 text));
         text = new Text("Unmute");
         text.setFont(Texture.PIXELFONTMINI);
         text.setFill(Color.WHITE);
         buttonInGame2.add(new Button(
                 Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
-                (Texture.HEIGHT * 2 / 4) * Sprite.SCALED_SIZE + 0 * (int) text.getLayoutBounds().getHeight() / 2,
+                (Texture.HEIGHT * 2 / 4) * Sprite.SCALED_SIZE + 0 * (int) text.getLayoutBounds().getHeight() / 2 + 40,
                 text));
         text = new Text("Menu");
         text.setFont(Texture.PIXELFONTMINI);
         text.setFill(Color.WHITE);
         buttonInGame1.add(new Button(
                 Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
-                (Texture.HEIGHT * 2 / 4) * Sprite.SCALED_SIZE + 2 * (int) text.getLayoutBounds().getHeight() / 2,
+                (Texture.HEIGHT * 2 / 4) * Sprite.SCALED_SIZE + 2 * (int) text.getLayoutBounds().getHeight() / 2 + 45,
                 text));
         buttonInGame2.add(new Button(
                 Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
-                (Texture.HEIGHT * 2 / 4) * Sprite.SCALED_SIZE + 2 * (int) text.getLayoutBounds().getHeight() / 2,
+                (Texture.HEIGHT * 2 / 4) * Sprite.SCALED_SIZE + 2 * (int) text.getLayoutBounds().getHeight() / 2 + 45,
                 text));
         text = new Text("Continue");
         text.setFont(Texture.PIXELFONT);
@@ -203,7 +216,20 @@ public class Menu {
         text.setFill(Color.WHITE);
         buttonWin.add(new Button(Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
                 Texture.HEIGHT / 2 * Sprite.SCALED_SIZE + (int) text.getLayoutBounds().getHeight() / 2 - 50, text));
-    
+                
+        text = new Text("" + speed);
+        text.setFont(Texture.PIXELFONTMINI);
+        text.setFill(Color.WHITE);
+        buttonFunc.add(new Button(480, 115, text));
+        text = new Text("" + flame);
+        text.setFont(Texture.PIXELFONTMINI);
+        text.setFill(Color.WHITE);
+        buttonFunc.add(new Button(384, 115, text));
+        text = new Text("" + bomb);
+        text.setFont(Texture.PIXELFONTMINI);
+        text.setFill(Color.WHITE);
+        buttonFunc.add(new Button(288, 115, text));
+
         }
 
     public STATE getGameState() {
@@ -223,6 +249,19 @@ public class Menu {
                             Texture.HEIGHT * Sprite.SCALED_SIZE / 2 - (Texture.HEIGHT * Sprite.SCALED_SIZE) / 4,
                             (Texture.WIDTH * Sprite.SCALED_SIZE) / 2,
                             (Texture.HEIGHT * Sprite.SCALED_SIZE) / 2);
+
+                    gc.drawImage(bombItem, 248, 85, 32, 32);
+
+                    gc.drawImage(flameItem, 344, 85, 32, 32);
+
+                    gc.drawImage(speedItem, 440, 85, 32, 32);
+                    
+                    updateFunc();
+
+                    for (int i = 0; i < buttonFunc.size(); i++) {
+                        buttonFunc.get(i).render(gc);
+                    }
+
                     if (!isMuted) {
                         for (int i = 0; i < buttonInGame1.size(); i++) {
                             if (chooseButton == i) {
@@ -293,6 +332,22 @@ public class Menu {
         }
     }
 
+    public void updateFunc() {
+        buttonFunc = new ArrayList<>();
+        Text text = new Text("" + (speed - 1));
+        text.setFont(Texture.PIXELFONTMINI);
+        text.setFill(Color.BLACK);
+        buttonFunc.add(new Button(480, 115, text));
+        text = new Text("" + flame);
+        text.setFont(Texture.PIXELFONTMINI);
+        text.setFill(Color.BLACK);
+        buttonFunc.add(new Button(384, 115, text));
+        text = new Text("" + bomb);
+        text.setFont(Texture.PIXELFONTMINI);
+        text.setFill(Color.BLACK);
+        buttonFunc.add(new Button(288, 115, text));
+    }
+
     public void update() {
         switch (GAME_STATE) {
             case IN_MENU:
@@ -358,8 +413,11 @@ public class Menu {
                     }
                 }
                 break;
-            case IN_GAME:
+            case IN_GAME:               
                 now = Timer.getNow();
+                speed = bomberman.getSpeed();
+                flame = bombManager.getFlameLength();
+                bomb = bombManager.getBombRemain();
                 if (now - delayInput > Timer.TIME_PER_FRAME * 5) {
                     delayInput = now;
                     if (!isPlaying()) {
