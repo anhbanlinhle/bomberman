@@ -19,13 +19,14 @@ import uet.oop.bomberman.graphics.Sprite;
 
 public class Menu {
     public static enum STATE {
-        IN_MENU, NEW_GAME, IN_GAME, GAME_OVER, NEXT_STAGE, NEXT_LEVEL, EXIT
+        IN_MENU, NEW_GAME, IN_GAME, GAME_OVER, NEXT_STAGE, NEXT_LEVEL, WIN_GAME, EXIT
     }
 
     public static Image backGroundImage;
     public static Image gameOverImage;
     public static Image menuInGameImage;
     public static Image nextStageImage;
+    public static Image winGameImage;
 
     public Menu() {
         try {
@@ -33,6 +34,7 @@ public class Menu {
             gameOverImage = new Image(Files.newInputStream(Paths.get("res/textures/gameOver.png")));
             menuInGameImage = new Image(Files.newInputStream(Paths.get("res/textures/menuingame.png")));
             nextStageImage = new Image(Files.newInputStream(Paths.get("res/textures/nextstage.png")));
+            winGameImage = new Image(Files.newInputStream(Paths.get("res/textures/win_image.png")));
             System.out.println("duoc luon");
 
         } catch (IOException e) {
@@ -41,8 +43,6 @@ public class Menu {
         }
     }
 
-    private final int GAME = 0;
-    private final int EXIT = 1;
     private long delayInput = 10;
     public static STATE GAME_STATE = STATE.IN_MENU;
     private KeyListener keyListener;
@@ -54,6 +54,8 @@ public class Menu {
     List<Button> buttonInGame1 = new ArrayList<>();
     List<Button> buttonInGame2 = new ArrayList<>();
     List<Button> buttonNextStage = new ArrayList<>();
+    List<Button> buttonWin = new ArrayList<>();
+
     Button startButton;
 
     private int chooseButton;
@@ -82,14 +84,6 @@ public class Menu {
         this.isPlaying = isPlaying;
     }
 
-    public int getGAME() {
-        return this.GAME;
-    }
-
-    public int getEXIT() {
-        return this.EXIT;
-    }
-
     public KeyListener getKeyListener() {
         return this.keyListener;
     }
@@ -115,7 +109,6 @@ public class Menu {
         buttonMenu.add(new Button(
                 (Texture.WIDTH * 3 / 4) * Sprite.SCALED_SIZE + 10 - (int) text.getLayoutBounds().getWidth() / 2 + 25,
                 Texture.HEIGHT / 6 * Sprite.SCALED_SIZE + 10 + 3 * (int) text.getLayoutBounds().getHeight() / 2, text));
-        chooseButton = GAME;
 
         text = new Text("Quit");
         text.setFont(Texture.PIXELFONT);
@@ -123,7 +116,7 @@ public class Menu {
         buttonMenu.add(new Button(
                 (Texture.WIDTH * 3 / 4) * Sprite.SCALED_SIZE + 10 - (int) text.getLayoutBounds().getWidth() / 2 + 100,
                 Texture.HEIGHT / 6 * Sprite.SCALED_SIZE + 10 + 12 * (int) text.getLayoutBounds().getHeight() / 2, text));
-        chooseButton = GAME;
+        chooseButton = 0;
 
         text = new Text("Yes");
         text.setFont(Texture.PIXELFONT);
@@ -189,7 +182,29 @@ public class Menu {
                 Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
                 (Texture.HEIGHT * 6 / 8) * Sprite.SCALED_SIZE + 2 * (int) text.getLayoutBounds().getHeight() / 2,
                 text));
-    }
+
+        text = new Text("QuangCute");
+        text.setFont(Texture.PIXELFONT);
+        text.setFill(Color.WHITE);
+        buttonWin.add(new Button(Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
+                Texture.HEIGHT / 2 * Sprite.SCALED_SIZE + (int) text.getLayoutBounds().getHeight() / 2 + 100, text));
+        text = new Text("VuongChan");
+        text.setFont(Texture.PIXELFONT);
+        text.setFill(Color.WHITE);
+        buttonWin.add(new Button(Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
+                Texture.HEIGHT / 2 * Sprite.SCALED_SIZE + (int) text.getLayoutBounds().getHeight() / 2 + 50, text));
+        text = new Text("Lynn");
+        text.setFont(Texture.PIXELFONT);
+        text.setFill(Color.WHITE);
+        buttonWin.add(new Button(Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
+                Texture.HEIGHT / 2 * Sprite.SCALED_SIZE + (int) text.getLayoutBounds().getHeight() / 2, text));
+        text = new Text("Thanks a lot game Devs!!!");
+        text.setFont(Texture.PIXELFONT);
+        text.setFill(Color.WHITE);
+        buttonWin.add(new Button(Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
+                Texture.HEIGHT / 2 * Sprite.SCALED_SIZE + (int) text.getLayoutBounds().getHeight() / 2 - 50, text));
+    
+        }
 
     public STATE getGameState() {
         return GAME_STATE;
@@ -260,6 +275,18 @@ public class Menu {
                         buttonNextStage.get(i).render(gc);
                     }
                 }
+                break;
+            case WIN_GAME:
+                gc.drawImage(winGameImage, 0, 0, Texture.WIDTH * Sprite.SCALED_SIZE,
+                        Texture.HEIGHT * Sprite.SCALED_SIZE);
+                for (int i = 0; i < buttonWin.size(); i++) {
+                    if (chooseButton == i) {
+                        buttonWin.get(i).renderChoosen(gc);
+                    } else {
+                        buttonWin.get(i).render(gc);
+                    }
+                }
+                break;
             default:
                 break;
 
@@ -401,6 +428,19 @@ public class Menu {
                         }
                     }
                 }
+                break;
+            case WIN_GAME:
+                
+                    if (keyListener.isPressed(KeyCode.ESCAPE)) {
+                        setGameState(GAME_STATE.IN_MENU);
+                    } else {
+                        SoundFile.menuMove.play();
+                        chooseButton--;
+                        if (chooseButton < 0) {
+                            chooseButton = buttonWin.size() - 1;
+                        }
+                    }
+                
                 break;
             default:
                 break;

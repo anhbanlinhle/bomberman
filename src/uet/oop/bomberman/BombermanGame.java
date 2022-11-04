@@ -122,6 +122,7 @@ public class BombermanGame extends Application {
             case IN_GAME:
                 SoundFile.lose.stop();
                 SoundFile.backgroundGame.stop();
+                SoundFile.win.stop();
                 
                 if (bomberman.isAlive()) {
                     if (!menu.isMuted()) {
@@ -172,9 +173,12 @@ public class BombermanGame extends Application {
                     menu.setGameState(Menu.GAME_STATE.IN_GAME);
                     menu.update();
                 } else {
-                    menu.setGameState(Menu.GAME_STATE.GAME_OVER);
+                    menu.setGameState(Menu.GAME_STATE.WIN_GAME);
                     menu.update();
                 }
+                break;
+            case WIN_GAME:
+                menu.update();
                 break;
             case EXIT:
                 cleanGame();
@@ -205,6 +209,10 @@ public class BombermanGame extends Application {
                 break;
             case NEXT_STAGE:
                 menu.render(gc);
+                break;
+            case WIN_GAME:
+                menu.render(gc);
+                break;
             case EXIT:
                 break;
         }
