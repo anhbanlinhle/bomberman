@@ -111,10 +111,6 @@ public class BombermanGame extends Application {
             case IN_GAME:
                 SoundFile.lose.stop();
                 SoundFile.backgroundGame.stop();
-                SoundFile.playGame.loop();
-                if (menu.isMuted()) {
-                    SoundFile.playGame.stop();
-                }
                 if (!menu.isMuted()) {
                     SoundFile.playGame.loop();
                 }

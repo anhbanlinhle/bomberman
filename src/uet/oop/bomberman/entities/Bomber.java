@@ -255,7 +255,7 @@ public class Bomber extends DynamicEntity {
         int difX = Math.abs(map.getPortalX() - x),
             difY = Math.abs(map.getPortalY() - y);
         if (difX < Sprite.SCALED_SIZE && difY < Sprite.SCALED_SIZE) {
-            if (enemyManager.getEnemyList().size() > 0 ) {
+            if (enemyManager.getEnemyList().size() < 0 ) {
                 meetPortal = true;
                 System.out.println("Win");
             }
