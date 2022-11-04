@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import  static uet.oop.bomberman.BombermanGame.map;
+
 
 public class Map {
     private List<List<Entity>> mapEntity;
@@ -83,6 +85,8 @@ public class Map {
                             break;
                         case 'x':
                             entity = new Portal(j, i, Sprite.brick.getFxImage());
+                            map.setPortalX(j * Sprite.SCALED_SIZE);
+                            map.setPortalY(i * Sprite.SCALED_SIZE);
                             break;
                         default:
                             entity = new Grass(j, i, Sprite.grass.getFxImage());

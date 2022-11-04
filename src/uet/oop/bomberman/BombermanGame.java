@@ -132,6 +132,7 @@ public class BombermanGame extends Application {
                     bombManager.update();
                 }
                 if (bomberman.loseDelay == LOSE_DELAY) {
+                    System.out.println("Game Over");
                     bomberman = null;
                     SoundFile.playGame.stop();
                     SoundFile.lose.play();

@@ -65,7 +65,6 @@ public class Bomber extends DynamicEntity {
                 die2(countDead);
             int DELAY_REMOVE = 120;
             if (countDead == DELAY_REMOVE) {
-                System.out.println("Game Over");
                 countDead = 0;
             }
             loseDelay++;
@@ -248,8 +247,8 @@ public class Bomber extends DynamicEntity {
     }
 
     public void checkCollisionPortal() {
-        int difX = Math.abs(map.getPortalX() * Sprite.SCALED_SIZE - x),
-            difY = Math.abs(map.getPortalY() * Sprite.SCALED_SIZE - y);
+        int difX = Math.abs(map.getPortalX() - x),
+            difY = Math.abs(map.getPortalY() - y);
         if (difX < Sprite.SCALED_SIZE && difY < Sprite.SCALED_SIZE) {
             if (enemyManager.getEnemyList().size() == 0) {
                 meetPortal = true;

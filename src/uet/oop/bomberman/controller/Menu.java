@@ -243,13 +243,9 @@ public class Menu {
                             case 0:
                                 setGameState(STATE.IN_GAME);
                                 break;
-                            case 2:
+                            case 1:
                                 setGameState(STATE.IN_MENU);
                                 break;
-                            case 1:
-                                if(isMuted) {
-                                    
-                                }
                         }
                     } else if (keyListener.isPressed(KeyCode.A)) {
                         SoundFile.menuMove.play();
@@ -274,9 +270,13 @@ public class Menu {
                         if (keyListener.isPressed(KeyCode.ENTER)) {
                             SoundFile.menuSelect.play();
                             switch (chooseButton) {
-                                case GAME:
+                                case 0:
                                     setGameState(STATE.IN_GAME);
                                     setIsPlaying(true);
+                                    break;
+                                case 1:
+                                    break;
+                                case 2:
                                     break;
                                 case 3:
                                     setGameState(STATE.IN_MENU);

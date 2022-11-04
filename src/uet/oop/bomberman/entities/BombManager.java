@@ -42,9 +42,13 @@ BombManager {
             }
         }
         if (checkDuplicate && bombRemain > 0) {
-            bombList.add(bomb);
-            map.replace(bomb.convertToMapCordinate(bomb.x), bomb.convertToMapCordinate(bomb.y), bomb);
-            bombRemain--;
+            int difX = Math.abs(bomb.convertToMapCordinate(bomb.x) * Sprite.SCALED_SIZE - map.getPortalX());
+            int difY = Math.abs(bomb.convertToMapCordinate(bomb.y) * Sprite.SCALED_SIZE - map.getPortalY());
+            if (difX != 0 || difY != 0) {
+                bombList.add(bomb);
+                map.replace(bomb.convertToMapCordinate(bomb.x), bomb.convertToMapCordinate(bomb.y), bomb);
+                bombRemain--;
+            }
         }
     }
 
