@@ -13,20 +13,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import  static uet.oop.bomberman.BombermanGame.map;
+
 
 public class Map {
     private List<List<Entity>> mapEntity;
     private List<Enemy> enemyList;
+    public static List<Item> itemList;
     private int height, width;
 
+    private int portalX;
+    private int portalY;
+
     static char[][] levelSymbol;
-    private static int currentMapNo;
+    private int currentMapNo;
 
     public Map() {
-        currentMapNo = 1;
+        currentMapNo = 0;
         mapEntity = new ArrayList<>();
         enemyList = new ArrayList<>();
+        itemList = new ArrayList<>();
     }
+
+    
 
     public void loadMap(KeyListener keyListener) {
         File fileMap = new File("res/levels/level" + currentMapNo + ".txt");
@@ -44,6 +53,7 @@ public class Map {
                     // Read text form line
                     Entity entity;
                     Enemy tempEnemy;
+                    Item tempItem;
                     switch (fileLine.charAt(j)) {
                         case '#':
                             entity = new Wall(j, i, Sprite.wall.getFxImage());
@@ -74,6 +84,11 @@ public class Map {
                             break;
                         case 'f':
                             entity = new FlameItem(j, i, Sprite.brick.getFxImage());
+                            break;
+                        case 'x':
+                            entity = new Portal(j, i, Sprite.brick.getFxImage());
+                            map.setPortalX(j * Sprite.SCALED_SIZE);
+                            map.setPortalY(i * Sprite.SCALED_SIZE);
                             break;
                         default:
                             entity = new Grass(j, i, Sprite.grass.getFxImage());
@@ -115,11 +130,32 @@ public class Map {
         return this.width;
     }
 
-    public static int getCurrentMapNo() {
+    public int getCurrentMapNo() {
         return currentMapNo;
+    }
+
+    public void setCurrentMapNo(int currentMapNo) {
+        this.currentMapNo = currentMapNo;
     }
 
     public List<Enemy> getEnemyList() {
         return enemyList;
+    }
+
+
+    public int getPortalX() {
+        return this.portalX;
+    }
+
+    public void setPortalX(int portalX) {
+        this.portalX = portalX;
+    }
+
+    public int getPortalY() {
+        return this.portalY;
+    }
+
+    public void setPortalY(int portalY) {
+        this.portalY = portalY;
     }
 }

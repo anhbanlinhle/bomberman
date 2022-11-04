@@ -6,9 +6,11 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import uet.oop.bomberman.controller.Camera;
 import uet.oop.bomberman.controller.Timer;
+import uet.oop.bomberman.controller.Menu.STATE;
 import uet.oop.bomberman.controller.KeyListener;
 import uet.oop.bomberman.controller.Menu;
 import uet.oop.bomberman.controller.SoundFile;
@@ -36,7 +38,9 @@ public class BombermanGame extends Application {
     public static BombManager bombManager;
     public static EnemyManager enemyManager;
 
+    public static int levelNo = 0;
     Bomber bomberman;
+
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
     }
@@ -67,11 +71,12 @@ public class BombermanGame extends Application {
         menu = new Menu(keyH);
 
         // Entity
-        createGame();
+        createGame(levelNo);
     }
 
-    public void createGame() {
+    public void createGame(int mapNo) {
         map = new Map();
+        map.setCurrentMapNo(mapNo + 1);
         bombManager = new BombManager();
         enemyManager = new EnemyManager();
         map.loadMap(keyH);
@@ -96,38 +101,89 @@ public class BombermanGame extends Application {
     public void update() {
         switch (menu.getGameState()) {
             case IN_MENU:
+                SoundFile.backgroundGame.loop();
+                SoundFile.win.stop();
+                SoundFile.playGame.stop();
+                SoundFile.lose.stop();
                 menu.update();
                 break;
             case GAME_OVER:
                 menu.update();
+                SoundFile.lose.loop();
+                break;
+            case NEW_GAME:
+                levelNo = 0;
+                cleanGame();
+                createGame(levelNo);
+                menu.setGameState(STATE.IN_GAME);
+                menu.setIsPlaying(true);
+                menu.update();
                 break;
             case IN_GAME:
+                SoundFile.lose.stop();
                 SoundFile.backgroundGame.stop();
+                SoundFile.win.stop();
+                
                 if (bomberman.isAlive()) {
-                    SoundFile.playGame.loop();
-                    bomberman.update();
-                    enemyManager.update();
-                    camera.update(bomberman);
-                }
-                else {
+                    if (!menu.isMuted()) {
+                        SoundFile.playGame.loop();
+                    }
+                    if (bomberman.isMeetPortal()) {
+                        SoundFile.win.play();
+                        menu.setGameState(STATE.NEXT_STAGE);
+                        menu.update();
+                    }
+                    if (keyH.isPressed(KeyCode.ESCAPE)) {
+                        menu.setIsPlaying(false);
+                    }
+                    if (menu.isPlaying()) {
+                        bomberman.update();
+                        enemyManager.update();
+                        camera.update(bomberman);
+                    } else {
+                        SoundFile.playGame.stop();
+                        menu.update();
+                    }
+                    if (keyH.isPressed(KeyCode.ESCAPE)) {
+                        menu.setIsPlaying(false);
+                        menu.update();
+                    }
+                } else {
                     bomberman.update();
                     bombManager.update();
                 }
                 if (bomberman.loseDelay == LOSE_DELAY) {
+                    System.out.println("Game Over");
                     bomberman = null;
-                    SoundFile.playGame.stop();
-                    SoundFile.lose.play();
                     menu.setGameState(Menu.GAME_STATE.GAME_OVER);
                     menu.update();
                     cleanGame();
-                    createGame();
+                    createGame(levelNo);
                 }
-                
                 break;
-            
+            case NEXT_STAGE:
+                SoundFile.playGame.stop();
+                menu.update();
+                break;
+            case NEXT_LEVEL:
+                if (levelNo < 2) {
+                    levelNo++;
+                    cleanGame();
+                    createGame(levelNo);
+                    menu.setGameState(Menu.GAME_STATE.IN_GAME);
+                    menu.update();
+                } else {
+                    menu.setGameState(Menu.GAME_STATE.WIN_GAME);
+                    menu.update();
+                }
+                break;
+            case WIN_GAME:
+                menu.update();
+                break;
             case EXIT:
+                cleanGame();
                 System.exit(0);
-                break;       
+                break;
         }
     }
 
@@ -141,9 +197,21 @@ public class BombermanGame extends Application {
                 break;
             case IN_GAME:
                 gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+                if (!menu.isPlaying()) {
+                    menu.render(gc);
+                }
                 map.renderMap(gc, camera);
                 bomberman.render(gc, camera);
                 enemyManager.render(gc, camera);
+                if (!menu.isPlaying()) {
+                    menu.render(gc);
+                }
+                break;
+            case NEXT_STAGE:
+                menu.render(gc);
+                break;
+            case WIN_GAME:
+                menu.render(gc);
                 break;
             case EXIT:
                 break;

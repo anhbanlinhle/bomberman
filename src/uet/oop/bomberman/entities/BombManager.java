@@ -42,9 +42,13 @@ BombManager {
             }
         }
         if (checkDuplicate && bombRemain > 0) {
-            bombList.add(bomb);
-            map.replace(bomb.convertToMapCordinate(bomb.x), bomb.convertToMapCordinate(bomb.y), bomb);
-            bombRemain--;
+            int difX = Math.abs(bomb.convertToMapCordinate(bomb.x) * Sprite.SCALED_SIZE - map.getPortalX());
+            int difY = Math.abs(bomb.convertToMapCordinate(bomb.y) * Sprite.SCALED_SIZE - map.getPortalY());
+            if (difX != 0 || difY != 0) {
+                bombList.add(bomb);
+                map.replace(bomb.convertToMapCordinate(bomb.x), bomb.convertToMapCordinate(bomb.y), bomb);
+                bombRemain--;
+            }
         }
     }
 
@@ -104,6 +108,7 @@ BombManager {
                         BombItem item = new BombItem(flamePosX, flamePosY, Sprite.powerup_bombs.getFxImage());
                         item.setType(ENTITY_TYPE.BOMB_ITEM);
                         map.replace(flamePosX, flamePosY, item);
+                        map.itemList.add(item);
                         flameList.add(new Flame(flamePosX, flamePosY, Flame.FLAME_TYPE.BRICK, flameDirection[j]));
                     } 
 
@@ -113,6 +118,7 @@ BombManager {
                         SpeedItem item = new SpeedItem(flamePosX, flamePosY, Sprite.powerup_speed.getFxImage());
                         item.setType(ENTITY_TYPE.SPEED_ITEM);
                         map.replace(flamePosX, flamePosY, item);
+                        map.itemList.add(item);
                         flameList.add(new Flame(flamePosX, flamePosY, Flame.FLAME_TYPE.BRICK, flameDirection[j]));
                     }
 
@@ -122,12 +128,22 @@ BombManager {
                         FlameItem item = new FlameItem(flamePosX, flamePosY, Sprite.powerup_flames.getFxImage());
                         item.setType(ENTITY_TYPE.FLAME_ITEM);
                         map.replace(flamePosX, flamePosY, item);
+                        map.itemList.add(item);
                         flameList.add(new Flame(flamePosX, flamePosY, Flame.FLAME_TYPE.BRICK, flameDirection[j]));
                     }
 
-                    else if (map.getEntity(flamePosX, flamePosY).getType() == ENTITY_TYPE.SPEED_ITEM
-                            || map.getEntity(flamePosX, flamePosY).getType() == ENTITY_TYPE.BOMB_ITEM) {
+                    else if (map.getEntity(flamePosX, flamePosY) instanceof Portal
+                            && map.getEntity(flamePosX, flamePosY).getType() == ENTITY_TYPE.BRICK) {
                         bombPath[j] = false;
+                        Portal portal = new Portal(flamePosX, flamePosY, Sprite.portal.getFxImage());
+                        portal.setType(ENTITY_TYPE.PORTAL);
+                        map.replace(flamePosX, flamePosY, portal);
+                        flameList.add(new Flame(flamePosX, flamePosY, Flame.FLAME_TYPE.BRICK, flameDirection[j]));
+                    }
+
+                    else if (map.getEntity(flamePosX, flamePosY) instanceof Item) {
+                        bombPath[j] = false;
+                        ((DynamicEntity)map.getEntity(flamePosX, flamePosY)).setAlive(false);
                         Grass grass = new Grass(flamePosX, flamePosY, Sprite.grass.getFxImage());
                         map.replace(flamePosX, flamePosY, grass);
                         flameList.add(new Flame(flamePosX, flamePosY, Flame.FLAME_TYPE.BRICK, flameDirection[j]));
