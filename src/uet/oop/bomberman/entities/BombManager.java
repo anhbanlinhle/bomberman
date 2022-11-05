@@ -194,6 +194,7 @@ BombManager {
     public List<Flame> getFlameList() {
         return flameList;
     }
+    public List<Bomb> getBombList() {return bombList;}
 
     public void increaseBomb() {
         bombRemain++;
@@ -210,4 +211,6 @@ BombManager {
     public int getFlameLength() {
         return flameLength;
     }
+
+
 }

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import  static uet.oop.bomberman.BombermanGame.map;
+import static uet.oop.bomberman.BombermanGame.*;
 
 
 public class Map {
@@ -35,10 +35,9 @@ public class Map {
         itemList = new ArrayList<>();
     }
 
-    
 
     public void loadMap(KeyListener keyListener) {
-        File fileMap = new File("res/levels/level" + currentMapNo + ".txt");
+        File fileMap = new File("res/levels/Level" + currentMapNo + ".txt");
         try {
             Scanner scanner = new Scanner(fileMap);
             currentMapNo = scanner.nextInt();
@@ -61,6 +60,7 @@ public class Map {
                         case '*':
                             entity = new Brick(j, i, Sprite.brick.getFxImage());
                             break;
+                        //Load Enemy
                         case '1':
                             tempEnemy = new Balloom(j, i, Sprite.balloom_right1.getFxImage());
                             enemyList.add(tempEnemy);
@@ -76,6 +76,17 @@ public class Map {
                             enemyList.add(tempEnemy);
                             entity = new Grass(j, i, Sprite.grass.getFxImage());
                             break;
+//                        case '4':
+//                            tempEnemy = new Pass(j, i, Sprite.pass_right1.getFxImage());
+//                            enemyList.add(tempEnemy);
+//                            entity = new Grass(j, i, Sprite.grass.getFxImage());
+//                            break;
+                        case '5':
+                            tempEnemy = new Minvo(j, i, Sprite.minvo_right2.getFxImage());
+                            enemyList.add(tempEnemy);
+                            entity = new Grass(j, i, Sprite.grass.getFxImage());
+                            break;
+                            //Load Item
                         case 'b':
                             entity = new BombItem(j, i, Sprite.brick.getFxImage());
                             break;
@@ -97,10 +108,42 @@ public class Map {
                 }
                 mapEntity.add(entityList);
             }
+            scanner.close();
 
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public List<List<Integer>> formatMapData() {
+        List<List<Integer>> formatMap = new ArrayList<>();
+
+        //Format the entities in map
+        for (int i = 0; i < height; i++) {
+            List<Integer> row = new ArrayList<>();
+            for (int j = 0; j < width; j++) {
+                if (mapEntity.get(i).get(j) instanceof Brick || mapEntity.get(i).get(j) instanceof Wall) {
+                    row.add(1);
+                } else row.add(0);
+            }
+            formatMap.add(row);
+        }
+
+        for (Entity entity : enemyManager.getEnemyList()) {
+            formatMap.get(entity.getMapY()).set(entity.getMapX(), 1);
+        }
+
+        //Bomb.
+        for (Bomb bomb : bombManager.getBombList()) {
+            formatMap.get(bomb.getMapY()).set(bomb.getMapX(), 1);
+        }
+//        for (int i = 0; i < height; i++) {
+//            for (int j = 0; j < width; j++) {
+//                System.out.print(formatMap.get(i).get(j) + " ");
+//            }
+//            System.out.println();
+//        }
+        return formatMap;
     }
 
     public void renderMap(GraphicsContext gc, Camera camera) {

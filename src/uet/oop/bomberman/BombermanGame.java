@@ -36,6 +36,7 @@ public class BombermanGame extends Application {
     public static EnemyManager enemyManager;
 
     public static int levelNo = 0;
+
     public static Bomber bomberman;
 
     public static void main(String[] args) {
@@ -56,6 +57,7 @@ public class BombermanGame extends Application {
 
         // Tao scene
         Scene scene = new Scene(root);
+
 
         // Them scene vao stage
         stage.setScene(scene);
@@ -80,6 +82,7 @@ public class BombermanGame extends Application {
         camera = new Camera(1, 1, map.getWidth(), map.getHeight(), Texture.WIDTH, Texture.HEIGHT);
         enemyManager.setEnemyList(map.getEnemyList());
         bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage(), keyH);
+        map.formatMapData();
     }
 
     public void cleanGame() {
