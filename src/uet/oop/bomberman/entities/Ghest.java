@@ -135,7 +135,8 @@ public class Ghest extends Enemy {
   public Image setFrame() {
     int difX = Math.abs(getMapX() - bomberman.getMapX());
     int difY = Math.abs(getMapY() - bomberman.getMapY());
-    if (difX > 2 || difY > 2) {
+    if (difX > 3 || difY > 3) {
+      speed = 2;
       return switch (direction) {
         case LEFT, DOWN ->
           Sprite.movingSprite(Sprite.ghest_left1, Sprite.ghest_left2, Sprite.ghest_left3, countFrame, 60).getFxImage();
@@ -144,6 +145,8 @@ public class Ghest extends Enemy {
       };
     }
     else {
+      isAlive = true;
+      speed = 1;
       return switch (direction) {
         case LEFT, DOWN ->
           Sprite.movingSprite(Sprite.ghest_left4, Sprite.ghest_left5, Sprite.ghest_left6, countFrame, 20).getFxImage();
