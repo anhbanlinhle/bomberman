@@ -86,6 +86,11 @@ public class Map {
                             enemyList.add(tempEnemy);
                             entity = new Grass(j, i, Sprite.grass.getFxImage());
                             break;
+                        case '6':
+                            tempEnemy = new Eggs(j, i, Sprite.eggs1.getFxImage());
+                            enemyList.add(tempEnemy);
+                            entity = new Grass(j, i, Sprite.grass.getFxImage());
+                            break;
                         case 'b':
                             entity = new BombItem(j, i, Sprite.brick.getFxImage());
                             break;
