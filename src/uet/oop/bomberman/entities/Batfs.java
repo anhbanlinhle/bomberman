@@ -99,11 +99,11 @@ public class Batfs extends Enemy {
             Y = last[tmpX][tmpY].getValue();
         }
 
-        for (int i = 0; i < pathCoordinate.size(); i++) {
-            System.out.print(pathCoordinate.get(i). getKey() + " " +  pathCoordinate.get(i).getValue()  + "| ");
-        }
-        System.out.println();
-        System.out.println("------");
+        // for (int i = 0; i < pathCoordinate.size(); i++) {
+        //     System.out.print(pathCoordinate.get(i). getKey() + " " +  pathCoordinate.get(i).getValue()  + "| ");
+        // }
+        // System.out.println();
+        // System.out.println("------");
 
         //get next direction
         if (pathCoordinate.get(1).getKey() - pathCoordinate.get(0).getKey() == 0 && pathCoordinate.get(1).getValue() - pathCoordinate.get(0).getValue() > 0) {

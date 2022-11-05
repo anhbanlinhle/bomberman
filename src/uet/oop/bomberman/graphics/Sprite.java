@@ -116,6 +116,25 @@ public class Sprite {
 
 	public static Sprite batfs_dead = new Sprite(DEFAULT_SIZE, 11, 13, SpriteSheet.tiles, 16, 16);
 
+	// Ghest
+	public static Sprite ghest_left1 = new Sprite(DEFAULT_SIZE, 6, 5, SpriteSheet.tiles, 16, 16);
+	public static Sprite ghest_left2 = new Sprite(DEFAULT_SIZE, 6, 6, SpriteSheet.tiles, 16, 16);
+	public static Sprite ghest_left3 = new Sprite(DEFAULT_SIZE, 6, 7, SpriteSheet.tiles, 16, 16);
+
+	public static Sprite ghest_right1 = new Sprite(DEFAULT_SIZE, 7, 5, SpriteSheet.tiles, 16, 16);
+	public static Sprite ghest_right2 = new Sprite(DEFAULT_SIZE, 7, 6, SpriteSheet.tiles, 16, 16);
+	public static Sprite ghest_right3 = new Sprite(DEFAULT_SIZE, 7, 7, SpriteSheet.tiles, 16, 16);
+
+	public static Sprite ghest_left4 = new Sprite(DEFAULT_SIZE, 8, 5, SpriteSheet.tiles, 16, 16);
+	public static Sprite ghest_left5 = new Sprite(DEFAULT_SIZE, 8, 6, SpriteSheet.tiles, 16, 16);
+	public static Sprite ghest_left6 = new Sprite(DEFAULT_SIZE, 8, 7, SpriteSheet.tiles, 16, 16);
+
+	public static Sprite ghest_right4 = new Sprite(DEFAULT_SIZE, 9, 5, SpriteSheet.tiles, 16, 16);
+	public static Sprite ghest_right5 = new Sprite(DEFAULT_SIZE, 9, 6, SpriteSheet.tiles, 16, 16);
+	public static Sprite ghest_right6 = new Sprite(DEFAULT_SIZE, 9, 7, SpriteSheet.tiles, 16, 16);
+
+	public static Sprite ghest_dead = new Sprite(DEFAULT_SIZE, 6, 8, SpriteSheet.tiles, 16, 16);
+
 	// Eggs
 	public static Sprite eggs1 = new Sprite(DEFAULT_SIZE, 12, 10, SpriteSheet.tiles, 16, 16);
 	public static Sprite eggs2 = new Sprite(DEFAULT_SIZE, 12, 11, SpriteSheet.tiles, 16, 16);
