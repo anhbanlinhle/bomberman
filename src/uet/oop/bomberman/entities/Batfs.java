@@ -11,11 +11,11 @@ import java.util.*;
 import static uet.oop.bomberman.BombermanGame.bomberman;
 import static uet.oop.bomberman.BombermanGame.map;
 
-public class Minvo extends Enemy {
+public class Batfs extends Enemy {
     int count = 0;
     DIRECTION lastDir = DIRECTION.LEFT;
 
-    public Minvo(int x, int y, Image img) {
+    public Batfs(int x, int y, Image img) {
         super(x, y, img);
         direction = DIRECTION.RIGHT;
         speed = 1;
@@ -123,10 +123,16 @@ public class Minvo extends Enemy {
 
     public Image setFrame() {
         return switch (direction) {
-            case UP, DOWN, NOT_MOVE, LEFT ->
-                    Sprite.movingSprite(Sprite.minvo_left1, Sprite.minvo_left2, Sprite.minvo_left3, countFrame, 60).getFxImage();
+            case LEFT ->
+                    Sprite.movingSprite(Sprite.batfs_left1, Sprite.batfs_left2, Sprite.batfs_left3, countFrame, 60).getFxImage();
             case RIGHT ->
-                    Sprite.movingSprite(Sprite.minvo_right1, Sprite.minvo_right2, Sprite.minvo_right3, countFrame, 60).getFxImage();
+                    Sprite.movingSprite(Sprite.batfs_right1, Sprite.batfs_right2, Sprite.batfs_right3, countFrame, 60).getFxImage();
+            case UP ->
+                    Sprite.movingSprite(Sprite.batfs_up1, Sprite.batfs_up2, Sprite.batfs_up3, countFrame, 60).getFxImage();
+            case DOWN ->
+                    Sprite.movingSprite(Sprite.batfs_down1, Sprite.batfs_down2, Sprite.batfs_down3, countFrame, 60).getFxImage();
+            case NOT_MOVE ->
+                    Sprite.movingSprite(Sprite.batfs_down3, Sprite.batfs_down3, Sprite.batfs_down3, countFrame, 60).getFxImage();
         };
     }
 
@@ -197,10 +203,10 @@ public class Minvo extends Enemy {
 
     @Override
     public void die() {
-        img = Sprite.balloom_dead.getFxImage();
+        img = Sprite.batfs_dead.getFxImage();
     }
 
     public void loadDie(int count) {
-        img = Sprite.movingSprite(Sprite.pink_dead1, Sprite.pink_dead2, Sprite.pink_dead3, count, 36).getFxImage();
+        img = Sprite.movingSprite(Sprite.purple_dead1, Sprite.purple_dead2, Sprite.purple_dead3, count, 36).getFxImage();
     }
 }

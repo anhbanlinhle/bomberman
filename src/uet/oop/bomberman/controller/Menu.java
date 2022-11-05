@@ -199,28 +199,7 @@ public class Menu {
                 Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
                 (Texture.HEIGHT * 6 / 8) * Sprite.SCALED_SIZE + 2 * (int) text.getLayoutBounds().getHeight() / 2,
                 text));
-
-        text = new Text("QuangCute");
-        text.setFont(Texture.PIXELFONT);
-        text.setFill(Color.WHITE);
-        buttonWin.add(new Button(Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
-                Texture.HEIGHT / 2 * Sprite.SCALED_SIZE + (int) text.getLayoutBounds().getHeight() / 2 + 100, text));
-        text = new Text("VuongChan");
-        text.setFont(Texture.PIXELFONT);
-        text.setFill(Color.WHITE);
-        buttonWin.add(new Button(Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
-                Texture.HEIGHT / 2 * Sprite.SCALED_SIZE + (int) text.getLayoutBounds().getHeight() / 2 + 50, text));
-        text = new Text("Lynn");
-        text.setFont(Texture.PIXELFONT);
-        text.setFill(Color.WHITE);
-        buttonWin.add(new Button(Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
-                Texture.HEIGHT / 2 * Sprite.SCALED_SIZE + (int) text.getLayoutBounds().getHeight() / 2, text));
-        text = new Text("Thanks a lot game Devs!!!");
-        text.setFont(Texture.PIXELFONT);
-        text.setFill(Color.WHITE);
-        buttonWin.add(new Button(Texture.WIDTH / 2 * Sprite.SCALED_SIZE - (int) text.getLayoutBounds().getWidth() / 2,
-                Texture.HEIGHT / 2 * Sprite.SCALED_SIZE + (int) text.getLayoutBounds().getHeight() / 2 - 50, text));
-                
+   
         text = new Text("" + speed);
         text.setFont(Texture.PIXELFONTMINI);
         text.setFill(Color.WHITE);
@@ -321,13 +300,6 @@ public class Menu {
             case WIN_GAME:
                 gc.drawImage(winGameImage, 0, 0, Texture.WIDTH * Sprite.SCALED_SIZE,
                         Texture.HEIGHT * Sprite.SCALED_SIZE);
-                for (int i = 0; i < buttonWin.size(); i++) {
-                    if (chooseButton == i) {
-                        buttonWin.get(i).renderChoosen(gc);
-                    } else {
-                        buttonWin.get(i).render(gc);
-                    }
-                }
                 break;
             default:
                 break;
@@ -500,17 +472,9 @@ public class Menu {
                 }
                 break;
             case WIN_GAME:
-                
-                    if (keyListener.isPressed(KeyCode.ESCAPE)) {
-                        setGameState(GAME_STATE.IN_MENU);
-                    } else {
-                        SoundFile.menuMove.play();
-                        chooseButton--;
-                        if (chooseButton < 0) {
-                            chooseButton = buttonWin.size() - 1;
-                        }
-                    }
-                
+                if (keyListener.isPressed(KeyCode.ESCAPE)) {
+                    setGameState(GAME_STATE.IN_MENU);
+                }
                 break;
             default:
                 break;

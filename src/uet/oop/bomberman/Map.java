@@ -76,13 +76,8 @@ public class Map {
                             enemyList.add(tempEnemy);
                             entity = new Grass(j, i, Sprite.grass.getFxImage());
                             break;
-//                        case '4':
-//                            tempEnemy = new Pass(j, i, Sprite.pass_right1.getFxImage());
-//                            enemyList.add(tempEnemy);
-//                            entity = new Grass(j, i, Sprite.grass.getFxImage());
-//                            break;
-                        case '5':
-                            tempEnemy = new Minvo(j, i, Sprite.minvo_right2.getFxImage());
+                        case '4':
+                            tempEnemy = new Batfs(j, i, Sprite.batfs_down2.getFxImage());
                             enemyList.add(tempEnemy);
                             entity = new Grass(j, i, Sprite.grass.getFxImage());
                             break;
