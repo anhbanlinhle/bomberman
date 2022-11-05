@@ -87,10 +87,7 @@ public abstract class DynamicEntity extends Entity {
     }
 
     public int convertToMapCordinate(int n) {
-        int newCor = n + Sprite.DEFAULT_SIZE;
-        newCor = newCor - newCor % Sprite.SCALED_SIZE;
-        newCor /= Sprite.SCALED_SIZE;
-        return newCor;
+        return super.convertToMapCordinate(n);
     }
 
     public boolean checkCollisionMap(Map map, int a, int b, DIRECTION direction, ENTITY_TYPE type) {
@@ -263,7 +260,8 @@ public abstract class DynamicEntity extends Entity {
         UP,
         RIGHT,
         LEFT,
-        DOWN
+        DOWN,
+        NOT_MOVE,
     }
 
     public enum STATUS {

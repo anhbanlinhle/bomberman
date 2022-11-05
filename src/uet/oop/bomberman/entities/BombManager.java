@@ -45,6 +45,7 @@ BombManager {
             int difX = Math.abs(bomb.convertToMapCordinate(bomb.x) * Sprite.SCALED_SIZE - map.getPortalX());
             int difY = Math.abs(bomb.convertToMapCordinate(bomb.y) * Sprite.SCALED_SIZE - map.getPortalY());
             if (difX != 0 || difY != 0) {
+                SoundFile.bombPlace.play();
                 bombList.add(bomb);
                 map.replace(bomb.convertToMapCordinate(bomb.x), bomb.convertToMapCordinate(bomb.y), bomb);
                 bombRemain--;
@@ -193,6 +194,7 @@ BombManager {
     public List<Flame> getFlameList() {
         return flameList;
     }
+    public List<Bomb> getBombList() {return bombList;}
 
     public void increaseBomb() {
         bombRemain++;
@@ -209,4 +211,6 @@ BombManager {
     public int getFlameLength() {
         return flameLength;
     }
+
+
 }

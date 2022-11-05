@@ -75,6 +75,27 @@ public abstract class Entity {
         return centerY;
     }
 
+    public int convertToMapCordinate(int n) {
+        int newCor = n + Sprite.DEFAULT_SIZE;
+        newCor = newCor - newCor % Sprite.SCALED_SIZE;
+        newCor /= Sprite.SCALED_SIZE;
+        return newCor;
+    }
+
+    public int getMapX() {
+        int newCor = x + Sprite.SCALED_SIZE/2;
+        newCor = newCor - newCor % Sprite.SCALED_SIZE;
+        newCor /= Sprite.SCALED_SIZE;
+        return newCor;
+    }
+
+    public int getMapY() {
+        int newCor = y + Sprite.SCALED_SIZE/2;
+        newCor = newCor - newCor % Sprite.SCALED_SIZE;
+        newCor /= Sprite.SCALED_SIZE;
+        return newCor;
+    }
+
     public enum ENTITY_TYPE {
         BRICK,
         BOMB,
