@@ -3,7 +3,7 @@
 
 *Trò chơi được xây dựng dựa trên ngôn ngữ Java*
 
- *Sinh viên thực hiện*
+ ###Sinh viên thực hiện
 
  | Họ và tên     | Mã sinh viên |
  | ------------- | ------------ |
