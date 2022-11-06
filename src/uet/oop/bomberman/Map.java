@@ -76,17 +76,17 @@ public class Map {
                             enemyList.add(tempEnemy);
                             entity = new Grass(j, i, Sprite.grass.getFxImage());
                             break;
-                        case '4':
+                        case '6':
                             tempEnemy = new Batfs(j, i, Sprite.batfs_down2.getFxImage());
                             enemyList.add(tempEnemy);
                             entity = new Grass(j, i, Sprite.grass.getFxImage());
                             break;
-                        case '5':
+                        case '4':
                             tempEnemy = new Ghest(j, i, Sprite.ghest_right1.getFxImage());
                             enemyList.add(tempEnemy);
                             entity = new Grass(j, i, Sprite.grass.getFxImage());
                             break;
-                        case '6':
+                        case '5':
                             tempEnemy = new Eggs(j, i, Sprite.eggs1.getFxImage());
                             enemyList.add(tempEnemy);
                             entity = new Grass(j, i, Sprite.grass.getFxImage());

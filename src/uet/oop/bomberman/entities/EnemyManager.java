@@ -66,7 +66,7 @@ public class EnemyManager {
                 enemyList.get(i).update();
             }
         }
-        if (eggsy > 5) {
+        if (eggsy > 6) {
             bomberman.setAlive(false);
         }
     }

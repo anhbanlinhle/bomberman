@@ -75,7 +75,7 @@ public class Ghest extends Enemy {
           curDir = DIRECTION.LEFT;
           break;
       }
-      if (listDir.size() > 1) {
+      if (listDir.size() > 2) {
         for (int i = listDir.size() - 1; i >= 0; i--) {
           if (listDir.get(i) == curDir) {
             listDir.remove(i);
