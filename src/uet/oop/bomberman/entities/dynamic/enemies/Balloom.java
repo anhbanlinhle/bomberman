@@ -1,4 +1,4 @@
-package uet.oop.bomberman.entities.enemies;
+package uet.oop.bomberman.entities.dynamic.enemies;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.graphics.Sprite;

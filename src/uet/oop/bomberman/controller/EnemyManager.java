@@ -1,7 +1,9 @@
-package uet.oop.bomberman.entities.enemies;
+package uet.oop.bomberman.controller;
 
 import javafx.scene.canvas.GraphicsContext;
-import uet.oop.bomberman.controller.Camera;
+import uet.oop.bomberman.entities.dynamic.enemies.Eggs;
+import uet.oop.bomberman.entities.dynamic.enemies.Eggsbomb;
+import uet.oop.bomberman.entities.dynamic.enemies.Enemy;
 import uet.oop.bomberman.graphics.Sprite;
 
 import static uet.oop.bomberman.BombermanGame.bomberman;

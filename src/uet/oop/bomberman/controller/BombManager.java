@@ -1,13 +1,14 @@
-package uet.oop.bomberman.entities.dynamic;
+package uet.oop.bomberman.controller;
 
 import javafx.scene.canvas.GraphicsContext;
-import uet.oop.bomberman.controller.Camera;
-import uet.oop.bomberman.controller.SoundFile;
 import uet.oop.bomberman.entities.Brick;
 import uet.oop.bomberman.entities.Grass;
 import uet.oop.bomberman.entities.Portal;
 import uet.oop.bomberman.entities.Wall;
 import uet.oop.bomberman.entities.Entity.ENTITY_TYPE;
+import uet.oop.bomberman.entities.dynamic.Bomb;
+import uet.oop.bomberman.entities.dynamic.DynamicEntity;
+import uet.oop.bomberman.entities.dynamic.Flame;
 import uet.oop.bomberman.entities.dynamic.items.BombItem;
 import uet.oop.bomberman.entities.dynamic.items.FlameItem;
 import uet.oop.bomberman.entities.dynamic.items.Item;

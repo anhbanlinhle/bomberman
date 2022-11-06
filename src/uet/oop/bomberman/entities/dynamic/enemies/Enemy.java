@@ -1,4 +1,4 @@
-package uet.oop.bomberman.entities.enemies;
+package uet.oop.bomberman.entities.dynamic.enemies;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;

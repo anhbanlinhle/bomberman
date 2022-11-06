@@ -1,6 +1,7 @@
 package uet.oop.bomberman.entities.dynamic;
 
 import javafx.scene.canvas.GraphicsContext;
+import uet.oop.bomberman.controller.BombManager;
 import uet.oop.bomberman.controller.Camera;
 import uet.oop.bomberman.graphics.Map;
 import uet.oop.bomberman.graphics.Sprite;

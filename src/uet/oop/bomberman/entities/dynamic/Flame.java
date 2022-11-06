@@ -7,7 +7,7 @@ import static uet.oop.bomberman.graphics.Sprite.*;
 
 public class Flame extends DynamicEntity {
 
-    enum FLAME_TYPE {
+    public enum FLAME_TYPE {
         MIDDLE,
         END,
         BOMB,
@@ -17,7 +17,7 @@ public class Flame extends DynamicEntity {
         FLAME_ITEM,
     };
 
-    enum DIRECTION {
+    public enum DIRECTION {
         UP, DOWN, LEFT, RIGHT
     }
 
