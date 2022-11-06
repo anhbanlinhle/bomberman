@@ -1,6 +1,16 @@
 ## Mô tả về Project
 *Dự án được lấy cảm hứng từ trò chơi nổi tiếng Bomberman của công ty Hudson Soft*
 
+## Sinh viên thực hiện 
+
+| Họ và tên     | Mã sinh viên |
+| ------------- | ------------ |
+| [Chu Ngọc Vượng](https://github.com/Iktomi921) | 21020674     |
+| [Hoàng Thái Quang](https://github.com/htq-uet)  | 21020229     |
+| [Lê Viết Việt Linh](https://github.com/anhbanlinhle) | 21020644     |
+
+## Mô tả về các đối tượng trong trò chơi
+
 *Trò chơi được xây dựng dựa trên ngôn ngữ Java*
 
 - ![](res/sprites/bomber.png) *Bomber* là nhân vật chính của trò chơi. Bomber có thể di chuyển theo 4 hướng trái/phải/lên/xuống bằng cách bấm A/D/W/S. 
