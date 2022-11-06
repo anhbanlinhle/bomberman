@@ -36,6 +36,9 @@ public class Map {
     private int portalX;
     private int portalY;
 
+    public static int bomberX;
+    public static int bomberY;
+
     static char[][] levelSymbol;
     private int currentMapNo;
 
@@ -64,6 +67,11 @@ public class Map {
                     Entity entity;
                     Enemy tempEnemy;
                     switch (fileLine.charAt(j)) {
+                        case 'p':
+                            bomberX = i;
+                            bomberY = j;
+                            entity = new Grass(j, i, Sprite.grass.getFxImage());
+                            break;
                         case '#':
                             entity = new Wall(j, i, Sprite.wall.getFxImage());
                             break;
