@@ -8,17 +8,18 @@ import uet.oop.bomberman.graphics.Sprite;
 import java.util.ArrayList;
 import java.util.List;
 
+import static uet.oop.bomberman.BombermanGame.bombManager;
+
 public class Bomb extends DynamicEntity {
 
   private final int BOMB_TIME = 90;
   static boolean bombIsPlaced;
   private boolean explode;
-  private int count;
+
   private int frameNum;
 
   public Bomb(int x, int y, Image img) {
     super(x, y, Sprite.bomb_exploded1.getFxImage());
-    count = 0;
     explode = false;
     bombIsPlaced = false;
     setType(ENTITY_TYPE.BOMB);
@@ -29,12 +30,12 @@ public class Bomb extends DynamicEntity {
 
   @Override
   public void update() {
-    // count = count % 99;
-    img = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, count, BOMB_TIME).getFxImage();
-    count++;
-    if (count >= BOMB_TIME) {
+    checkColisionFlame(bombManager);
+    img = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, countFrame, BOMB_TIME).getFxImage();
+    if (countFrame >= BOMB_TIME) {
       explode = true;
     }
+    countFrame++;
   }
 
   public boolean isExplode() {

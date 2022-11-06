@@ -14,7 +14,7 @@ import static uet.oop.bomberman.BombermanGame.map;
 public class
 BombManager {
 
-    private final int DELAY_PLACE_BOMB = 6;
+    private final int DELAY_PLACE_BOMB = 8;
     int countDelayBomb = 0;
 
     Flame.DIRECTION[] flameDirection = {Flame.DIRECTION.UP, Flame.DIRECTION.DOWN, Flame.DIRECTION.RIGHT, Flame.DIRECTION.LEFT};
@@ -62,6 +62,8 @@ BombManager {
 
         int bomX = bombList.get(index).getX() / Sprite.SCALED_SIZE;
         int bomY = bombList.get(index).getY() / Sprite.SCALED_SIZE;
+
+
 
         for (int i = 1; i <= flameLength; i++) {
             flamePosX = bomX;
@@ -172,7 +174,7 @@ BombManager {
     public void update() {
         for (int i = 0; i < bombList.size(); i++) {
             bombList.get(i).update();
-            if (bombList.get(i).isExplode()) {
+            if (bombList.get(i).isExplode() || !bombList.get(i).isAlive()) {
                 bombExploded(i);
             }
         }
