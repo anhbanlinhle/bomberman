@@ -1,11 +1,22 @@
-package uet.oop.bomberman;
+package uet.oop.bomberman.graphics;
 
 import javafx.scene.canvas.GraphicsContext;
 import uet.oop.bomberman.controller.Camera;
 import uet.oop.bomberman.controller.KeyListener;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.entities.Entity.ENTITY_TYPE;
-import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.entities.dynamic.Bomb;
+import uet.oop.bomberman.entities.dynamic.items.BombItem;
+import uet.oop.bomberman.entities.dynamic.items.FlameItem;
+import uet.oop.bomberman.entities.dynamic.items.Item;
+import uet.oop.bomberman.entities.dynamic.items.SpeedItem;
+import uet.oop.bomberman.entities.enemies.Balloom;
+import uet.oop.bomberman.entities.enemies.Batfs;
+import uet.oop.bomberman.entities.enemies.Doll;
+import uet.oop.bomberman.entities.enemies.Eggs;
+import uet.oop.bomberman.entities.enemies.Enemy;
+import uet.oop.bomberman.entities.enemies.Ghest;
+import uet.oop.bomberman.entities.enemies.Oneal;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -52,7 +63,6 @@ public class Map {
                     // Read text form line
                     Entity entity;
                     Enemy tempEnemy;
-                    Item tempItem;
                     switch (fileLine.charAt(j)) {
                         case '#':
                             entity = new Wall(j, i, Sprite.wall.getFxImage());
