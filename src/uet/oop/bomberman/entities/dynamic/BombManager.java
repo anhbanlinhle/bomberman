@@ -21,8 +21,8 @@ import static uet.oop.bomberman.graphics.Map.itemList;
 
 public class BombManager {
 
-    private final int DELAY_PLACE_BOMB = 0;
-    // int countDelayBomb = 0;
+    private final int DELAY_PLACE_BOMB = 10;
+    int countDelayBomb = 0;
 
     Flame.DIRECTION[] flameDirection = {Flame.DIRECTION.UP, Flame.DIRECTION.DOWN, Flame.DIRECTION.RIGHT, Flame.DIRECTION.LEFT};
     private int bombRemain;
@@ -51,8 +51,8 @@ public class BombManager {
                 checkDuplicate = false;
             }
         }
-        if (checkDuplicate && bombRemain > 0) { 
-            // && countDelayBomb % DELAY_PLACE_BOMB == 0 ) {
+        if (checkDuplicate && bombRemain > 0
+            && countDelayBomb % DELAY_PLACE_BOMB == 0 ) {
             int difX = Math.abs(bomb.convertToMapCordinate(bomb.getX()) * Sprite.SCALED_SIZE - map.getPortalX());
             int difY = Math.abs(bomb.convertToMapCordinate(bomb.getY()) * Sprite.SCALED_SIZE - map.getPortalY());
             if (difX != 0 || difY != 0) {
@@ -70,6 +70,8 @@ public class BombManager {
 
         int bomX = bombList.get(index).getX() / Sprite.SCALED_SIZE;
         int bomY = bombList.get(index).getY() / Sprite.SCALED_SIZE;
+
+
 
         for (int i = 1; i <= flameLength; i++) {
             flamePosX = bomX;
@@ -180,7 +182,7 @@ public class BombManager {
     public void update() {
         for (int i = 0; i < bombList.size(); i++) {
             bombList.get(i).update();
-            if (bombList.get(i).isExplode()) {
+            if (bombList.get(i).isExplode() || !bombList.get(i).isAlive()) {
                 bombExploded(i);
             }
         }
@@ -191,7 +193,7 @@ public class BombManager {
                 i--;
             }
         }
-        // countDelayBomb++;
+        countDelayBomb++;
     }
 
     public void render(GraphicsContext gc, Camera camera) {
