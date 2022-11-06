@@ -1,7 +1,9 @@
 ## Mô tả về Project
 *Dự án được lấy cảm hứng từ trò chơi nổi tiếng [Bomberman](https://en.wikipedia.org/wiki/Bomberman) của công ty [Hudson Soft](https://en.wikipedia.org/wiki/Hudson_Soft)*
 
- ### Sinh viên thực hiện 
+*Trò chơi được xây dựng dựa trên ngôn ngữ Java*
+
+ *Sinh viên thực hiện*
 
  | Họ và tên     | Mã sinh viên |
  | ------------- | ------------ |
@@ -17,7 +19,6 @@
 
 ## Mô tả về các đối tượng trong trò chơi
 
-*Trò chơi được xây dựng dựa trên ngôn ngữ Java*
 
 - ![](res/sprites/bomber.png) *Bomber* là nhân vật chính của trò chơi. Bomber có thể di chuyển theo 4 hướng theo người chơi.
 - ![](res/sprites/balloom.png)![](res/sprites/oneal.png)![](res/sprites/doll.png)![](res/sprites/ghest.png)![](res/sprites/eggs.png)![](res/sprites/batfs.png) *Enemy* là các đối tượng mà Bomber phải tiêu diệt hết để có thể qua Level. Enemy có thể di chuyển ngẫu nhiên hoặc tự đuổi theo Bomber tùy theo loại Enemy. Các loại Enemy sẽ được mô tả cụ thể ở phần dưới.
