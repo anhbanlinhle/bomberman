@@ -34,7 +34,6 @@ public class Enemy extends DynamicEntity {
     }
 
     public void updateMove(Map map) {
-
     }
 
     public void getRandomDirection() {

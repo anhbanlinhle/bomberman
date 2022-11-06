@@ -15,6 +15,8 @@ public class Batfs extends Enemy {
     int count = 0;
     DIRECTION lastDir;
 
+    boolean foundPlayer = false;
+
     public Batfs(int x, int y, Image img) {
         super(x, y, img);
         direction = DIRECTION.NOT_MOVE;
@@ -76,16 +78,21 @@ public class Batfs extends Enemy {
                 }
             }
         }
+        System.out.println(visited[endX][endY]);
+        if(!visited[endX][endY]) {
+            foundPlayer = false;
+            super.getRandomDirection();
+            return;
+        } else {
+            foundPlayer = true;
+        }
 
-        if(q == null) super.getRandomDirection();
         if (distance[endX][endY] == 0) return;
 
         List<Pair<Integer, Integer>> pathCoordinate = new ArrayList<>();
         int X = last[endX][endY].getKey();
         int Y = last[endX][endY].getValue();
         pathCoordinate.add(0, new Pair<>(endX, endY));
-
-
 
         while (true) {
             if (last[X][Y].getKey() == -1 && last[X][Y].getValue() == -1) {
@@ -100,11 +107,15 @@ public class Batfs extends Enemy {
             Y = last[tmpX][tmpY].getValue();
         }
 
-        // for (int i = 0; i < pathCoordinate.size(); i++) {
-        //     System.out.print(pathCoordinate.get(i). getKey() + " " +  pathCoordinate.get(i).getValue()  + "| ");
-        // }
-        // System.out.println();
-        // System.out.println("------");
+//            if(pathCoordinate.size() < 2 ) {
+//                System.out.println("NO path");
+//            } else {
+//                for (int i = 0; i < pathCoordinate.size(); i++) {
+//                    System.out.print(pathCoordinate.get(i). getKey() + " " +  pathCoordinate.get(i).getValue()  + "| ");
+//                }
+//                System.out.println();
+//                System.out.println("------");
+//            }
 
         //get next direction
         if (pathCoordinate.get(1).getKey() - pathCoordinate.get(0).getKey() == 0 && pathCoordinate.get(1).getValue() - pathCoordinate.get(0).getValue() > 0) {
@@ -137,8 +148,7 @@ public class Batfs extends Enemy {
         };
     }
 
-    @Override
-    public void updateMove(Map map) {
+    public void pathFindingMove(Map map) {
         switch (direction){
             case UP:
                 if (checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.BRICK)
@@ -173,8 +183,7 @@ public class Batfs extends Enemy {
                 } else alternateMoven();
                 break;
             default:
-                System.out.println("move random");
-                super.getRandomDirection();
+//                System.out.println("move random");
                 break;
         }
     }
@@ -183,6 +192,7 @@ public class Batfs extends Enemy {
     public void update() {
         super.update();
         getNextDirection();
+        if(foundPlayer) pathFindingMove(map);
         img = setFrame();
         countFrame++;
     }
