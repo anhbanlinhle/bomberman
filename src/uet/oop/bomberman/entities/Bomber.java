@@ -22,6 +22,7 @@ import uet.oop.bomberman.Map;
 import static uet.oop.bomberman.BombermanGame.bombManager;
 import static uet.oop.bomberman.BombermanGame.map;
 import static uet.oop.bomberman.BombermanGame.enemyManager;
+import static uet.oop.bomberman.entities.EnemyManager.eggsy;
 
 public class Bomber extends DynamicEntity {
     private final int DIE_TIME = 60;
@@ -258,7 +259,7 @@ public class Bomber extends DynamicEntity {
         int difX = Math.abs(map.getPortalX() - x),
             difY = Math.abs(map.getPortalY() - y);
         if (difX < Sprite.SCALED_SIZE && difY < Sprite.SCALED_SIZE) {
-            if (enemyManager.getEnemyList().size() <= 0 ) {
+            if (enemyManager.getEnemyList().size() - enemyManager.eggsy <= 0 ) {
                 meetPortal = true;
                 System.out.println("Win");
             }

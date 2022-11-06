@@ -13,6 +13,7 @@ import java.util.List;
 public class EnemyManager {
     private final int DELAY_REMOVE_ENEMY = 36;
     private List<Enemy> enemyList;
+    public static int eggsy;
 
     private int count = 0;
 
@@ -38,7 +39,7 @@ public class EnemyManager {
 
     public void update() {
         // Remove dead enemy
-        int eggsy = 0;
+        eggsy = 0;
         for (int i = enemyList.size() - 1; i >= 0; i--) {
             if(!enemyList.get(i).isAlive()){
                 // SoundFile.monsterDie.play();

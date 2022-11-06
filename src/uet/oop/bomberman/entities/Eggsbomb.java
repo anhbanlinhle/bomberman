@@ -55,6 +55,10 @@ public class Eggsbomb extends Eggs {
     return frame;
   }
 
+  public void updateMove(Map map) {
+    getRandomDirection();
+  }
+
   public void update() {
     super.update();
     countFrame++;
