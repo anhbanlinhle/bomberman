@@ -12,7 +12,6 @@ import static uet.oop.bomberman.BombermanGame.bomberman;
 import static uet.oop.bomberman.BombermanGame.map;
 
 public class Batfs extends Enemy {
-    int count = 0;
     DIRECTION lastDir;
 
     boolean foundPlayer = false;
@@ -67,8 +66,8 @@ public class Batfs extends Enemy {
             Pair<Integer, Integer> tmp = q.poll();
 
             for (int i = 0; i < 4; i++) {
-                int newX = tmp.getKey() + dx[i];
-                int newY = tmp.getValue() + dy[i];
+                int newX = tmp.getKey() + dy[i];
+                int newY = tmp.getValue() + dx[i];
 
                 if (newY >= 0 && newY < width && newX >= 0 && newX < height && formatMap.get(newX).get(newY) == 0 && !visited[newX][newY]) {
                     q.add(new Pair<>(newX, newY));
@@ -78,7 +77,8 @@ public class Batfs extends Enemy {
                 }
             }
         }
-        System.out.println(visited[endX][endY]);
+
+        //Check if found Player
         if(!visited[endX][endY]) {
             foundPlayer = false;
             super.getRandomDirection();

@@ -14,7 +14,7 @@ import static uet.oop.bomberman.BombermanGame.map;
 public class
 BombManager {
 
-    private final int DELAY_PLACE_BOMB = 4;
+    private final int DELAY_PLACE_BOMB = 6;
     int countDelayBomb = 0;
 
     Flame.DIRECTION[] flameDirection = {Flame.DIRECTION.UP, Flame.DIRECTION.DOWN, Flame.DIRECTION.RIGHT, Flame.DIRECTION.LEFT};
