@@ -20,7 +20,9 @@ import uet.oop.bomberman.graphics.Map;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.graphics.Texture;
 
-import static uet.oop.bomberman.controller.Menu.STATE;;
+import static uet.oop.bomberman.controller.Menu.STATE;
+import static uet.oop.bomberman.graphics.Map.bomberX;
+import static uet.oop.bomberman.graphics.Map.bomberY;
 
 public class BombermanGame extends Application {
 
@@ -86,7 +88,7 @@ public class BombermanGame extends Application {
         map.loadMap(keyH);
         camera = new Camera(1, 1, map.getWidth(), map.getHeight(), Texture.WIDTH, Texture.HEIGHT);
         enemyManager.setEnemyList(map.getEnemyList());
-        bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage(), keyH);
+        bomberman = new Bomber(bomberY, bomberX, Sprite.player_right.getFxImage(), keyH);
         map.formatMapData();
     }
 

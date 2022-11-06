@@ -96,61 +96,20 @@ public class Bomber extends DynamicEntity {
     }
 
     public Image setFrame() {
-        int frameNum = countFrame / 8;
         Image frame = null;
         if (status == STATUS.WALK) {
             switch (direction) {
                 case UP:
-                    switch (frameNum) {
-                        case 0:
-                            frame = Sprite.player_up.getFxImage();
-                            break;
-                        case 1:
-                            frame = Sprite.player_up_1.getFxImage();
-                            break;
-                        case 2:
-                            frame = Sprite.player_up_2.getFxImage();
-                            break;
-                    }
+                    frame = Sprite.movingSprite(Sprite.player_up, Sprite.player_up_1, Sprite.player_up_2, countFrame, 18).getFxImage();
                     break;
                 case DOWN:
-                    switch (frameNum) {
-                        case 0:
-                            frame = Sprite.player_down.getFxImage();
-                            break;
-                        case 1:
-                            frame = Sprite.player_down_1.getFxImage();
-                            break;
-                        case 2:
-                            frame = Sprite.player_down_2.getFxImage();
-                            break;
-                    }
+                    frame = Sprite.movingSprite(Sprite.player_down, Sprite.player_down_1, Sprite.player_down_2, countFrame, 18).getFxImage();
                     break;
                 case LEFT:
-                    switch (frameNum) {
-                        case 0:
-                            frame = Sprite.player_left.getFxImage();
-                            break;
-                        case 1:
-                            frame = Sprite.player_left_1.getFxImage();
-                            break;
-                        case 2:
-                            frame = Sprite.player_left_2.getFxImage();
-                            break;
-                    }
+                    frame = Sprite.movingSprite(Sprite.player_left, Sprite.player_left_1, Sprite.player_left_2, countFrame, 18).getFxImage();
                     break;
                 case RIGHT:
-                    switch (frameNum) {
-                        case 0:
-                            frame = Sprite.player_right.getFxImage();
-                            break;
-                        case 1:
-                            frame = Sprite.player_right_1.getFxImage();
-                            break;
-                        case 2:
-                            frame = Sprite.player_right_2.getFxImage();
-                            break;
-                    }
+                    frame = Sprite.movingSprite(Sprite.player_right, Sprite.player_right_1, Sprite.player_right_2, countFrame, 18).getFxImage();
                     break;
                 default:
                     break;
@@ -189,6 +148,11 @@ public class Bomber extends DynamicEntity {
                 && checkCollisionMap(map, x, y - speed, direction, ENTITY_TYPE.BOMB)) {
                     y -= speed;
                 }
+                else {
+                    while (y%Sprite.SCALED_SIZE != 0) {
+                        y--;
+                    }
+                }
             } if (keyHandle.isPressed(KeyCode.D)) {
                 status = STATUS.WALK;
                 direction = DIRECTION.RIGHT;
@@ -196,6 +160,11 @@ public class Bomber extends DynamicEntity {
                 && checkCollisionMap(map, x + speed, y, direction, ENTITY_TYPE.WALL)
                 && checkCollisionMap(map, x + speed, y, direction, ENTITY_TYPE.BOMB)) {
                     x += speed;
+                }
+                else {
+                    while (x%Sprite.SCALED_SIZE != 0) {
+                        x++;
+                    }
                 }
             } if (keyHandle.isPressed(KeyCode.A)) {
                 status = STATUS.WALK;
@@ -205,6 +174,11 @@ public class Bomber extends DynamicEntity {
                 && checkCollisionMap(map, x - speed, y, direction, ENTITY_TYPE.BOMB)) {
                     x -= speed;
                 }
+                else {
+                    while (x%Sprite.SCALED_SIZE != 0) {
+                        x--;
+                    }
+                }
             } if (keyHandle.isPressed(KeyCode.S)) {
                 status = STATUS.WALK;
                 direction = DIRECTION.DOWN;
@@ -212,6 +186,11 @@ public class Bomber extends DynamicEntity {
                 && checkCollisionMap(map, x, y + speed, direction, ENTITY_TYPE.WALL)
                 && checkCollisionMap(map, x, y + speed, direction, ENTITY_TYPE.BOMB)) {
                     y += speed;
+                }
+                else {
+                    while (y%Sprite.SCALED_SIZE != 0) {
+                        y++;
+                    }
                 }
             }
         } else {
@@ -235,22 +214,22 @@ public class Bomber extends DynamicEntity {
                         speed++;
                         switch (direction) {
                             case UP:
-                                while (y%speed != 0) {
+                                while (y % speed != 0) {
                                     y--;
                                 }
                                 break;
                             case DOWN: 
-                                while (y%speed != 0) {
+                                while (y % speed != 0) {
                                     y++;
                                 }
                                 break;
                             case LEFT:
-                                while (x%speed != 0) {
+                                while (x % speed != 0) {
                                     x--;
                                 }
                                 break;
                             case RIGHT:
-                                while (x%speed != 0) {
+                                while (x % speed != 0) {
                                     x++;
                                 }
                                 break;
