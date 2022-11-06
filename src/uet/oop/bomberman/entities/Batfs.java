@@ -13,11 +13,12 @@ import static uet.oop.bomberman.BombermanGame.map;
 
 public class Batfs extends Enemy {
     int count = 0;
-    DIRECTION lastDir = DIRECTION.NOT_MOVE;
+    DIRECTION lastDir;
 
     public Batfs(int x, int y, Image img) {
         super(x, y, img);
         direction = DIRECTION.NOT_MOVE;
+        lastDir = DIRECTION.NOT_MOVE;
         speed = 1;
     }
 
@@ -51,6 +52,12 @@ public class Batfs extends Enemy {
         Pair<Integer, Integer>[][] last = new Pair[height][width];
         last[startX][startY] = new Pair<>(-1, -1);
 
+//        for (int i = 0; i < height; i++) {
+//            for (int j = 0; j < width; j++) {
+//                System.out.println(formatMap.h);
+//            }
+//        }
+
         int[] dx = {1, -1, 0, 0};
         int[] dy = {0, 0, 1, -1};
 
@@ -70,6 +77,7 @@ public class Batfs extends Enemy {
             }
         }
 
+        if(q == null) super.getRandomDirection();
         if (distance[endX][endY] == 0) return;
 
         List<Pair<Integer, Integer>> pathCoordinate = new ArrayList<>();
@@ -130,9 +138,7 @@ public class Batfs extends Enemy {
     }
 
     @Override
-    public void update() {
-        super.update();
-        getNextDirection();
+    public void updateMove(Map map) {
         switch (direction){
             case UP:
                 if (checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.BRICK)
@@ -168,9 +174,15 @@ public class Batfs extends Enemy {
                 break;
             default:
                 System.out.println("move random");
+                super.getRandomDirection();
                 break;
         }
-        System.out.println(lastDir + " " + direction);
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        getNextDirection();
         img = setFrame();
         countFrame++;
     }
@@ -206,7 +218,6 @@ public class Batfs extends Enemy {
                 }
                 break;
             default:
-                System.out.println("move random");
                 break;
         }
     }

@@ -14,6 +14,9 @@ import static uet.oop.bomberman.BombermanGame.map;
 public class
 BombManager {
 
+    private final int DELAY_PLACE_BOMB = 4;
+    int countDelayBomb = 0;
+
     Flame.DIRECTION[] flameDirection = {Flame.DIRECTION.UP, Flame.DIRECTION.DOWN, Flame.DIRECTION.RIGHT, Flame.DIRECTION.LEFT};
     private int bombRemain;
     private int flameLength;
@@ -41,7 +44,7 @@ BombManager {
                 checkDuplicate = false;
             }
         }
-        if (checkDuplicate && bombRemain > 0) {
+        if (checkDuplicate && bombRemain > 0 && countDelayBomb % DELAY_PLACE_BOMB == 0 ) {
             int difX = Math.abs(bomb.convertToMapCordinate(bomb.x) * Sprite.SCALED_SIZE - map.getPortalX());
             int difY = Math.abs(bomb.convertToMapCordinate(bomb.y) * Sprite.SCALED_SIZE - map.getPortalY());
             if (difX != 0 || difY != 0) {
@@ -180,6 +183,7 @@ BombManager {
                 i--;
             }
         }
+        countDelayBomb++;
     }
 
     public void render(GraphicsContext gc, Camera camera) {
