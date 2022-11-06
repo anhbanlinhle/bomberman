@@ -137,12 +137,6 @@ public class Map {
         for (Bomb bomb : bombManager.getBombList()) {
             formatMap.get(bomb.getMapY()).set(bomb.getMapX(), 1);
         }
-//        for (int i = 0; i < height; i++) {
-//            for (int j = 0; j < width; j++) {
-//                System.out.print(formatMap.get(i).get(j) + " ");
-//            }
-//            System.out.println();
-//        }
         return formatMap;
     }
 

@@ -21,7 +21,7 @@ public class Minvo extends Enemy {
         speed = 1;
     }
 
-    public void getDirection(Map map) {
+    public void getNextDirection() {
         List<List<Integer>> formatMap = map.formatMapData();
 
         int endX = bomberman.getMapY();
@@ -133,9 +133,7 @@ public class Minvo extends Enemy {
     @Override
     public void update() {
         super.update();
-        if(count % 1 == 0){
-            getDirection(map);
-        }
+        getNextDirection();
         switch (direction){
             case UP:
                 if (checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.BRICK)
@@ -143,7 +141,7 @@ public class Minvo extends Enemy {
                         && checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.BOMB)) {
                     lastDir = DIRECTION.UP;
                     y -= speed;
-                } else move();
+                } else alternateMoven();
                 break;
             case DOWN:
                 if (checkCollisionMap(map, x, y + speed, DIRECTION.DOWN, ENTITY_TYPE.BRICK)
@@ -151,7 +149,7 @@ public class Minvo extends Enemy {
                         && checkCollisionMap(map, x, y + speed, DIRECTION.DOWN, ENTITY_TYPE.BOMB)) {
                     lastDir = DIRECTION.DOWN;
                     y += speed;
-                } else move();
+                } else alternateMoven();
                 break;
             case LEFT:
                 if (checkCollisionMap(map, x - speed, y, DIRECTION.LEFT, ENTITY_TYPE.BRICK)
@@ -159,7 +157,7 @@ public class Minvo extends Enemy {
                         && checkCollisionMap(map, x - speed, y, DIRECTION.LEFT, ENTITY_TYPE.BOMB)) {
                     lastDir = DIRECTION.LEFT;
                     x -= speed;
-                } else move();
+                } else alternateMoven();
                 break;
             case RIGHT:
                 if (checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT, ENTITY_TYPE.BRICK)
@@ -167,7 +165,7 @@ public class Minvo extends Enemy {
                         && checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT, ENTITY_TYPE.BOMB)) {
                     lastDir = DIRECTION.RIGHT;
                     x += speed;
-                } else move();
+                } else alternateMoven();
                 break;
             default:
                 System.out.println("move random");
@@ -178,7 +176,7 @@ public class Minvo extends Enemy {
         countFrame++;
     }
 
-    public void move(){
+    public void alternateMoven(){
         switch(lastDir){
             case UP:
                 y -= speed;
