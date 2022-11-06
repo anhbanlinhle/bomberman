@@ -1,9 +1,10 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.enemies;
 
 import javafx.scene.canvas.GraphicsContext;
 import uet.oop.bomberman.controller.Camera;
-import uet.oop.bomberman.controller.SoundFile;
 import uet.oop.bomberman.graphics.Sprite;
+
+import static uet.oop.bomberman.BombermanGame.bomberman;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +12,7 @@ import java.util.List;
 public class EnemyManager {
     private final int DELAY_REMOVE_ENEMY = 36;
     private List<Enemy> enemyList;
-
-    private int count = 0;
+    public static int eggsy;
 
     public EnemyManager() {
         enemyList = new ArrayList<>();
@@ -36,9 +36,9 @@ public class EnemyManager {
 
     public void update() {
         // Remove dead enemy
+        eggsy = 0;
         for (int i = enemyList.size() - 1; i >= 0; i--) {
             if(!enemyList.get(i).isAlive()){
-                // SoundFile.monsterDie.play();
                 enemyList.get(i).die();
                 enemyList.get(i).increaseCountDead();
                 if (enemyList.get(i).getCountDead() >= 9)
@@ -52,12 +52,17 @@ public class EnemyManager {
                         enemyList.add(new Eggsbomb(x, y, Sprite.eggs4.getFxImage()));
                     }
                     enemyList.remove(i);
-                    count = 0;
                 }
             }
             else {
+                if (enemyList.get(i) instanceof Eggsbomb) {
+                    eggsy++;
+                }
                 enemyList.get(i).update();
             }
+        }
+        if (eggsy > 6) {
+            bomberman.setAlive(false);
         }
     }
 

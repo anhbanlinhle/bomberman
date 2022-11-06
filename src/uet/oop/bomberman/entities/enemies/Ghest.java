@@ -1,16 +1,18 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.enemies;
 
 import java.util.List;
 import java.util.ArrayList;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.Map;
+import uet.oop.bomberman.graphics.Map;
 import uet.oop.bomberman.graphics.Sprite;
 
-public class Oneal extends Enemy {
+import static uet.oop.bomberman.BombermanGame.bomberman;
+
+public class Ghest extends Enemy {
   private DIRECTION newDir;
-  
-  public Oneal(int x, int y, Image img) {
+
+  public Ghest(int x, int y, Image img) {
     super(x, y, img);
     direction = DIRECTION.RIGHT;
     speed = 2;
@@ -72,8 +74,10 @@ public class Oneal extends Enemy {
         case RIGHT:
           curDir = DIRECTION.LEFT;
           break;
+        default:
+          break;
       }
-      if (listDir.size() > 1) {
+      if (listDir.size() > 2) {
         for (int i = listDir.size() - 1; i >= 0; i--) {
           if (listDir.get(i) == curDir) {
             listDir.remove(i);
@@ -84,14 +88,14 @@ public class Oneal extends Enemy {
     }
     int ranDir = (int) Math.floor(Math.random() * (listDir.size() - 1 + 1) + 1);
 
-    newDir = listDir.get(ranDir-1);
+    newDir = listDir.get(ranDir - 1);
   }
 
   @Override
   public void updateMove(Map map) {
     if (this.x % 48 == 0 && this.y % 48 == 0)
       findDirection(map);
-      
+
     if (newDir == DIRECTION.UP) {
       if (checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.BRICK)
           && checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.WALL)
@@ -131,63 +135,27 @@ public class Oneal extends Enemy {
   }
 
   public Image setFrame() {
-    int frameNum = countFrame / 20;
-    Image frame = null;
-    switch (direction) {
-      case UP:
-        switch (frameNum) {
-          case 0:
-            frame = Sprite.oneal_left1.getFxImage();
-            break;
-          case 1:
-            frame = Sprite.oneal_left2.getFxImage();
-            break;
-          case 2:
-            frame = Sprite.oneal_left3.getFxImage();
-            break;
-        }
-        break;
-      case DOWN:
-        switch (frameNum) {
-          case 0:
-            frame = Sprite.oneal_right1.getFxImage();
-            break;
-          case 1:
-            frame = Sprite.oneal_right2.getFxImage();
-            break;
-          case 2:
-            frame = Sprite.oneal_right3.getFxImage();
-            break;
-        }
-        break;
-      case LEFT:
-        switch (frameNum) {
-          case 0:
-            frame = Sprite.oneal_left1.getFxImage();
-            break;
-          case 1:
-            frame = Sprite.oneal_left2.getFxImage();
-            break;
-          case 2:
-            frame = Sprite.oneal_left3.getFxImage();
-            break;
-        }
-        break;
-      case RIGHT:
-        switch (frameNum) {
-          case 0:
-            frame = Sprite.oneal_right1.getFxImage();
-            break;
-          case 1:
-            frame = Sprite.oneal_right2.getFxImage();
-            break;
-          case 2:
-            frame = Sprite.oneal_right3.getFxImage();
-            break;
-        }
-        break;
+    int difX = Math.abs(getMapX() - bomberman.getMapX());
+    int difY = Math.abs(getMapY() - bomberman.getMapY());
+    if (difX > 3 || difY > 3) {
+      speed = 2;
+      return switch (direction) {
+        case LEFT, DOWN ->
+          Sprite.movingSprite(Sprite.ghest_left1, Sprite.ghest_left2, Sprite.ghest_left3, countFrame, 60).getFxImage();
+        case RIGHT, UP, NOT_MOVE ->
+          Sprite.movingSprite(Sprite.ghest_right1, Sprite.ghest_right2, Sprite.ghest_right3, countFrame, 60).getFxImage();
+      };
     }
-    return frame;
+    else {
+      isAlive = true;
+      speed = 1;
+      return switch (direction) {
+        case LEFT, DOWN ->
+          Sprite.movingSprite(Sprite.ghest_left4, Sprite.ghest_left5, Sprite.ghest_left6, countFrame, 20).getFxImage();
+        case RIGHT, UP, NOT_MOVE ->
+          Sprite.movingSprite(Sprite.ghest_right4, Sprite.ghest_right5, Sprite.ghest_right6, countFrame, 20).getFxImage();
+      };
+    }
   }
 
   @Override
@@ -200,10 +168,10 @@ public class Oneal extends Enemy {
 
   @Override
   public void die() {
-    img = Sprite.oneal_dead.getFxImage();
+    img = Sprite.ghest_dead.getFxImage();
   }
 
   public void loadDie(int count) {
-    img = Sprite.movingSprite(Sprite.blue_dead1, Sprite.blue_dead2, Sprite.blue_dead3, count, 36).getFxImage();
+    img = Sprite.movingSprite(Sprite.orange_dead1, Sprite.orange_dead2, Sprite.orange_dead3, count, 36).getFxImage();
   }
 }

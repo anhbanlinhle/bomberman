@@ -1,13 +1,10 @@
 package uet.oop.bomberman.entities;
 
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import uet.oop.bomberman.controller.Camera;
+import uet.oop.bomberman.graphics.Map;
 import uet.oop.bomberman.graphics.Sprite;
-import uet.oop.bomberman.Map;
 
 public abstract class Entity {
     // Tọa độ X tính từ góc trái trên trong Canvas
@@ -23,6 +20,8 @@ public abstract class Entity {
     protected Image img;
 
     protected ENTITY_TYPE type;
+
+
 
     public Entity() {
     }

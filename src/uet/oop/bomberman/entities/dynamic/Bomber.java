@@ -1,27 +1,27 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.dynamic;
 
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.List;
 
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
-import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.controller.Camera;
+import uet.oop.bomberman.graphics.Map;
 import uet.oop.bomberman.graphics.Sprite;
-import uet.oop.bomberman.graphics.SpriteSheet;
 import uet.oop.bomberman.controller.KeyListener;
 import uet.oop.bomberman.controller.SoundFile;
-import uet.oop.bomberman.controller.KeyListener.DIRECTION;
-import uet.oop.bomberman.Map;
+import uet.oop.bomberman.entities.Grass;
+import uet.oop.bomberman.entities.dynamic.items.BombItem;
+import uet.oop.bomberman.entities.dynamic.items.FlameItem;
+import uet.oop.bomberman.entities.dynamic.items.Item;
+import uet.oop.bomberman.entities.dynamic.items.SpeedItem;
+import uet.oop.bomberman.entities.enemies.Enemy;
 
 import static uet.oop.bomberman.BombermanGame.bombManager;
 import static uet.oop.bomberman.BombermanGame.map;
 import static uet.oop.bomberman.BombermanGame.enemyManager;
+import static uet.oop.bomberman.graphics.Map.itemList;
+import static uet.oop.bomberman.entities.enemies.EnemyManager.eggsy;
 
 public class Bomber extends DynamicEntity {
     private final int DIE_TIME = 60;
@@ -59,9 +59,25 @@ public class Bomber extends DynamicEntity {
             checkCollisionItem();
             checkCollisionPortal();
 
+            if (keyHandle.isPressed(KeyCode.N) && keyHandle.isPressed(KeyCode.E) 
+                && keyHandle.isPressed(KeyCode.X) && keyHandle.isPressed(KeyCode.T)) {
+                meetPortal = true;
+            }
+
+            if (keyHandle.isPressed(KeyCode.H) && keyHandle.isPressed(KeyCode.A)
+                && keyHandle.isPressed(KeyCode.C) && keyHandle.isPressed(KeyCode.K)) {
+                live = 9999;
+                speed = 6;
+                bombManager.setBombRemain(10);
+                bombManager.setFlameLength(10);;
+            }
+
             if (checkCollisionEnemy() || checkColisionFlame(bombManager)) {
                 SoundFile.bomberDie.play();
-                setAlive(false);
+                live--;
+                if (live == 0) {
+                    isAlive = false;
+                }
             }
         }
         else {
@@ -136,6 +152,8 @@ public class Bomber extends DynamicEntity {
                             break;
                     }
                     break;
+                default:
+                    break;
             }
         } else {
             switch (direction) {
@@ -151,10 +169,10 @@ public class Bomber extends DynamicEntity {
                 case RIGHT:
                     frame = Sprite.player_right.getFxImage();
                     break;
+                default:
+                    break;
             }
-        } /*else {
-            moving = false;
-        }*/
+        }
         return frame;
     }
 
@@ -202,10 +220,10 @@ public class Bomber extends DynamicEntity {
     }
 
     private void checkCollisionItem() {
-        List<Item> checkList = map.itemList;
+        List<Item> checkList = itemList;
         for (int i = 0; i < checkList.size(); i++) {
-            int difX = Math.abs(checkList.get(i).x - x);
-            int difY = Math.abs(checkList.get(i).y - y);
+            int difX = Math.abs(checkList.get(i).getX() - x);
+            int difY = Math.abs(checkList.get(i).getY() - y);
 
             if (checkList.get(i).isAlive()) {
                 if (difX < Sprite.SCALED_SIZE && difY < Sprite.SCALED_SIZE) {
@@ -236,6 +254,8 @@ public class Bomber extends DynamicEntity {
                                     x++;
                                 }
                                 break;
+                            default:
+                                break;
                         }
                     }
                     if (checkList.get(i) instanceof FlameItem) {
@@ -258,7 +278,7 @@ public class Bomber extends DynamicEntity {
         int difX = Math.abs(map.getPortalX() - x),
             difY = Math.abs(map.getPortalY() - y);
         if (difX < Sprite.SCALED_SIZE && difY < Sprite.SCALED_SIZE) {
-            if (enemyManager.getEnemyList().size() <= 0 ) {
+            if (enemyManager.getEnemyList().size() - eggsy <= 0 ) {
                 meetPortal = true;
                 System.out.println("Win");
             }

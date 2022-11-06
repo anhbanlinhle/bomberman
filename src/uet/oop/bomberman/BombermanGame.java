@@ -13,9 +13,14 @@ import uet.oop.bomberman.controller.Menu.STATE;
 import uet.oop.bomberman.controller.KeyListener;
 import uet.oop.bomberman.controller.Menu;
 import uet.oop.bomberman.controller.SoundFile;
-import uet.oop.bomberman.entities.*;
+import uet.oop.bomberman.entities.dynamic.BombManager;
+import uet.oop.bomberman.entities.dynamic.Bomber;
+import uet.oop.bomberman.entities.enemies.EnemyManager;
+import uet.oop.bomberman.graphics.Map;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.graphics.Texture;
+
+import static uet.oop.bomberman.controller.Menu.STATE;;
 
 public class BombermanGame extends Application {
 
@@ -50,7 +55,7 @@ public class BombermanGame extends Application {
         SoundFile.backgroundGame.loop();
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
-        textures = new Texture(canvas);
+        this.textures = new Texture(canvas);
         // Tao root container
         Group root = new Group();
         root.getChildren().add(canvas);
@@ -156,7 +161,7 @@ public class BombermanGame extends Application {
                 if (bomberman.loseDelay == LOSE_DELAY) {
                     System.out.println("Game Over");
                     bomberman = null;
-                    menu.setGameState(Menu.GAME_STATE.GAME_OVER);
+                    menu.setGameState(STATE.GAME_OVER);
                     menu.update();
                     cleanGame();
                     createGame(levelNo);
@@ -171,10 +176,10 @@ public class BombermanGame extends Application {
                     levelNo++;
                     cleanGame();
                     createGame(levelNo);
-                    menu.setGameState(Menu.GAME_STATE.IN_GAME);
+                    menu.setGameState(STATE.IN_GAME);
                     menu.update();
                 } else {
-                    menu.setGameState(Menu.GAME_STATE.WIN_GAME);
+                    menu.setGameState(STATE.WIN_GAME);
                     menu.update();
                 }
                 break;
@@ -215,6 +220,8 @@ public class BombermanGame extends Application {
                 menu.render(gc);
                 break;
             case EXIT:
+                break;
+            default:
                 break;
         }
     }

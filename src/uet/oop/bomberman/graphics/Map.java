@@ -1,11 +1,22 @@
-package uet.oop.bomberman;
+package uet.oop.bomberman.graphics;
 
 import javafx.scene.canvas.GraphicsContext;
 import uet.oop.bomberman.controller.Camera;
 import uet.oop.bomberman.controller.KeyListener;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.entities.Entity.ENTITY_TYPE;
-import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.entities.dynamic.Bomb;
+import uet.oop.bomberman.entities.dynamic.items.BombItem;
+import uet.oop.bomberman.entities.dynamic.items.FlameItem;
+import uet.oop.bomberman.entities.dynamic.items.Item;
+import uet.oop.bomberman.entities.dynamic.items.SpeedItem;
+import uet.oop.bomberman.entities.enemies.Balloom;
+import uet.oop.bomberman.entities.enemies.Batfs;
+import uet.oop.bomberman.entities.enemies.Doll;
+import uet.oop.bomberman.entities.enemies.Eggs;
+import uet.oop.bomberman.entities.enemies.Enemy;
+import uet.oop.bomberman.entities.enemies.Ghest;
+import uet.oop.bomberman.entities.enemies.Oneal;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -52,7 +63,6 @@ public class Map {
                     // Read text form line
                     Entity entity;
                     Enemy tempEnemy;
-                    Item tempItem;
                     switch (fileLine.charAt(j)) {
                         case '#':
                             entity = new Wall(j, i, Sprite.wall.getFxImage());
@@ -76,17 +86,17 @@ public class Map {
                             enemyList.add(tempEnemy);
                             entity = new Grass(j, i, Sprite.grass.getFxImage());
                             break;
-                        case '4':
+                        case '6':
                             tempEnemy = new Batfs(j, i, Sprite.batfs_down2.getFxImage());
                             enemyList.add(tempEnemy);
                             entity = new Grass(j, i, Sprite.grass.getFxImage());
                             break;
-                        case '5':
+                        case '4':
                             tempEnemy = new Ghest(j, i, Sprite.ghest_right1.getFxImage());
                             enemyList.add(tempEnemy);
                             entity = new Grass(j, i, Sprite.grass.getFxImage());
                             break;
-                        case '6':
+                        case '5':
                             tempEnemy = new Eggs(j, i, Sprite.eggs1.getFxImage());
                             enemyList.add(tempEnemy);
                             entity = new Grass(j, i, Sprite.grass.getFxImage());
@@ -126,13 +136,14 @@ public class Map {
         for (int i = 0; i < height; i++) {
             List<Integer> row = new ArrayList<>();
             for (int j = 0; j < width; j++) {
-                if (mapEntity.get(i).get(j) instanceof Brick || mapEntity.get(i).get(j) instanceof Wall) {
+                if (this.entityTypeAtCordinate(j, i) == ENTITY_TYPE.BRICK || this.entityTypeAtCordinate(j, i) == ENTITY_TYPE.WALL) {
                     row.add(1);
                 } else row.add(0);
             }
             formatMap.add(row);
         }
 
+        //Enemy
         for (Entity entity : enemyManager.getEnemyList()) {
             formatMap.get(entity.getMapY()).set(entity.getMapX(), 1);
         }
@@ -141,13 +152,16 @@ public class Map {
         for (Bomb bomb : bombManager.getBombList()) {
             formatMap.get(bomb.getMapY()).set(bomb.getMapX(), 1);
         }
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                System.out.print(formatMap.get(i).get(j) + " ");
-            }
-            System.out.println();
-        }
-        System.out.println("Mapppppp");
+
+//        //print Test
+//        for (int i = 0; i < height; i++) {
+//            for (int j = 0; j < width; j++) {
+//                System.out.print(formatMap.get(i).get(j) + " ");
+//            }
+//            System.out.println();
+//        }
+//        System.out.println("Mapppppp");
+
         return formatMap;
     }
 

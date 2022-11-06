@@ -3,21 +3,12 @@ package uet.oop.bomberman.graphics;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.util.Pair;
-import uet.oop.bomberman.Map;
 import uet.oop.bomberman.controller.Button;
-import uet.oop.bomberman.entities.Bomber;
-import uet.oop.bomberman.entities.Entity;
-import javafx.scene.image.*;
 
 
 public class Texture {
@@ -38,10 +29,10 @@ public class Texture {
     public Texture(Canvas canvas) {
         gc = canvas.getGraphicsContext2D();
         try {
-            DEFAULTFONT = Font.loadFont(Files.newInputStream(Paths.get("res/font/default.ttf")), 60);
-            CHOOSENFONT = Font.loadFont(Files.newInputStream(Paths.get("res/font/title.ttf")), 15);
-            PIXELFONT = Font.loadFont(Files.newInputStream(Paths.get("res/font/pixel.ttf")), 75);
-            PIXELFONTMINI = Font.loadFont(Files.newInputStream(Paths.get("res/font/pixel.ttf")), 40);
+            DEFAULTFONT = Font.loadFont(Files.newInputStream(Paths.get("res/fonts/default.ttf")), 60);
+            CHOOSENFONT = Font.loadFont(Files.newInputStream(Paths.get("res/fonts/title.ttf")), 15);
+            PIXELFONT = Font.loadFont(Files.newInputStream(Paths.get("res/fonts/pixel.ttf")), 75);
+            PIXELFONTMINI = Font.loadFont(Files.newInputStream(Paths.get("res/fonts/pixel.ttf")), 40);
         } catch (IOException e) {
             System.out.println("[IOException] Wrong filepaths.");
         }

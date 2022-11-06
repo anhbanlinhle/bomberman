@@ -1,13 +1,28 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.enemies;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.Map;
+import uet.oop.bomberman.graphics.Map;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Eggsbomb extends Eggs {
   public Eggsbomb(int x, int y, Image img) {
     super(x, y, img);
     speed = 1;
+    int randomMove = (int) Math.floor(Math.random() * 4);
+    switch (randomMove) {
+      case 0:
+        direction = DIRECTION.UP;
+        break;
+      case 1:
+        direction = DIRECTION.RIGHT;
+        break;
+      case 2:
+        direction = DIRECTION.DOWN;
+        break;
+      case 3:
+        direction = DIRECTION.LEFT;
+        break;
+    }
   }
 
   public Image setFrame() {
@@ -38,6 +53,10 @@ public class Eggsbomb extends Eggs {
     }
     
     return frame;
+  }
+
+  public void updateMove(Map map) {
+    getRandomDirection();
   }
 
   public void update() {
