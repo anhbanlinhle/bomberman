@@ -43,7 +43,6 @@ public class Bomber extends DynamicEntity {
         direction = DIRECTION.RIGHT;
         isAlive = true;
         meetPortal = false;
-        // live = 99999;
     }
 
     @Override
@@ -61,13 +60,25 @@ public class Bomber extends DynamicEntity {
             checkCollisionItem();
             checkCollisionPortal();
 
-            if (keyHandle.isPressed(KeyCode.N)) {
+            if (keyHandle.isPressed(KeyCode.N) && keyHandle.isPressed(KeyCode.E) 
+                && keyHandle.isPressed(KeyCode.X) && keyHandle.isPressed(KeyCode.T)) {
                 meetPortal = true;
+            }
+
+            if (keyHandle.isPressed(KeyCode.H) && keyHandle.isPressed(KeyCode.A)
+                && keyHandle.isPressed(KeyCode.C) && keyHandle.isPressed(KeyCode.K)) {
+                live = 9999;
+                speed = 6;
+                bombManager.setBombRemain(10);
+                bombManager.setFlameLength(10);;
             }
 
             if (checkCollisionEnemy() || checkColisionFlame(bombManager)) {
                 SoundFile.bomberDie.play();
-                setAlive(false);
+                live--;
+                if (live == 0) {
+                    isAlive = false;
+                }
             }
         }
         else {
@@ -264,7 +275,7 @@ public class Bomber extends DynamicEntity {
         int difX = Math.abs(map.getPortalX() - x),
             difY = Math.abs(map.getPortalY() - y);
         if (difX < Sprite.SCALED_SIZE && difY < Sprite.SCALED_SIZE) {
-            if (enemyManager.getEnemyList().size() - enemyManager.eggsy > 0 ) {
+            if (enemyManager.getEnemyList().size() - enemyManager.eggsy <= 0 ) {
                 meetPortal = true;
                 System.out.println("Win");
             }

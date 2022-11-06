@@ -39,11 +39,11 @@ public class Menu {
 
     public Menu() {
         try {
-            backGroundImage = new Image(Files.newInputStream(Paths.get("res/textures/backgr.jpg")));
-            gameOverImage = new Image(Files.newInputStream(Paths.get("res/textures/gameOver.png")));
-            menuInGameImage = new Image(Files.newInputStream(Paths.get("res/textures/menuingame.png")));
-            nextStageImage = new Image(Files.newInputStream(Paths.get("res/textures/nextstage.png")));
-            winGameImage = new Image(Files.newInputStream(Paths.get("res/textures/win_image.png")));
+            backGroundImage = new Image(Files.newInputStream(Paths.get("res/textures/Menu_Background.jpg")));
+            gameOverImage = new Image(Files.newInputStream(Paths.get("res/textures/Lose_Scene.png")));
+            menuInGameImage = new Image(Files.newInputStream(Paths.get("res/textures/Pause_Menu.png")));
+            nextStageImage = new Image(Files.newInputStream(Paths.get("res/textures/Next_Level.png")));
+            winGameImage = new Image(Files.newInputStream(Paths.get("res/textures/Win_Scene.png")));
             bombItem = new Image(Files.newInputStream(Paths.get("res/textures/bomb_item.png")));
             flameItem = new Image(Files.newInputStream(Paths.get("res/textures/flame_item.png")));
             speedItem = new Image(Files.newInputStream(Paths.get("res/textures/speed_item.png")));
