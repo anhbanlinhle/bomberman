@@ -24,6 +24,8 @@ public abstract class Entity {
 
     protected ENTITY_TYPE type;
 
+
+
     public Entity() {
     }
 

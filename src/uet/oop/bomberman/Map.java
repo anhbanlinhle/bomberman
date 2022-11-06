@@ -126,13 +126,14 @@ public class Map {
         for (int i = 0; i < height; i++) {
             List<Integer> row = new ArrayList<>();
             for (int j = 0; j < width; j++) {
-                if (mapEntity.get(i).get(j) instanceof Brick || mapEntity.get(i).get(j) instanceof Wall) {
+                if (this.entityTypeAtCordinate(j, i) == ENTITY_TYPE.BRICK || this.entityTypeAtCordinate(j, i) == ENTITY_TYPE.WALL) {
                     row.add(1);
                 } else row.add(0);
             }
             formatMap.add(row);
         }
 
+        //Enemy
         for (Entity entity : enemyManager.getEnemyList()) {
             formatMap.get(entity.getMapY()).set(entity.getMapX(), 1);
         }
@@ -141,13 +142,16 @@ public class Map {
         for (Bomb bomb : bombManager.getBombList()) {
             formatMap.get(bomb.getMapY()).set(bomb.getMapX(), 1);
         }
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                System.out.print(formatMap.get(i).get(j) + " ");
-            }
-            System.out.println();
-        }
-        System.out.println("Mapppppp");
+
+//        //print Test
+//        for (int i = 0; i < height; i++) {
+//            for (int j = 0; j < width; j++) {
+//                System.out.print(formatMap.get(i).get(j) + " ");
+//            }
+//            System.out.println();
+//        }
+//        System.out.println("Mapppppp");
+
         return formatMap;
     }
 

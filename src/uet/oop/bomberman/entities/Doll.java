@@ -7,6 +7,8 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.Map;
 import uet.oop.bomberman.graphics.Sprite;
 
+import static uet.oop.bomberman.BombermanGame.map;
+
 public class Doll extends Enemy {
   private DIRECTION newDir;
 
@@ -123,70 +125,19 @@ public class Doll extends Enemy {
   }
 
   public Image setFrame() {
-    int frameNum = countFrame / 20;
-    Image frame = null;
-    switch (direction) {
-      case UP:
-        switch (frameNum) {
-          case 0:
-            frame = Sprite.doll_left1.getFxImage();
-            break;
-          case 1:
-            frame = Sprite.doll_left2.getFxImage();
-            break;
-          case 2:
-            frame = Sprite.doll_left3.getFxImage();
-            break;
-        }
-        break;
-      case DOWN:
-        switch (frameNum) {
-          case 0:
-            frame = Sprite.doll_right1.getFxImage();
-            break;
-          case 1:
-            frame = Sprite.doll_right2.getFxImage();
-            break;
-          case 2:
-            frame = Sprite.doll_right3.getFxImage();
-            break;
-        }
-        break;
-      case LEFT:
-        switch (frameNum) {
-          case 0:
-            frame = Sprite.doll_left1.getFxImage();
-            break;
-          case 1:
-            frame = Sprite.doll_left2.getFxImage();
-            break;
-          case 2:
-            frame = Sprite.doll_left3.getFxImage();
-            break;
-        }
-        break;
-      case RIGHT:
-        switch (frameNum) {
-          case 0:
-            frame = Sprite.doll_right1.getFxImage();
-            break;
-          case 1:
-            frame = Sprite.doll_right2.getFxImage();
-            break;
-          case 2:
-            frame = Sprite.doll_right3.getFxImage();
-            break;
-        }
-        break;
-    }
-    return frame;
+    return switch (direction) {
+      case UP, DOWN, NOT_MOVE, LEFT ->
+              Sprite.movingSprite(Sprite.doll_left1, Sprite.doll_left2, Sprite.doll_left3, countFrame, 60).getFxImage();
+      case RIGHT ->
+              Sprite.movingSprite(Sprite.doll_right1, Sprite.doll_right2, Sprite.doll_right3, countFrame, 60).getFxImage();
+
+    };
   }
 
   @Override
   public void update() {
     super.update();
     countFrame++;
-    countFrame = countFrame % 60;
     img = setFrame();
   }
 
