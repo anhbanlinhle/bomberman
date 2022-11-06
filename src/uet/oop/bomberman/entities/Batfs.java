@@ -66,14 +66,14 @@ public class Batfs extends Enemy {
             Pair<Integer, Integer> tmp = q.poll();
 
             for (int i = 0; i < 4; i++) {
-                int newX = tmp.getKey() + dy[i];
-                int newY = tmp.getValue() + dx[i];
+                int newY = tmp.getKey() + dy[i];
+                int newX = tmp.getValue() + dx[i];
 
-                if (newY >= 0 && newY < width && newX >= 0 && newX < height && formatMap.get(newX).get(newY) == 0 && !visited[newX][newY]) {
-                    q.add(new Pair<>(newX, newY));
-                    distance[newX][newY] = distance[tmp.getKey()][tmp.getValue()] + 1;
-                    last[newX][newY] = new Pair<>(tmp.getKey(), tmp.getValue());
-                    visited[newX][newY] = true;
+                if (newX >= 0 && newX < width && newY >= 0 && newY < height && formatMap.get(newY).get(newX) == 0 && !visited[newY][newX]) {
+                    q.add(new Pair<>(newY, newX));
+                    distance[newY][newX] = distance[tmp.getKey()][tmp.getValue()] + 1;
+                    last[newY][newX] = new Pair<>(tmp.getKey(), tmp.getValue());
+                    visited[newY][newX] = true;
                 }
             }
         }
