@@ -17,6 +17,7 @@ public class Bomb extends DynamicEntity {
     explode = false;
     bombIsPlaced = false;
     setType(ENTITY_TYPE.BOMB);
+    isAlive = true;
   }
 
   public void update(Map map) {
@@ -26,6 +27,7 @@ public class Bomb extends DynamicEntity {
   public void update() {
     img = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, count, BOMB_TIME).getFxImage();
     count++;
+    explode = !isAlive;
     if (count >= BOMB_TIME) {
       explode = true;
     }
@@ -33,5 +35,9 @@ public class Bomb extends DynamicEntity {
 
   public boolean isExplode() {
     return explode;
+  }
+
+  public void setExplode(boolean explode) {
+    this.explode = explode;
   }
 }

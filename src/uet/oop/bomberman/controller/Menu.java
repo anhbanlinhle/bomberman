@@ -51,7 +51,7 @@ public class Menu {
         }
     }
 
-    private long delayInput = 10;
+    private long delayInput = 100;
     public static STATE GAME_STATE = STATE.IN_MENU;
     private KeyListener keyListener;
     private boolean isPlaying;
@@ -331,7 +331,7 @@ public class Menu {
         switch (GAME_STATE) {
             case IN_MENU:
                 long now = Timer.getNow();
-                if (now - delayInput > Timer.TIME_PER_FRAME * 5) {
+                if (now - delayInput > Timer.TIME_PER_FRAME * 7) {
                     delayInput = now;
                     if (keyListener.isPressed(KeyCode.ENTER)) {
                         SoundFile.menuSelect.play();
