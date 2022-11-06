@@ -13,11 +13,11 @@ import static uet.oop.bomberman.BombermanGame.map;
 
 public class Batfs extends Enemy {
     int count = 0;
-    DIRECTION lastDir = DIRECTION.LEFT;
+    DIRECTION lastDir = DIRECTION.NOT_MOVE;
 
     public Batfs(int x, int y, Image img) {
         super(x, y, img);
-        direction = DIRECTION.RIGHT;
+        direction = DIRECTION.NOT_MOVE;
         speed = 1;
     }
 
@@ -58,25 +58,17 @@ public class Batfs extends Enemy {
             Pair<Integer, Integer> tmp = q.poll();
 
             for (int i = 0; i < 4; i++) {
-                int newY = tmp.getKey() + dy[i];
-                int newX = tmp.getValue() + dx[i];
-                if (x >= 0 && x < map.getWidth()*Sprite.SCALED_SIZE && y >= 0 && y < map.getHeight()*Sprite.SCALED_SIZE && formatMap.get(newY).get(newX) == 0 && !visited[newY][newX]) {
-                    q.add(new Pair<>(newY, newX));
-                    distance[newY][newX] = distance[tmp.getKey()][tmp.getValue()] + 1;
-                    last[newY][newX] = new Pair<>(tmp.getKey(), tmp.getValue());
-                    visited[newY][newX] = true;
+                int newX = tmp.getKey() + dx[i];
+                int newY = tmp.getValue() + dy[i];
+
+                if (newY >= 0 && newY < width && newX >= 0 && newX < height && formatMap.get(newX).get(newY) == 0 && !visited[newX][newY]) {
+                    q.add(new Pair<>(newX, newY));
+                    distance[newX][newY] = distance[tmp.getKey()][tmp.getValue()] + 1;
+                    last[newX][newY] = new Pair<>(tmp.getKey(), tmp.getValue());
+                    visited[newX][newY] = true;
                 }
             }
         }
-
-//        for (int i = 0; i < height; i++) {
-//            for (int j = 0; j < width; j++) {
-//                String s = String.format("|%2d|", distance[i][j]);
-//                System.out.print(s + " ");
-//            }
-//            System.out.println();
-//        }
-//        System.out.println("STOPPPPPPPPP");
 
         if (distance[endX][endY] == 0) return;
 
@@ -84,6 +76,7 @@ public class Batfs extends Enemy {
         int X = last[endX][endY].getKey();
         int Y = last[endX][endY].getValue();
         pathCoordinate.add(0, new Pair<>(endX, endY));
+
 
 
         while (true) {
@@ -183,18 +176,37 @@ public class Batfs extends Enemy {
     }
 
     public void alternateMoven(){
-        switch(lastDir){
+        switch (lastDir){
             case UP:
-                y -= speed;
+                if (checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.BRICK)
+                        && checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.WALL)
+                        && checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.BOMB)) {
+                    y -= speed;
+                }
                 break;
             case DOWN:
-                y += speed;
-                break;
-            case RIGHT:
-                x += speed;
+                if (checkCollisionMap(map, x, y + speed, DIRECTION.DOWN, ENTITY_TYPE.BRICK)
+                        && checkCollisionMap(map, x, y + speed, DIRECTION.DOWN, ENTITY_TYPE.WALL)
+                        && checkCollisionMap(map, x, y + speed, DIRECTION.DOWN, ENTITY_TYPE.BOMB)) {
+                    y += speed;
+                }
                 break;
             case LEFT:
-                x -= speed;
+                if (checkCollisionMap(map, x - speed, y, DIRECTION.LEFT, ENTITY_TYPE.BRICK)
+                        && checkCollisionMap(map, x - speed, y, DIRECTION.LEFT, ENTITY_TYPE.WALL)
+                        && checkCollisionMap(map, x - speed, y, DIRECTION.LEFT, ENTITY_TYPE.BOMB)) {
+                    x -= speed;
+                }
+                break;
+            case RIGHT:
+                if (checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT, ENTITY_TYPE.BRICK)
+                        && checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT, ENTITY_TYPE.WALL)
+                        && checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT, ENTITY_TYPE.BOMB)) {
+                    x += speed;
+                }
+                break;
+            default:
+                System.out.println("move random");
                 break;
         }
     }
