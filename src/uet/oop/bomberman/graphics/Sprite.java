@@ -11,6 +11,7 @@ import java.nio.IntBuffer;
 public class Sprite {
 
 	public static final int DEFAULT_SIZE = 16;
+	public static final int ENHANCED_SIZE = 32;
 	public static final int SCALED_SIZE = DEFAULT_SIZE * 3;
 	private static final int TRANSPARENT_COLOR = 0xffff00ff;
 	public final int SIZE;
@@ -35,6 +36,23 @@ public class Sprite {
 	 * | Bomber Sprites
 	 * |--------------------------------------------------------------------------
 	 */
+	// new 
+	// public static Sprite player_up = new Sprite(ENHANCED_SIZE, 0, 0, SpriteSheet.neu, 32, 32);
+	// public static Sprite player_down = new Sprite(ENHANCED_SIZE, 1, 0, SpriteSheet.neu, 32, 32);
+	// public static Sprite player_left = new Sprite(ENHANCED_SIZE, 2, 0, SpriteSheet.neu, 32, 32);
+	// public static Sprite player_right = new Sprite(ENHANCED_SIZE, 3, 0, SpriteSheet.neu, 32, 32);
+
+	// public static Sprite player_up_1 = new Sprite(ENHANCED_SIZE, 0, 1, SpriteSheet.neu, 32, 32);
+	// public static Sprite player_down_1 = new Sprite(ENHANCED_SIZE, 1, 1, SpriteSheet.neu, 32, 32);
+	// public static Sprite player_left_1 = new Sprite(ENHANCED_SIZE, 2, 1, SpriteSheet.neu, 32, 32);
+	// public static Sprite player_right_1 = new Sprite(ENHANCED_SIZE, 3, 1, SpriteSheet.neu, 32, 32);
+
+	// public static Sprite player_up_2 = new Sprite(ENHANCED_SIZE, 0, 2, SpriteSheet.neu, 32, 32);
+	// public static Sprite player_down_2 = new Sprite(ENHANCED_SIZE, 1, 2, SpriteSheet.neu, 32, 32);
+	// public static Sprite player_left_2 = new Sprite(ENHANCED_SIZE, 2, 2, SpriteSheet.neu, 32, 32);
+	// public static Sprite player_right_2 = new Sprite(ENHANCED_SIZE, 3, 2, SpriteSheet.neu, 32, 32);
+
+	// old
 	public static Sprite player_up = new Sprite(DEFAULT_SIZE, 0, 0, SpriteSheet.tiles, 12, 16);
 	public static Sprite player_down = new Sprite(DEFAULT_SIZE, 2, 0, SpriteSheet.tiles, 12, 15);
 	public static Sprite player_left = new Sprite(DEFAULT_SIZE, 3, 0, SpriteSheet.tiles, 10, 15);
