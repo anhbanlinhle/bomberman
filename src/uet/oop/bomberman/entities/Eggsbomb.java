@@ -8,6 +8,21 @@ public class Eggsbomb extends Eggs {
   public Eggsbomb(int x, int y, Image img) {
     super(x, y, img);
     speed = 1;
+    int randomMove = (int) Math.floor(Math.random() * 4);
+    switch (randomMove) {
+      case 0:
+        direction = DIRECTION.UP;
+        break;
+      case 1:
+        direction = DIRECTION.RIGHT;
+        break;
+      case 2:
+        direction = DIRECTION.DOWN;
+        break;
+      case 3:
+        direction = DIRECTION.LEFT;
+        break;
+    }
   }
 
   public Image setFrame() {
