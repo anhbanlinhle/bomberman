@@ -1,15 +1,12 @@
 package uet.oop.bomberman.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.lang.Thread.State;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -17,7 +14,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import uet.oop.bomberman.graphics.Texture;
 import uet.oop.bomberman.graphics.Sprite;
-import uet.oop.bomberman.controller.Timer;
 
 import static uet.oop.bomberman.BombermanGame.bombManager;
 import static uet.oop.bomberman.BombermanGame.bomberman;
@@ -64,7 +60,6 @@ public class Menu {
     private int speed = 0;
     private int flame = 0;
     private int bomb = 0;
-    private int countColor = 0;
 
     List<Button> buttonMenu = new ArrayList<>();
     List<Button> buttonRetry = new ArrayList<>();
@@ -111,7 +106,7 @@ public class Menu {
     }
 
     public Menu(KeyListener keyListener) {
-        this.GAME_STATE = STATE.IN_MENU;
+        GAME_STATE = STATE.IN_MENU;
         this.keyListener = keyListener;
 
         Text text = new Text("Continue");
@@ -473,7 +468,7 @@ public class Menu {
                 break;
             case WIN_GAME:
                 if (keyListener.isPressed(KeyCode.ESCAPE)) {
-                    setGameState(GAME_STATE.IN_MENU);
+                    setGameState(STATE.IN_MENU);
                 }
                 break;
             default:

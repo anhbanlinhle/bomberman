@@ -1,12 +1,8 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.dynamic;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.Map;
-import uet.oop.bomberman.controller.Timer;
+import uet.oop.bomberman.graphics.Map;
 import uet.oop.bomberman.graphics.Sprite;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Bomb extends DynamicEntity {
 
@@ -14,7 +10,6 @@ public class Bomb extends DynamicEntity {
   static boolean bombIsPlaced;
   private boolean explode;
   private int count;
-  private int frameNum;
 
   public Bomb(int x, int y, Image img) {
     super(x, y, Sprite.bomb_exploded1.getFxImage());
@@ -29,7 +24,6 @@ public class Bomb extends DynamicEntity {
 
   @Override
   public void update() {
-    // count = count % 99;
     img = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, count, BOMB_TIME).getFxImage();
     count++;
     if (count >= BOMB_TIME) {

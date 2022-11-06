@@ -1,10 +1,8 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.enemies;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.Map;
 import uet.oop.bomberman.graphics.Sprite;
 
-import static uet.oop.bomberman.BombermanGame.map;
 
 public class Balloom extends Enemy{
 

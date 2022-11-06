@@ -1,22 +1,22 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.enemies;
 
 import java.util.List;
 import java.util.ArrayList;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.Map;
+import uet.oop.bomberman.graphics.Map;
 import uet.oop.bomberman.graphics.Sprite;
 
-import static uet.oop.bomberman.BombermanGame.map;
+import static uet.oop.bomberman.BombermanGame.bomberman;
 
-public class Doll extends Enemy {
+public class Ghest extends Enemy {
   private DIRECTION newDir;
 
-  public Doll(int x, int y, Image img) {
+  public Ghest(int x, int y, Image img) {
     super(x, y, img);
     direction = DIRECTION.RIGHT;
-    speed = 1;
-    newDir = DIRECTION.RIGHT;
+    speed = 2;
+    newDir = DIRECTION.LEFT;
   }
 
   public void findDirection(Map map) {
@@ -29,28 +29,32 @@ public class Doll extends Enemy {
 
     // case up
     type_check = map.entityTypeAtCordinate(xMap, yMap - 1);
-    if (type_check != ENTITY_TYPE.WALL
+    if (type_check != ENTITY_TYPE.BRICK
+        && type_check != ENTITY_TYPE.WALL
         && type_check != ENTITY_TYPE.BOMB) {
       listDir.add(DIRECTION.UP);
     }
 
     // case down
     type_check = map.entityTypeAtCordinate(xMap, yMap + 1);
-    if (type_check != ENTITY_TYPE.WALL
+    if (type_check != ENTITY_TYPE.BRICK
+        && type_check != ENTITY_TYPE.WALL
         && type_check != ENTITY_TYPE.BOMB) {
       listDir.add(DIRECTION.DOWN);
     }
 
     // case left
     type_check = map.entityTypeAtCordinate(xMap - 1, yMap);
-    if (type_check != ENTITY_TYPE.WALL
+    if (type_check != ENTITY_TYPE.BRICK
+        && type_check != ENTITY_TYPE.WALL
         && type_check != ENTITY_TYPE.BOMB) {
       listDir.add(DIRECTION.LEFT);
     }
 
     // case right
     type_check = map.entityTypeAtCordinate(xMap + 1, yMap);
-    if (type_check != ENTITY_TYPE.WALL
+    if (type_check != ENTITY_TYPE.BRICK
+        && type_check != ENTITY_TYPE.WALL
         && type_check != ENTITY_TYPE.BOMB) {
       listDir.add(DIRECTION.RIGHT);
     }
@@ -70,8 +74,10 @@ public class Doll extends Enemy {
         case RIGHT:
           curDir = DIRECTION.LEFT;
           break;
+        default:
+          break;
       }
-      if (listDir.size() > 1) {
+      if (listDir.size() > 2) {
         for (int i = listDir.size() - 1; i >= 0; i--) {
           if (listDir.get(i) == curDir) {
             listDir.remove(i);
@@ -87,11 +93,12 @@ public class Doll extends Enemy {
 
   @Override
   public void updateMove(Map map) {
-    if (x % 48 == 0 && y % 48 == 0 && convertToMapCordinate(x) % 2 == 1 && convertToMapCordinate(y) % 2 == 1)
+    if (this.x % 48 == 0 && this.y % 48 == 0)
       findDirection(map);
 
     if (newDir == DIRECTION.UP) {
-      if (checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.WALL)
+      if (checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.BRICK)
+          && checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.WALL)
           && checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.BOMB)) {
         direction = DIRECTION.UP;
         y -= speed;
@@ -99,7 +106,8 @@ public class Doll extends Enemy {
         findDirection(map);
     }
     if (newDir == DIRECTION.RIGHT) {
-      if (checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT, ENTITY_TYPE.WALL)
+      if (checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT, ENTITY_TYPE.BRICK)
+          && checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT, ENTITY_TYPE.WALL)
           && checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT, ENTITY_TYPE.BOMB)) {
         direction = DIRECTION.RIGHT;
         x += speed;
@@ -107,7 +115,8 @@ public class Doll extends Enemy {
         findDirection(map);
     }
     if (newDir == DIRECTION.LEFT) {
-      if (checkCollisionMap(map, x - speed, y, DIRECTION.LEFT, ENTITY_TYPE.WALL)
+      if (checkCollisionMap(map, x - speed, y, DIRECTION.LEFT, ENTITY_TYPE.BRICK)
+          && checkCollisionMap(map, x - speed, y, DIRECTION.LEFT, ENTITY_TYPE.WALL)
           && checkCollisionMap(map, x - speed, y, DIRECTION.LEFT, ENTITY_TYPE.BOMB)) {
         direction = DIRECTION.LEFT;
         x -= speed;
@@ -115,7 +124,8 @@ public class Doll extends Enemy {
         findDirection(map);
     }
     if (newDir == DIRECTION.DOWN) {
-      if (checkCollisionMap(map, x, y + speed, DIRECTION.DOWN, ENTITY_TYPE.WALL)
+      if (checkCollisionMap(map, x, y + speed, DIRECTION.DOWN, ENTITY_TYPE.BRICK)
+          && checkCollisionMap(map, x, y + speed, DIRECTION.DOWN, ENTITY_TYPE.WALL)
           && checkCollisionMap(map, x, y + speed, DIRECTION.DOWN, ENTITY_TYPE.BOMB)) {
         direction = DIRECTION.DOWN;
         y += speed;
@@ -125,28 +135,43 @@ public class Doll extends Enemy {
   }
 
   public Image setFrame() {
-    return switch (direction) {
-      case UP, DOWN, NOT_MOVE, LEFT ->
-              Sprite.movingSprite(Sprite.doll_left1, Sprite.doll_left2, Sprite.doll_left3, countFrame, 60).getFxImage();
-      case RIGHT ->
-              Sprite.movingSprite(Sprite.doll_right1, Sprite.doll_right2, Sprite.doll_right3, countFrame, 60).getFxImage();
-
-    };
+    int difX = Math.abs(getMapX() - bomberman.getMapX());
+    int difY = Math.abs(getMapY() - bomberman.getMapY());
+    if (difX > 3 || difY > 3) {
+      speed = 2;
+      return switch (direction) {
+        case LEFT, DOWN ->
+          Sprite.movingSprite(Sprite.ghest_left1, Sprite.ghest_left2, Sprite.ghest_left3, countFrame, 60).getFxImage();
+        case RIGHT, UP, NOT_MOVE ->
+          Sprite.movingSprite(Sprite.ghest_right1, Sprite.ghest_right2, Sprite.ghest_right3, countFrame, 60).getFxImage();
+      };
+    }
+    else {
+      isAlive = true;
+      speed = 1;
+      return switch (direction) {
+        case LEFT, DOWN ->
+          Sprite.movingSprite(Sprite.ghest_left4, Sprite.ghest_left5, Sprite.ghest_left6, countFrame, 20).getFxImage();
+        case RIGHT, UP, NOT_MOVE ->
+          Sprite.movingSprite(Sprite.ghest_right4, Sprite.ghest_right5, Sprite.ghest_right6, countFrame, 20).getFxImage();
+      };
+    }
   }
 
   @Override
   public void update() {
     super.update();
     countFrame++;
+    countFrame = countFrame % 60;
     img = setFrame();
   }
 
   @Override
   public void die() {
-    img = Sprite.doll_dead.getFxImage();
+    img = Sprite.ghest_dead.getFxImage();
   }
 
   public void loadDie(int count) {
-    img = Sprite.movingSprite(Sprite.red_dead1, Sprite.red_dead2, Sprite.red_dead3, count, 36).getFxImage();
+    img = Sprite.movingSprite(Sprite.orange_dead1, Sprite.orange_dead2, Sprite.orange_dead3, count, 36).getFxImage();
   }
 }

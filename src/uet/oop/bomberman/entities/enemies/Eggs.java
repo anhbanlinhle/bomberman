@@ -1,7 +1,7 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.enemies;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.Map;
+import uet.oop.bomberman.graphics.Map;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Eggs extends Enemy {
@@ -16,9 +16,6 @@ public class Eggs extends Enemy {
 
   @Override
   public void updateMove(Map map) {
-    int min = 1;
-    int max = 2;
-
     if (randomMove == 1) {
       if (checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.WALL)
           && checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.BOMB)) {

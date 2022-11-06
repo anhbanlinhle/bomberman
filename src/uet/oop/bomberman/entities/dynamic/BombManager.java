@@ -1,18 +1,25 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.dynamic;
 
 import javafx.scene.canvas.GraphicsContext;
-import uet.oop.bomberman.Map;
 import uet.oop.bomberman.controller.Camera;
 import uet.oop.bomberman.controller.SoundFile;
+import uet.oop.bomberman.entities.Brick;
+import uet.oop.bomberman.entities.Grass;
+import uet.oop.bomberman.entities.Portal;
+import uet.oop.bomberman.entities.Wall;
 import uet.oop.bomberman.entities.Entity.ENTITY_TYPE;
+import uet.oop.bomberman.entities.dynamic.items.BombItem;
+import uet.oop.bomberman.entities.dynamic.items.FlameItem;
+import uet.oop.bomberman.entities.dynamic.items.Item;
+import uet.oop.bomberman.entities.dynamic.items.SpeedItem;
 import uet.oop.bomberman.graphics.Sprite;
 import java.util.ArrayList;
 import java.util.List;
 
 import static uet.oop.bomberman.BombermanGame.map;
+import static uet.oop.bomberman.graphics.Map.itemList;
 
-public class
-BombManager {
+public class BombManager {
 
     private final int DELAY_PLACE_BOMB = 6;
     int countDelayBomb = 0;
@@ -45,12 +52,12 @@ BombManager {
             }
         }
         if (checkDuplicate && bombRemain > 0 && countDelayBomb % DELAY_PLACE_BOMB == 0 ) {
-            int difX = Math.abs(bomb.convertToMapCordinate(bomb.x) * Sprite.SCALED_SIZE - map.getPortalX());
-            int difY = Math.abs(bomb.convertToMapCordinate(bomb.y) * Sprite.SCALED_SIZE - map.getPortalY());
+            int difX = Math.abs(bomb.convertToMapCordinate(bomb.getX()) * Sprite.SCALED_SIZE - map.getPortalX());
+            int difY = Math.abs(bomb.convertToMapCordinate(bomb.getY()) * Sprite.SCALED_SIZE - map.getPortalY());
             if (difX != 0 || difY != 0) {
                 SoundFile.bombPlace.play();
                 bombList.add(bomb);
-                map.replace(bomb.convertToMapCordinate(bomb.x), bomb.convertToMapCordinate(bomb.y), bomb);
+                map.replace(bomb.convertToMapCordinate(bomb.getX()), bomb.convertToMapCordinate(bomb.getY()), bomb);
                 bombRemain--;
             }
         }
@@ -112,7 +119,7 @@ BombManager {
                         BombItem item = new BombItem(flamePosX, flamePosY, Sprite.powerup_bombs.getFxImage());
                         item.setType(ENTITY_TYPE.BOMB_ITEM);
                         map.replace(flamePosX, flamePosY, item);
-                        map.itemList.add(item);
+                        itemList.add(item);
                         flameList.add(new Flame(flamePosX, flamePosY, Flame.FLAME_TYPE.BRICK, flameDirection[j]));
                     } 
 
@@ -122,7 +129,7 @@ BombManager {
                         SpeedItem item = new SpeedItem(flamePosX, flamePosY, Sprite.powerup_speed.getFxImage());
                         item.setType(ENTITY_TYPE.SPEED_ITEM);
                         map.replace(flamePosX, flamePosY, item);
-                        map.itemList.add(item);
+                        itemList.add(item);
                         flameList.add(new Flame(flamePosX, flamePosY, Flame.FLAME_TYPE.BRICK, flameDirection[j]));
                     }
 
@@ -132,7 +139,7 @@ BombManager {
                         FlameItem item = new FlameItem(flamePosX, flamePosY, Sprite.powerup_flames.getFxImage());
                         item.setType(ENTITY_TYPE.FLAME_ITEM);
                         map.replace(flamePosX, flamePosY, item);
-                        map.itemList.add(item);
+                        itemList.add(item);
                         flameList.add(new Flame(flamePosX, flamePosY, Flame.FLAME_TYPE.BRICK, flameDirection[j]));
                     }
 

@@ -1,11 +1,11 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.dynamic;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.graphics.Sprite;
 
 import static uet.oop.bomberman.graphics.Sprite.*;
 
-public class Flame extends Entity {
+public class Flame extends DynamicEntity {
 
     enum FLAME_TYPE {
         MIDDLE,
@@ -87,6 +87,8 @@ public class Flame extends Entity {
             case BOMB:
                 return movingSprite(bomb_exploded2, bomb_exploded1,
                         bomb_exploded, count, flameTime).getFxImage();
+            default:
+                return movingSprite(brick_exploded, brick_exploded1, brick_exploded2, count, flameTime).getFxImage();
         }
         return null;
     }

@@ -1,6 +1,6 @@
 package uet.oop.bomberman.controller;
 
-import uet.oop.bomberman.entities.Bomber;
+import uet.oop.bomberman.entities.dynamic.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.graphics.Texture;
 

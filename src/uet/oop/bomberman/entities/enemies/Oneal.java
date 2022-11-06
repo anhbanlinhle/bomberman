@@ -1,13 +1,11 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.enemies;
 
 import java.util.List;
 import java.util.ArrayList;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.Map;
+import uet.oop.bomberman.graphics.Map;
 import uet.oop.bomberman.graphics.Sprite;
-
-import static uet.oop.bomberman.BombermanGame.map;
 
 public class Oneal extends Enemy {
   private DIRECTION newDir;
@@ -73,6 +71,8 @@ public class Oneal extends Enemy {
           break;
         case RIGHT:
           curDir = DIRECTION.LEFT;
+          break;
+        default:
           break;
       }
       if (listDir.size() > 1) {
