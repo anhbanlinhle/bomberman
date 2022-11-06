@@ -1,4 +1,4 @@
-package uet.oop.bomberman.entities.enemies;
+package uet.oop.bomberman.entities.dynamic.enemies;
 
 import java.util.List;
 import java.util.ArrayList;

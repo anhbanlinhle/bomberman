@@ -11,17 +11,17 @@ import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.controller.KeyListener;
 import uet.oop.bomberman.controller.SoundFile;
 import uet.oop.bomberman.entities.Grass;
+import uet.oop.bomberman.entities.dynamic.enemies.Enemy;
 import uet.oop.bomberman.entities.dynamic.items.BombItem;
 import uet.oop.bomberman.entities.dynamic.items.FlameItem;
 import uet.oop.bomberman.entities.dynamic.items.Item;
 import uet.oop.bomberman.entities.dynamic.items.SpeedItem;
-import uet.oop.bomberman.entities.enemies.Enemy;
 
 import static uet.oop.bomberman.BombermanGame.bombManager;
 import static uet.oop.bomberman.BombermanGame.map;
-import static uet.oop.bomberman.BombermanGame.enemyManager;
+import static uet.oop.bomberman.controller.EnemyManager.eggsy;
 import static uet.oop.bomberman.graphics.Map.itemList;
-import static uet.oop.bomberman.entities.enemies.EnemyManager.eggsy;
+import static uet.oop.bomberman.BombermanGame.enemyManager;
 
 public class Bomber extends DynamicEntity {
     private final int DIE_TIME = 60;
