@@ -216,5 +216,12 @@ BombManager {
         return flameLength;
     }
 
+    public void setBombRemain(int bombRemain) {
+        this.bombRemain = bombRemain;
+    }
+
+    public void setFlameLength(int flameLength) {
+        this.flameLength = flameLength;
+    }
 
 }
