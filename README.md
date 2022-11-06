@@ -9,6 +9,12 @@
 | [Hoàng Thái Quang](https://github.com/htq-uet)  | 21020229     |
 | [Lê Viết Việt Linh](https://github.com/anhbanlinhle) | 21020644     |
 
+## Điều khiển
+- Game hoàn toàn điều khiển bằng bàn phím.
+- Trong Menu: sử dụng `W`, `S` để di chuyển giữa các chế độ chơi, `Enter` để chọn.
+- Đối với Bomber sử dụng các phím `W`, `A`, `S`, `D` tương ứng với đi lên, trái, xuống, phải. `Space` để đặt bomb.
+- Trong Game: sử dụng `Esc` để dừng game
+
 ## Mô tả về các đối tượng trong trò chơi
 
 *Trò chơi được xây dựng dựa trên ngôn ngữ Java*
