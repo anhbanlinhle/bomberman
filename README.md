@@ -36,7 +36,7 @@ Thông tin về chức năng của các Item được liệt kê như dưới đ
 
 - ![](res/sprites/eggs.png) *Eggs* là một đối thủ khó chịu, nếu bị tiêu diệt sẽ sinh ra 2 ![](res/sprites/eggsbomb.png) *Eggs Bomb*, điều tương tự xảy ra khi tiêu diệt *Eggs Bomb*, nếu có hơn 5 *Eggs Bomb* cùng tồn tại thì Bomber thua cuộc
 
-- ![](res/sprites/batfs.png) *Batfs* có thể bay lên cao, từ đó nhìn ra đường đi đến chỗ Bomber, đôi khi nó có thể đi đường tắt bằng cách bay qua vật cản
+- ![](res/sprites/batfs.png) *Batfs* có thể bay lên cao, từ đó nhìn ra đường đi và tìm đường đến tới Bomber,
 
 ## Mô tả gameplay, xử lý va chạm và xử lý bom nổ
 - Trong một màn chơi, Bomber sẽ được người chơi di chuyển, đặt và kích hoạt Bomb với mục tiêu chính là tiêu diệt tất cả Enemy và tìm ra vị trí Portal để có thể qua màn mới
