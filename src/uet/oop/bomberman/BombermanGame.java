@@ -143,6 +143,7 @@ public class BombermanGame extends Application {
                     } else {
                         SoundFile.playGame.stop();
                         menu.update();
+
                     }
                     if (keyH.isPressed(KeyCode.ESCAPE)) {
                         menu.setIsPlaying(false);
