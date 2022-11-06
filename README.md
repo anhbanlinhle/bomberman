@@ -1,13 +1,13 @@
 ## Mô tả về Project
-*Dự án được lấy cảm hứng từ trò chơi nổi tiếng Bomberman của công ty Hudson Soft*
+*Dự án được lấy cảm hứng từ trò chơi nổi tiếng [Bomberman](https://en.wikipedia.org/wiki/Bomberman) của công ty [Hudson Soft](https://en.wikipedia.org/wiki/Hudson_Soft)*
 
-## Sinh viên thực hiện 
+ ### Sinh viên thực hiện 
 
-| Họ và tên     | Mã sinh viên |
-| ------------- | ------------ |
-| [Chu Ngọc Vượng](https://github.com/Iktomi921) | 21020674     |
-| [Hoàng Thái Quang](https://github.com/htq-uet)  | 21020229     |
-| [Lê Viết Việt Linh](https://github.com/anhbanlinhle) | 21020644     |
+ | Họ và tên     | Mã sinh viên |
+ | ------------- | ------------ |
+ | [Chu Ngọc Vượng](https://github.com/Iktomi921) | 21020674     |
+ | [Hoàng Thái Quang](https://github.com/htq-uet)  | 21020229     |
+ | [Lê Viết Việt Linh](https://github.com/anhbanlinhle) | 21020644     |
 
 ## Điều khiển
 - Game hoàn toàn điều khiển bằng bàn phím.
@@ -63,7 +63,14 @@ Thông tin về chức năng của các Item được liệt kê như dưới đ
 - Khi Bomb nổ, một Flame trung tâm![](res/sprites/flame_center.png) tại vị trí Bomb nổ và bốn Flame tại bốn vị trí ô đơn vị xung quanh vị trí của Bomb xuất hiện theo bốn hướng trên![](res/sprites/flame_up.png)/dưới![](res/sprites/flame_down.png)/trái![](res/sprites/flame_left.png)/phải![](res/sprites/flame_right.png). Độ dài bốn Flame xung quanh mặc định là 1 đơn vị, được tăng lên khi Bomber sử dụng các FlameItem.
 - Khi các Flame xuất hiện, nếu có một đối tượng thuộc loại Brick/Wall nằm trên vị trí một trong các Flame thì độ dài Flame đó sẽ được giảm đi để sao cho Flame chỉ xuất hiện đến vị trí đối tượng Brick/Wall theo hướng xuất hiện. Lúc đó chỉ có đối tượng Brick/Wall bị ảnh hưởng bởi Flame, các đối tượng tiếp theo không bị ảnh hưởng. Còn nếu vật cản Flame là một đối tượng Bomb khác thì đối tượng Bomb đó cũng sẽ nổ ngay lập tức.
 - 
-## Tóm tắt các tính năng trong bài tập lớn\
+## Tóm tắt các tính năng trong bài tập lớn
+### Phần Nâng cấp
+- Nâng cấp thuật toán tìm đường cho Enemy (Sử dụng [Thuật toán BFS](https://en.wikipedia.org/wiki/Breadth-first_search))
+- Phát triển thêm các loại Enemy khác (Tổng cộng 6 loại)
+- Xử lý hiệu ứng âm thanh (thêm music & sound effects)
+- Phát triển nhiều Map với đã dạng kích thước và địa hình
+- Nâng cấp giao diện (`Menu`, `Pause game`, `Gameplay`, `Credit`)
+
  ### Phần Mặc định
 - Thiết kế cây thừa kế cho các đối tượng game
 - Có thể tự xây dựng bản đồ màn chơi từ tệp cấu hình (có mẫu tệp cấu hình, xem [tại đây](https://raw.githubusercontent.com/bqcuong/bomberman-starter/starter-2/res/levels/Level1.txt))
@@ -72,9 +79,3 @@ Thông tin về chức năng của các Item được liệt kê như dưới đ
 - Xử lý va chạm cho các đối tượng Bomber, Enemy, Wall, Brick, Bomb
 - Xử lý bom nổ
 - Xử lý khi Bomber sử dụng các Item và khi đi vào vị trí Portal
-### Phần Nâng cấp
-- Nâng cấp thuật toán tìm đường cho Enemy (Sử dụng [Thuật toán BFS](https://en.wikipedia.org/wiki/Breadth-first_search))
-- Phát triển thêm các loại Enemy khác (Tổng cộng 6 loại)
-- Xử lý hiệu ứng âm thanh (thêm music & sound effects)
-- Phát triển nhiều Map với đã dạng kích thước và địa hình
-- Nâng cấp giao diện (`Menu`, `Pause game`, `Gameplay`, `Credit`)
