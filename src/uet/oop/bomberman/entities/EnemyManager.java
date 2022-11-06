@@ -3,6 +3,7 @@ package uet.oop.bomberman.entities;
 import javafx.scene.canvas.GraphicsContext;
 import uet.oop.bomberman.controller.Camera;
 import uet.oop.bomberman.controller.SoundFile;
+import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,12 @@ public class EnemyManager {
                     enemyList.get(i).loadDie(enemyList.get(i).getCountDead());
 
                 if (enemyList.get(i).getCountDead() == DELAY_REMOVE_ENEMY){
+                    if (enemyList.get(i) instanceof Eggs) {
+                        int x = enemyList.get(i).getMapX();
+                        int y = enemyList.get(i).getMapY();
+                        enemyList.add(new Eggsbomb(x, y, Sprite.eggs4.getFxImage()));
+                        enemyList.add(new Eggsbomb(x, y, Sprite.eggs4.getFxImage()));
+                    }
                     enemyList.remove(i);
                     count = 0;
                 }
