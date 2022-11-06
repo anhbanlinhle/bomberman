@@ -12,16 +12,18 @@ import static uet.oop.bomberman.BombermanGame.bomberman;
 import static uet.oop.bomberman.BombermanGame.map;
 
 public class Batfs extends Enemy {
-    int count = 0;
-    DIRECTION lastDir = DIRECTION.LEFT;
+    DIRECTION lastDir;
+
+    boolean foundPlayer = false;
 
     public Batfs(int x, int y, Image img) {
         super(x, y, img);
-        direction = DIRECTION.RIGHT;
+        direction = DIRECTION.NOT_MOVE;
+        lastDir = DIRECTION.NOT_MOVE;
         speed = 1;
     }
 
-    public void getDirection(Map map) {
+    public void getNextDirection() {
         List<List<Integer>> formatMap = map.formatMapData();
 
         int endX = bomberman.getMapY();
@@ -51,6 +53,12 @@ public class Batfs extends Enemy {
         Pair<Integer, Integer>[][] last = new Pair[height][width];
         last[startX][startY] = new Pair<>(-1, -1);
 
+//        for (int i = 0; i < height; i++) {
+//            for (int j = 0; j < width; j++) {
+//                System.out.println(formatMap.h);
+//            }
+//        }
+
         int[] dx = {1, -1, 0, 0};
         int[] dy = {0, 0, 1, -1};
 
@@ -58,25 +66,26 @@ public class Batfs extends Enemy {
             Pair<Integer, Integer> tmp = q.poll();
 
             for (int i = 0; i < 4; i++) {
-                int newY = tmp.getKey() + dy[i];
-                int newX = tmp.getValue() + dx[i];
-                if (x >= 0 && x < map.getWidth()*Sprite.SCALED_SIZE && y >= 0 && y < map.getHeight()*Sprite.SCALED_SIZE && formatMap.get(newY).get(newX) == 0 && !visited[newY][newX]) {
-                    q.add(new Pair<>(newY, newX));
-                    distance[newY][newX] = distance[tmp.getKey()][tmp.getValue()] + 1;
-                    last[newY][newX] = new Pair<>(tmp.getKey(), tmp.getValue());
-                    visited[newY][newX] = true;
+                int newX = tmp.getKey() + dy[i];
+                int newY = tmp.getValue() + dx[i];
+
+                if (newY >= 0 && newY < width && newX >= 0 && newX < height && formatMap.get(newX).get(newY) == 0 && !visited[newX][newY]) {
+                    q.add(new Pair<>(newX, newY));
+                    distance[newX][newY] = distance[tmp.getKey()][tmp.getValue()] + 1;
+                    last[newX][newY] = new Pair<>(tmp.getKey(), tmp.getValue());
+                    visited[newX][newY] = true;
                 }
             }
         }
 
-//        for (int i = 0; i < height; i++) {
-//            for (int j = 0; j < width; j++) {
-//                String s = String.format("|%2d|", distance[i][j]);
-//                System.out.print(s + " ");
-//            }
-//            System.out.println();
-//        }
-//        System.out.println("STOPPPPPPPPP");
+        //Check if found Player
+        if(!visited[endX][endY]) {
+            foundPlayer = false;
+            super.getRandomDirection();
+            return;
+        } else {
+            foundPlayer = true;
+        }
 
         if (distance[endX][endY] == 0) return;
 
@@ -84,7 +93,6 @@ public class Batfs extends Enemy {
         int X = last[endX][endY].getKey();
         int Y = last[endX][endY].getValue();
         pathCoordinate.add(0, new Pair<>(endX, endY));
-
 
         while (true) {
             if (last[X][Y].getKey() == -1 && last[X][Y].getValue() == -1) {
@@ -99,11 +107,15 @@ public class Batfs extends Enemy {
             Y = last[tmpX][tmpY].getValue();
         }
 
-        // for (int i = 0; i < pathCoordinate.size(); i++) {
-        //     System.out.print(pathCoordinate.get(i). getKey() + " " +  pathCoordinate.get(i).getValue()  + "| ");
-        // }
-        // System.out.println();
-        // System.out.println("------");
+//            if(pathCoordinate.size() < 2 ) {
+//                System.out.println("NO path");
+//            } else {
+//                for (int i = 0; i < pathCoordinate.size(); i++) {
+//                    System.out.print(pathCoordinate.get(i). getKey() + " " +  pathCoordinate.get(i).getValue()  + "| ");
+//                }
+//                System.out.println();
+//                System.out.println("------");
+//            }
 
         //get next direction
         if (pathCoordinate.get(1).getKey() - pathCoordinate.get(0).getKey() == 0 && pathCoordinate.get(1).getValue() - pathCoordinate.get(0).getValue() > 0) {
@@ -136,12 +148,7 @@ public class Batfs extends Enemy {
         };
     }
 
-    @Override
-    public void update() {
-        super.update();
-        if(count % 1 == 0){
-            getDirection(map);
-        }
+    public void pathFindingMove(Map map) {
         switch (direction){
             case UP:
                 if (checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.BRICK)
@@ -149,7 +156,7 @@ public class Batfs extends Enemy {
                         && checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.BOMB)) {
                     lastDir = DIRECTION.UP;
                     y -= speed;
-                } else move();
+                } else alternateMoven();
                 break;
             case DOWN:
                 if (checkCollisionMap(map, x, y + speed, DIRECTION.DOWN, ENTITY_TYPE.BRICK)
@@ -157,7 +164,7 @@ public class Batfs extends Enemy {
                         && checkCollisionMap(map, x, y + speed, DIRECTION.DOWN, ENTITY_TYPE.BOMB)) {
                     lastDir = DIRECTION.DOWN;
                     y += speed;
-                } else move();
+                } else alternateMoven();
                 break;
             case LEFT:
                 if (checkCollisionMap(map, x - speed, y, DIRECTION.LEFT, ENTITY_TYPE.BRICK)
@@ -165,7 +172,7 @@ public class Batfs extends Enemy {
                         && checkCollisionMap(map, x - speed, y, DIRECTION.LEFT, ENTITY_TYPE.BOMB)) {
                     lastDir = DIRECTION.LEFT;
                     x -= speed;
-                } else move();
+                } else alternateMoven();
                 break;
             case RIGHT:
                 if (checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT, ENTITY_TYPE.BRICK)
@@ -173,30 +180,54 @@ public class Batfs extends Enemy {
                         && checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT, ENTITY_TYPE.BOMB)) {
                     lastDir = DIRECTION.RIGHT;
                     x += speed;
-                } else move();
+                } else alternateMoven();
                 break;
             default:
-                System.out.println("move random");
+//                System.out.println("move random");
                 break;
         }
-        System.out.println(lastDir + " " + direction);
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        getNextDirection();
+        if(foundPlayer) pathFindingMove(map);
         img = setFrame();
         countFrame++;
     }
 
-    public void move(){
-        switch(lastDir){
+    public void alternateMoven(){
+        switch (lastDir){
             case UP:
-                y -= speed;
+                if (checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.BRICK)
+                        && checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.WALL)
+                        && checkCollisionMap(map, x, y - speed, DIRECTION.UP, ENTITY_TYPE.BOMB)) {
+                    y -= speed;
+                }
                 break;
             case DOWN:
-                y += speed;
-                break;
-            case RIGHT:
-                x += speed;
+                if (checkCollisionMap(map, x, y + speed, DIRECTION.DOWN, ENTITY_TYPE.BRICK)
+                        && checkCollisionMap(map, x, y + speed, DIRECTION.DOWN, ENTITY_TYPE.WALL)
+                        && checkCollisionMap(map, x, y + speed, DIRECTION.DOWN, ENTITY_TYPE.BOMB)) {
+                    y += speed;
+                }
                 break;
             case LEFT:
-                x -= speed;
+                if (checkCollisionMap(map, x - speed, y, DIRECTION.LEFT, ENTITY_TYPE.BRICK)
+                        && checkCollisionMap(map, x - speed, y, DIRECTION.LEFT, ENTITY_TYPE.WALL)
+                        && checkCollisionMap(map, x - speed, y, DIRECTION.LEFT, ENTITY_TYPE.BOMB)) {
+                    x -= speed;
+                }
+                break;
+            case RIGHT:
+                if (checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT, ENTITY_TYPE.BRICK)
+                        && checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT, ENTITY_TYPE.WALL)
+                        && checkCollisionMap(map, x + speed, y, DIRECTION.RIGHT, ENTITY_TYPE.BOMB)) {
+                    x += speed;
+                }
+                break;
+            default:
                 break;
         }
     }

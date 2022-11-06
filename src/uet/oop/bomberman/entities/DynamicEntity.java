@@ -21,6 +21,7 @@ public abstract class DynamicEntity extends Entity {
     protected int healthPoint;
     protected int countFrame;
     protected int countDead;
+    protected int live;
 
     List<Entity> mapEntity;
 
@@ -28,6 +29,7 @@ public abstract class DynamicEntity extends Entity {
         super(x, y, img);
         isAlive = true;
         countDead = 0;
+        live = 1;
     }
 //
 //    public DynamicEntity(int x, int y, Image img, List<Entity> map) {
@@ -240,7 +242,11 @@ public abstract class DynamicEntity extends Entity {
                         && this.y < flameDownPos
                         && this.y + Sprite.SCALED_SIZE > flameUpPos) {
                     SoundFile.monsterDie.play();
-                    isAlive = false;
+                    live--;
+
+                    if (live == 0) {
+                        setAlive(false);
+                    }
                 }
             }
         }

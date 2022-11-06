@@ -76,17 +76,17 @@ public class Map {
                             enemyList.add(tempEnemy);
                             entity = new Grass(j, i, Sprite.grass.getFxImage());
                             break;
-                        case '4':
+                        case '6':
                             tempEnemy = new Batfs(j, i, Sprite.batfs_down2.getFxImage());
                             enemyList.add(tempEnemy);
                             entity = new Grass(j, i, Sprite.grass.getFxImage());
                             break;
-                        case '5':
+                        case '4':
                             tempEnemy = new Ghest(j, i, Sprite.ghest_right1.getFxImage());
                             enemyList.add(tempEnemy);
                             entity = new Grass(j, i, Sprite.grass.getFxImage());
                             break;
-                        case '6':
+                        case '5':
                             tempEnemy = new Eggs(j, i, Sprite.eggs1.getFxImage());
                             enemyList.add(tempEnemy);
                             entity = new Grass(j, i, Sprite.grass.getFxImage());
@@ -126,13 +126,14 @@ public class Map {
         for (int i = 0; i < height; i++) {
             List<Integer> row = new ArrayList<>();
             for (int j = 0; j < width; j++) {
-                if (mapEntity.get(i).get(j) instanceof Brick || mapEntity.get(i).get(j) instanceof Wall) {
+                if (this.entityTypeAtCordinate(j, i) == ENTITY_TYPE.BRICK || this.entityTypeAtCordinate(j, i) == ENTITY_TYPE.WALL) {
                     row.add(1);
                 } else row.add(0);
             }
             formatMap.add(row);
         }
 
+        //Enemy
         for (Entity entity : enemyManager.getEnemyList()) {
             formatMap.get(entity.getMapY()).set(entity.getMapX(), 1);
         }
@@ -141,12 +142,16 @@ public class Map {
         for (Bomb bomb : bombManager.getBombList()) {
             formatMap.get(bomb.getMapY()).set(bomb.getMapX(), 1);
         }
+
+//        //print Test
 //        for (int i = 0; i < height; i++) {
 //            for (int j = 0; j < width; j++) {
 //                System.out.print(formatMap.get(i).get(j) + " ");
 //            }
 //            System.out.println();
 //        }
+//        System.out.println("Mapppppp");
+
         return formatMap;
     }
 

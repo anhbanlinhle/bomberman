@@ -5,12 +5,15 @@ import uet.oop.bomberman.controller.Camera;
 import uet.oop.bomberman.controller.SoundFile;
 import uet.oop.bomberman.graphics.Sprite;
 
+import static uet.oop.bomberman.BombermanGame.bomberman;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class EnemyManager {
     private final int DELAY_REMOVE_ENEMY = 36;
     private List<Enemy> enemyList;
+    public static int eggsy;
 
     private int count = 0;
 
@@ -36,6 +39,7 @@ public class EnemyManager {
 
     public void update() {
         // Remove dead enemy
+        eggsy = 0;
         for (int i = enemyList.size() - 1; i >= 0; i--) {
             if(!enemyList.get(i).isAlive()){
                 // SoundFile.monsterDie.play();
@@ -56,8 +60,14 @@ public class EnemyManager {
                 }
             }
             else {
+                if (enemyList.get(i) instanceof Eggsbomb) {
+                    eggsy++;
+                }
                 enemyList.get(i).update();
             }
+        }
+        if (eggsy > 6) {
+            bomberman.setAlive(false);
         }
     }
 
