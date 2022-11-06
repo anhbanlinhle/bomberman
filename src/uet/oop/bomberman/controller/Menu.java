@@ -331,7 +331,7 @@ public class Menu {
         switch (GAME_STATE) {
             case IN_MENU:
                 long now = Timer.getNow();
-                if (now - delayInput > Timer.TIME_PER_FRAME * 7) {
+                if (now - delayInput > Timer.TIME_PER_FRAME * 15) {
                     delayInput = now;
                     if (keyListener.isPressed(KeyCode.ENTER)) {
                         SoundFile.menuSelect.play();
@@ -361,11 +361,11 @@ public class Menu {
                         }
 
                     }
-                    break;
                 }
+                break;
             case GAME_OVER:
                 now = Timer.getNow();
-                if (now - delayInput > Timer.TIME_PER_FRAME * 5) {
+                if (now - delayInput > Timer.TIME_PER_FRAME * 15) {
                     delayInput = now;
                     if (keyListener.isPressed(KeyCode.ENTER)) {
                         SoundFile.menuSelect.play();
@@ -397,7 +397,7 @@ public class Menu {
                 speed = bomberman.getSpeed();
                 flame = bombManager.getFlameLength();
                 bomb = bombManager.getBombRemain();
-                if (now - delayInput > Timer.TIME_PER_FRAME * 5) {
+                if (now - delayInput > Timer.TIME_PER_FRAME * 15) {
                     delayInput = now;
                     if (!isPlaying()) {
                         if (keyListener.isPressed(KeyCode.ENTER)) {
@@ -439,7 +439,7 @@ public class Menu {
                 break;
             case NEXT_STAGE:
                 now = Timer.getNow();
-                if (now - delayInput > Timer.TIME_PER_FRAME * 5) {
+                if (now - delayInput > Timer.TIME_PER_FRAME * 15) {
                     delayInput = now;
                     if (keyListener.isPressed(KeyCode.ENTER)) {
                         SoundFile.menuSelect.play();
