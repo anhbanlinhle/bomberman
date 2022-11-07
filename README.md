@@ -77,6 +77,7 @@ Thông tin về chức năng của các Item được liệt kê như dưới đ
 - Thiết kế cây thừa kế cho các đối tượng game
 
 ![](res/tree.drawio.png)
+
 - Có thể tự xây dựng bản đồ màn chơi từ tệp cấu hình (có mẫu tệp cấu hình, xem [tại đây](https://raw.githubusercontent.com/bqcuong/bomberman-starter/starter-2/res/levels/Level1.txt))
 - Di chuyển Bomber theo sự điều khiển từ người chơi
 - Tự động di chuyển các Enemy
