@@ -72,6 +72,7 @@ Thông tin về chức năng của các Item được liệt kê như dưới đ
 - Xử lý hiệu ứng âm thanh (thêm music & sound effects)
 - Phát triển nhiều Map với đã dạng kích thước và địa hình
 - Nâng cấp giao diện (`Menu`, `Pause game`, `Gameplay`, `Credit`)
+- Xây dựng hệ thống lưu trạng thái Game khi ra ngoài Menu và cả khi tắt App
 
  ### Phần Mặc định
 - Thiết kế cây thừa kế cho các đối tượng game
