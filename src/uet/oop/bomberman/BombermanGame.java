@@ -1,4 +1,8 @@
 package uet.oop.bomberman;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Scanner;
 
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -16,6 +20,7 @@ import uet.oop.bomberman.controller.KeyListener;
 import uet.oop.bomberman.controller.Menu;
 import uet.oop.bomberman.controller.SoundFile;
 import uet.oop.bomberman.entities.dynamic.Bomber;
+import uet.oop.bomberman.graphics.LoadGame;
 import uet.oop.bomberman.graphics.Map;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.graphics.Texture;
@@ -37,7 +42,10 @@ public class BombermanGame extends Application {
     private Texture textures;
     private KeyListener keyH;
     public Camera camera;
-
+    
+    public Scanner saveScanner;
+    public static LoadGame loadGame = new LoadGame();
+    public static FileOutputStream fout;
     public static Map map;
     public static BombManager bombManager;
     public static EnemyManager enemyManager;
@@ -51,9 +59,10 @@ public class BombermanGame extends Application {
     }
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws IOException{
 
         // Tao Canvas
+        saveScanner = new Scanner(loadGame.getFile());
         SoundFile.backgroundGame.loop();
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
@@ -65,6 +74,8 @@ public class BombermanGame extends Application {
         // Tao scene
         Scene scene = new Scene(root);
 
+        // Level
+        levelNo = saveScanner.nextInt();
 
         // Them scene vao stage
         stage.setScene(scene);
@@ -148,8 +159,18 @@ public class BombermanGame extends Application {
                         enemyManager.update();
                         camera.update(bomberman);
                     } else {
-                        SoundFile.playGame.stop();
+                        
+                        //SoundFile.playGame.stop();
                         menu.update();
+                        try {
+                            fout = new FileOutputStream(loadGame.getFile());
+                            loadGame.writeFile(loadGame,fout, levelNo);
+                            loadGame.writeFile(loadGame, fout, bomberman.getX(), bomberman.getY());
+                            fout.close();
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            //e.printStackTrace();
+                        }
 
                     }
                     if (keyH.isPressed(KeyCode.ESCAPE)) {
