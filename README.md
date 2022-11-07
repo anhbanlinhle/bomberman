@@ -1,6 +1,8 @@
 ## Mô tả về Project
 *Dự án được lấy cảm hứng từ trò chơi nổi tiếng [Bomberman](https://en.wikipedia.org/wiki/Bomberman) của công ty [Hudson Soft](https://en.wikipedia.org/wiki/Hudson_Soft)*
 
+![](res/demo.png)
+
 *Trò chơi được xây dựng dựa trên ngôn ngữ Java*
 
  ### Sinh viên thực hiện
