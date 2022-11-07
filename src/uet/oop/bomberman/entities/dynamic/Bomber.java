@@ -66,8 +66,8 @@ public class Bomber extends DynamicEntity {
 
             if (keyHandle.isPressed(KeyCode.H) && keyHandle.isPressed(KeyCode.A)
                 && keyHandle.isPressed(KeyCode.C) && keyHandle.isPressed(KeyCode.K)) {
-                live = 9999;
-                speed = 6;
+                live = Integer.MAX_VALUE;
+                speed = 5;
                 bombManager.setBombRemain(10);
                 bombManager.setFlameLength(10);;
             }
