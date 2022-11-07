@@ -211,6 +211,10 @@ public class BombManager {
     }
     public List<Bomb> getBombList() {return bombList;}
 
+    public int getMaxBomb() {
+        return bombList.size() + bombRemain;
+    }
+
     public void increaseBomb() {
         bombRemain++;
     }

@@ -396,7 +396,7 @@ public class Menu {
                 now = Timer.getNow();
                 speed = bomberman.getSpeed();
                 flame = bombManager.getFlameLength();
-                bomb = bombManager.getBombRemain();
+                bomb = bombManager.getMaxBomb();
                 if (now - delayInput > Timer.TIME_PER_FRAME * 15) {
                     delayInput = now;
                     if (!isPlaying()) {
