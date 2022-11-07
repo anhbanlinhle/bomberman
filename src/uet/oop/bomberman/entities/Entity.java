@@ -1,12 +1,10 @@
 package uet.oop.bomberman.entities;
 
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
+import uet.oop.bomberman.controller.Camera;
+import uet.oop.bomberman.graphics.Map;
 import uet.oop.bomberman.graphics.Sprite;
-import uet.oop.bomberman.Map;
 
 public abstract class Entity {
     // Tọa độ X tính từ góc trái trên trong Canvas
@@ -23,6 +21,8 @@ public abstract class Entity {
 
     protected ENTITY_TYPE type;
 
+
+
     public Entity() {
     }
 
@@ -38,8 +38,8 @@ public abstract class Entity {
         this.y = yUnit * Sprite.SCALED_SIZE;
     }
 
-    public void render(GraphicsContext gc) {
-        gc.drawImage(img, x, y);
+    public void render(GraphicsContext gc, Camera camera) {
+        gc.drawImage(img, x - camera.getX(), y - camera.getY());
     }
 
     public void update(Map map) {
@@ -66,6 +66,14 @@ public abstract class Entity {
         return y;
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
     public int getCenterX() {
         return centerX;
     }
@@ -74,12 +82,37 @@ public abstract class Entity {
         return centerY;
     }
 
+    public int convertToMapCordinate(int n) {
+        int newCor = n + Sprite.DEFAULT_SIZE;
+        newCor = newCor - newCor % Sprite.SCALED_SIZE;
+        newCor /= Sprite.SCALED_SIZE;
+        return newCor;
+    }
+
+    public int getMapX() {
+        int newCor = x + Sprite.SCALED_SIZE/2;
+        newCor = newCor - newCor % Sprite.SCALED_SIZE;
+        newCor /= Sprite.SCALED_SIZE;
+        return newCor;
+    }
+
+    public int getMapY() {
+        int newCor = y + Sprite.SCALED_SIZE/2;
+        newCor = newCor - newCor % Sprite.SCALED_SIZE;
+        newCor /= Sprite.SCALED_SIZE;
+        return newCor;
+    }
+
     public enum ENTITY_TYPE {
         BRICK,
         BOMB,
         WALL,
         FLAME,
         GRASS,
-        ENEMY
+        ENEMY,
+        BOMB_ITEM,
+        SPEED_ITEM,
+        FLAME_ITEM,
+        PORTAL
     }
 }
