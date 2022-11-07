@@ -137,7 +137,7 @@ public class Ghest extends Enemy {
   public Image setFrame() {
     int difX = Math.abs(getMapX() - bomberman.getMapX());
     int difY = Math.abs(getMapY() - bomberman.getMapY());
-    if (difX > 3 || difY > 3) {
+    if (difX > 2 || difY > 2) {
       speed = 2;
       return switch (direction) {
         case LEFT, DOWN ->
