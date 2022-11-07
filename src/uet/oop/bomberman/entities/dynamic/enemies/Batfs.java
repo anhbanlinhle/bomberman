@@ -19,7 +19,7 @@ public class Batfs extends Enemy {
         super(x, y, img);
         direction = DIRECTION.NOT_MOVE;
         lastDir = DIRECTION.NOT_MOVE;
-        speed = 4;
+        speed = 2;
     }
 
     public void getNextDirection() {

@@ -1,9 +1,27 @@
 ## Mô tả về Project
-*Dự án được lấy cảm hứng từ trò chơi nổi tiếng Bomberman của công ty Hudson Soft*
+*Dự án được lấy cảm hứng từ trò chơi nổi tiếng [Bomberman](https://en.wikipedia.org/wiki/Bomberman) của công ty [Hudson Soft](https://en.wikipedia.org/wiki/Hudson_Soft)*
+
+![](res/demo.png)
 
 *Trò chơi được xây dựng dựa trên ngôn ngữ Java*
 
-- ![](res/sprites/bomber.png) *Bomber* là nhân vật chính của trò chơi. Bomber có thể di chuyển theo 4 hướng trái/phải/lên/xuống bằng cách bấm A/D/W/S. 
+ ### Sinh viên thực hiện
+
+ | Họ và tên     | Mã sinh viên |
+ | ------------- | ------------ |
+ | [Chu Ngọc Vượng](https://github.com/Iktomi921) | 21020674     |
+ | [Hoàng Thái Quang](https://github.com/htq-uet)  | 21020229     |
+ | [Lê Viết Việt Linh](https://github.com/anhbanlinhle) | 21020644     |
+
+## Điều khiển
+- Game hoàn toàn điều khiển bằng bàn phím.
+- Trong Menu: sử dụng `W`, `S` để chuyển lựa chọn, `Enter` để chọn.
+- Đối với Bomber sử dụng các phím `W`, `A`, `S`, `D` tương ứng với đi lên, trái, xuống, phải. `Space` để đặt bomb.
+- Trong Game: sử dụng `Esc` để dừng game
+
+## Mô tả về các đối tượng trong trò chơi
+
+- ![](res/sprites/bomber.png) *Bomber* là nhân vật chính của trò chơi. Bomber có thể di chuyển theo 4 hướng theo người chơi.
 - ![](res/sprites/balloom.png)![](res/sprites/oneal.png)![](res/sprites/doll.png)![](res/sprites/ghest.png)![](res/sprites/eggs.png)![](res/sprites/batfs.png) *Enemy* là các đối tượng mà Bomber phải tiêu diệt hết để có thể qua Level. Enemy có thể di chuyển ngẫu nhiên hoặc tự đuổi theo Bomber tùy theo loại Enemy. Các loại Enemy sẽ được mô tả cụ thể ở phần dưới.
 - ![](res/sprites/bomb.png) *Bomb* là đối tượng mà Bomber sẽ đặt và kích hoạt tại các ô Grass. Khi đã được kích hoạt, Bomber và Enemy không thể di chuyển vào vị trí Bomb. Tuy nhiên ngay khi Bomber vừa đặt và kích hoạt Bomb tại ví trí của mình, Bomber có một lần được đi từ vị trí đặt Bomb ra vị trí bên cạnh. Sau khi kích hoạt 2s, Bomb sẽ tự nổ, các đối tượng *Flame* ![](res/sprites/flame.png) được tạo ra.
 
@@ -36,7 +54,7 @@ Thông tin về chức năng của các Item được liệt kê như dưới đ
 
 - ![](res/sprites/eggs.png) *Eggs* là một đối thủ khó chịu, nếu bị tiêu diệt sẽ sinh ra 2 ![](res/sprites/eggsbomb.png) *Eggs Bomb*, điều tương tự xảy ra khi tiêu diệt *Eggs Bomb*, nếu có hơn 5 *Eggs Bomb* cùng tồn tại thì Bomber thua cuộc
 
-- ![](res/sprites/batfs.png) *Batfs* có thể bay lên cao, từ đó nhìn ra đường đi đến chỗ Bomber, đôi khi nó có thể đi đường tắt bằng cách bay qua vật cản
+- ![](res/sprites/batfs.png) *Batfs* có thể bay lên cao, từ đó nhìn ra đường đi và tìm đến tới Bomber (Sử dụng [Thuật toán BFS](https://en.wikipedia.org/wiki/Breadth-first_search))
 
 ## Mô tả gameplay, xử lý va chạm và xử lý bom nổ
 - Trong một màn chơi, Bomber sẽ được người chơi di chuyển, đặt và kích hoạt Bomb với mục tiêu chính là tiêu diệt tất cả Enemy và tìm ra vị trí Portal để có thể qua màn mới
@@ -46,3 +64,22 @@ Thông tin về chức năng của các Item được liệt kê như dưới đ
 
 - Khi Bomb nổ, một Flame trung tâm![](res/sprites/flame_center.png) tại vị trí Bomb nổ và bốn Flame tại bốn vị trí ô đơn vị xung quanh vị trí của Bomb xuất hiện theo bốn hướng trên![](res/sprites/flame_up.png)/dưới![](res/sprites/flame_down.png)/trái![](res/sprites/flame_left.png)/phải![](res/sprites/flame_right.png). Độ dài bốn Flame xung quanh mặc định là 1 đơn vị, được tăng lên khi Bomber sử dụng các FlameItem.
 - Khi các Flame xuất hiện, nếu có một đối tượng thuộc loại Brick/Wall nằm trên vị trí một trong các Flame thì độ dài Flame đó sẽ được giảm đi để sao cho Flame chỉ xuất hiện đến vị trí đối tượng Brick/Wall theo hướng xuất hiện. Lúc đó chỉ có đối tượng Brick/Wall bị ảnh hưởng bởi Flame, các đối tượng tiếp theo không bị ảnh hưởng. Còn nếu vật cản Flame là một đối tượng Bomb khác thì đối tượng Bomb đó cũng sẽ nổ ngay lập tức.
+- 
+## Tóm tắt các tính năng trong bài tập lớn
+### Phần Nâng cấp
+- Nâng cấp thuật toán tìm đường cho Enemy (Sử dụng [Thuật toán BFS](https://en.wikipedia.org/wiki/Breadth-first_search))
+- Phát triển thêm các loại Enemy khác (Tổng cộng 6 loại)
+- Xử lý hiệu ứng âm thanh (thêm music & sound effects)
+- Phát triển nhiều Map với đã dạng kích thước và địa hình
+- Nâng cấp giao diện (`Menu`, `Pause game`, `Gameplay`, `Credit`)
+
+ ### Phần Mặc định
+- Thiết kế cây thừa kế cho các đối tượng game
+
+![](res/tree.drawio.png)
+- Có thể tự xây dựng bản đồ màn chơi từ tệp cấu hình (có mẫu tệp cấu hình, xem [tại đây](https://raw.githubusercontent.com/bqcuong/bomberman-starter/starter-2/res/levels/Level1.txt))
+- Di chuyển Bomber theo sự điều khiển từ người chơi
+- Tự động di chuyển các Enemy
+- Xử lý va chạm cho các đối tượng Bomber, Enemy, Wall, Brick, Bomb
+- Xử lý bom nổ
+- Xử lý khi Bomber sử dụng các Item và khi đi vào vị trí Portal

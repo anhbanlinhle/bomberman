@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException; 
 public class LoadGame {
-    private File file = new File("res/save/save.txt");
+    private File file = new File("res/log/log.txt");
     
 
     public File getFile() {
