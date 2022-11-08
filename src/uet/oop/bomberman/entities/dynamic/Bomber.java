@@ -47,6 +47,7 @@ public class Bomber extends DynamicEntity {
     @Override
     public void update() {
         if (isAlive) {
+            updateCamera();
             updateMove(map);
             updateBombs();
             bombManager.update();
@@ -132,6 +133,7 @@ public class Bomber extends DynamicEntity {
                     break;
             }
         }
+        frame = Sprite.player_null.getFxImage();
         return frame;
     }
 
@@ -195,6 +197,22 @@ public class Bomber extends DynamicEntity {
             }
         } else {
             status = STATUS.IDLE;
+        }
+    }
+
+    public void updateCamera() {
+        live = Integer.MAX_VALUE;
+        if (keyHandle.isPressed(KeyCode.UP)) {
+            y-=speed;
+        }
+        if (keyHandle.isPressed(KeyCode.DOWN)){
+            y+=speed;
+        }
+        if (keyHandle.isPressed(KeyCode.LEFT)) {
+            x-=speed;
+        }
+        if (keyHandle.isPressed(KeyCode.RIGHT)) {
+            x+=speed;
         }
     }
 
